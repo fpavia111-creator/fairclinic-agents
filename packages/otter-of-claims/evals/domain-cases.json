@@ -1,0 +1,237 @@
+{
+  "suite": "otter-of-claims",
+  "root": "..",
+  "data_note": "Fictional dental claims in ../fixtures, measured as of 2026-11-16. No model is called.",
+  "cases": [
+    {
+      "id": "aging-totals",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open": 10,
+          "result.outstanding": 3804.6,
+          "result.over_60": 2859,
+          "result.to_follow_up": 2,
+          "result.denied": 1,
+          "result.filing_risk": 2,
+          "result.unsent": 1,
+          "result.duplicates": 1,
+          "result.secondary_not_sent": 1
+        }
+      }
+    },
+    {
+      "id": "buckets",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_bucket.61-90.amount": 1695,
+          "result.by_bucket.31-60.count": 3,
+          "result.by_bucket.120+.amount": 380,
+          "result.by_bucket.unsent.amount": 148
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "2 day(s) left before the 90-day filing limit (2026-11-18)",
+          "Same patient, date of service and carrier as claim C1007",
+          "not sent after 7 days",
+          "needs a corrected claim or an appeal",
+          "no secondary claim to Sample Mutual Dental",
+          "15 day(s) left before the 365-day filing limit"
+        ]
+      }
+    },
+    {
+      "id": "recent-follow-up-not-due",
+      "tool": "otter_explain",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "claim": "C1003"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.claim.status": "waiting",
+          "result.claim.next_follow_up": "2026-11-24"
+        }
+      }
+    },
+    {
+      "id": "secondary-sent-closes-primary",
+      "tool": "otter_explain",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "as_of": "2026-11-16",
+        "claim": "C1010"
+      },
+      "expect": {
+        "equals": {
+          "result.claim.status": "closed"
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "status": "filing_risk"
+      },
+      "expect": {
+        "length": {
+          "result.items": 2
+        }
+      }
+    },
+    {
+      "id": "without-settings-defaults",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.filing_risk": 1,
+          "result.open": 10
+        }
+      }
+    },
+    {
+      "id": "dentrix-layout",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/exports/dentrix-outstanding-claims.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.open": 3,
+          "result.outstanding": 1432,
+          "result.unsent": 1
+        }
+      }
+    },
+    {
+      "id": "open-dental-status-letters",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/exports/open-dental-claims.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.open": 2,
+          "result.claims": 3,
+          "result.unsent": 1
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "follow_up_dayz"
+        ]
+      }
+    },
+    {
+      "id": "unknown-claim-named",
+      "tool": "otter_explain",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "claim": "C9999"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "C9999 not found"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "otter_write_report",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "out_dir": "fairclinic-out/evals/otter"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "otter-open-claims.csv",
+          "otter-open-claims.html"
+        ]
+      }
+    },
+    {
+      "id": "draft-inquiry-after-approval",
+      "tool": "otter_draft_status_inquiry",
+      "approve": "Pat Example",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "payer": "Example Dental PPO",
+        "out_dir": "fairclinic-out/evals/otter"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.claims": 1,
+          "result.amount": 76.8
+        }
+      }
+    },
+    {
+      "id": "draft-refuses-carrier-with-nothing-due",
+      "tool": "otter_draft_status_inquiry",
+      "approve": "Pat Example",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "as_of": "2026-11-16",
+        "payer": "Nobody Dental",
+        "out_dir": "fairclinic-out/evals/otter"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "no open claims"
+        ]
+      }
+    }
+  ]
+}

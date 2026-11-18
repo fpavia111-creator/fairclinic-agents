@@ -1,0 +1,7 @@
+Claim ID,Patient,Payer,Check/EFT Number,Payment Date,CDT Code,Billed,Paid,Group Code,Reason Code,Adjustment
+C2001,Rowan Achebe,Example Dental PPO,EFT1101,2026-11-10,D2391,420.00,268.80,CO,45,84.00
+C2001,Rowan Achebe,Example Dental PPO,EFT1101,2026-11-10,D2391,420.00,268.80,PR,2,67.20
+C2002,Theo Vasquez-Lind,Example Dental PPO,EFT1101,2026-11-10,D2740,980.00,588.00,CO,45,245.00
+C2002,Theo Vasquez-Lind,Example Dental PPO,EFT1101,2026-11-10,D2740,980.00,588.00,PR,1,50.00
+C2002,Theo Vasquez-Lind,Example Dental PPO,EFT1101,2026-11-10,D2740,980.00,588.00,PR,2,97.00
+C2003,Kenji Abernathy,Example Dental PPO,EFT1101,2026-11-10,D1110,96.00,76.80,PR,2,19.20

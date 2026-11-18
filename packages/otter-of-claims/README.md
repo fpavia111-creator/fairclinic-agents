@@ -18,7 +18,7 @@ npx -y otter-of-claims mcp --root ./clinic-exports
 `npx -y otter-of-claims demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Otter of Claims demo (fictional dental practice and patients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\otter-of-claims-demo-oQ6d3g
+Otter of Claims demo (fictional dental practice and patients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\otter-of-claims-demo-vrM4ek
 
 ▶ Age the open claims
   status: executed  decision: allow

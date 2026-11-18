@@ -15,13 +15,16 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const PK = join(dirname(fileURLToPath(import.meta.url)), '..', 'packages');
 const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
-const agents = readdirSync(PK).filter((n) => /-of-/.test(n) && existsSync(join(PK, n, 'evals', 'cases.json')) && (!only.length || only.includes(n))).sort();
+const agents = readdirSync(PK).filter((n) => /-of-/.test(n) && (existsSync(join(PK, n, 'evals', 'cases.json')) || existsSync(join(PK, n, 'evals', 'domain-cases.json'))) && (!only.length || only.includes(n))).sort();
 const FILE = /\.(csv|tsv|txt|json|jsonl|xlsx|835|837)$/i;
 for (const n of agents) {
   const { manifest: m } = await import(pathToFileURL(join(PK, n, 'src', 'index.js')).href);
   const f = join(PK, n, 'evals', 'cases.json');
-  const data = JSON.parse(readFileSync(f, 'utf8'));
-  const cases = data.cases;
+  // evals/domain-cases.json (hand-written) is the source when present; cases.json is rebuilt from it plus the safety cases.
+  const src = join(PK, n, 'evals', 'domain-cases.json');
+  const data = JSON.parse(readFileSync(existsSync(src) ? src : f, 'utf8'));
+  const cases = existsSync(src) ? data.cases.slice() : data.cases;
+  data.cases = cases;
   const prefix = m.tools[0].name.split('_')[0];
   const check = m.tools.find((t) => t.name === `${prefix}_check`);
   const base = cases.find((c) => c.tool === check.name && !c.mode && (!c.expect || !c.expect.status || c.expect.status === 'executed'));

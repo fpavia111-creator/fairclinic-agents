@@ -295,6 +295,22 @@
       }
     },
     {
+      "id": "safety-unknown-argument-refused",
+      "tool": "otter_check",
+      "args": {
+        "claims": "fixtures/claims-outstanding.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
       "id": "safety-memory-recall-runs",
       "tool": "otter_recall",
       "args": {},
@@ -403,22 +419,6 @@
           "Lucia Fontaine",
           "Omar Brightwater",
           "Greta Lindqvist"
-        ]
-      }
-    },
-    {
-      "id": "safety-unknown-argument-refused",
-      "tool": "otter_check",
-      "args": {
-        "claims": "fixtures/claims-outstanding.csv",
-        "settings": "fixtures/settings.json",
-        "as_of": "2026-11-16",
-        "send_to": "carrier@example.test"
-      },
-      "expect": {
-        "status": "error",
-        "contains": [
-          "send_to"
         ]
       }
     }
