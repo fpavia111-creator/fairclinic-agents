@@ -16,9 +16,9 @@ for (const n of pkgs) {
   const desc = ((s) => s[0].toUpperCase() + s.slice(1))(p.description.replace(/^[A-Z]\w+ of [A-Z]\w+:\s*/, ''));
   want.set(join('packages', n, '.claude-plugin', 'plugin.json'), { name: n, version: p.version, description: desc, author: { name: p.author }, license: p.license, homepage: p.homepage, keywords: p.keywords });
   want.set(join('packages', n, '.mcp.json'), { mcpServers: { [n]: { command: 'npx', args: ['-y', `${n}@${p.version}`, 'mcp'] } } });
-  plugins.push({ name: n, source: `./packages/${n}`, description: desc, version: p.version, category: 'medical-billing', keywords: [...new Set(p.keywords.filter((k) => !['mcp', 'mcp-server', 'fairclinic'].includes(k)))] });
+  plugins.push({ name: n, source: `./packages/${n}`, description: desc, version: p.version, category: 'practice-management', keywords: [...new Set(p.keywords.filter((k) => !['mcp', 'mcp-server', 'fairclinic'].includes(k)))] });
 }
-want.set(join('.claude-plugin', 'marketplace.json'), { name: 'fairclinic-medical-billing', owner: { name: 'Fairclinic' }, metadata: { description: 'Thirty medical billing agents. Each reads your exported files (835, 837, 999, 277CA, 271, 278 or spreadsheets), masks patient identifiers before results reach the model, writes worklists locally and waits for a named person before anything is sent, refunded or paid.' }, plugins });
+want.set(join('.claude-plugin', 'marketplace.json'), { name: 'fairclinic-agents', owner: { name: 'Mythos Machines' }, metadata: { description: 'Back-office agents for dental practices and veterinary clinics. Each reads files the clinic already exports (practice-management reports, 835 remittances, pet-insurance and processor exports), masks patient, pet and client names before results reach the model, writes worklists locally and waits for one named person before anything is sent, filed, refunded or paid.' }, plugins });
 let stale = 0;
 for (const [rel, obj] of want) {
   const f = join(root, rel); const text = JSON.stringify(obj, null, 2) + '\n';

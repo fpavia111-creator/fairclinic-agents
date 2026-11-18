@@ -1,0 +1,4 @@
+Claim #,Patient Name,Carrier Name,Service Date,Date Sent,Claim Amount,Est. Insurance,Status
+D-77,Rowan Achebe,Example Dental PPO,09/30/2026,10/01/2026,"1,180.00",944.00,Sent
+D-78,Marisol Quintero,Sample Mutual Dental,10/20/2026,,210.00,168.00,Not sent
+D-79,Lucia Fontaine,Test Dental Network,10/02/2026,10/03/2026,640.00,320.00,Sent

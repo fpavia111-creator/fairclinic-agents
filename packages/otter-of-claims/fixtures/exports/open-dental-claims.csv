@@ -1,0 +1,4 @@
+ClaimNum,PatName,CarrierName,ClaimType,DateService,DateSent,ClaimFee,InsPayEst,InsPayAmt,ClaimStatus
+5501,Theo Vasquez-Lind,Example Dental PPO,P,2026-09-08,2026-09-09,415.00,332.00,0,S
+5502,Theo Vasquez-Lind,Example Dental PPO,P,2026-11-12,,95.00,76.00,0,U
+5503,Priya Halvorsen,Demo Smile Plan,P,2026-07-14,2026-07-15,260.00,208.00,208.00,R

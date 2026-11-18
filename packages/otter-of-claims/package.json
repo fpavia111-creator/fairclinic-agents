@@ -1,0 +1,58 @@
+{
+  "name": "otter-of-claims",
+  "version": "0.1.0",
+  "description": "Otter of Claims: dental insurance claims still unpaid, aged by date sent, with follow-up dates, timely-filing risk, unsent and duplicate claims, and a payer follow-up letter for one named person to send. Patient names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "otter-of-claims": "bin/otter-of-claims.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/otter-of-claims.js demo",
+    "eval": "node bin/otter-of-claims.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/otter-of-claims"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/otter-of-claims#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "dental-billing",
+    "insurance-claims",
+    "claims-aging",
+    "dentrix",
+    "eaglesoft",
+    "open-dental"
+  ]
+}

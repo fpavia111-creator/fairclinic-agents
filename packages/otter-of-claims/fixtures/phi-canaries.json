@@ -1,0 +1,4 @@
+{
+  "note": "Fictional patient names used in these fixtures. The shared tests check that no eval result returns any of them to the model.",
+  "values": ["Rowan Achebe", "Marisol Quintero", "Theo Vasquez-Lind", "Priya Halvorsen", "Dmitri Okonkwo", "Saoirse Delacroix", "Kenji Abernathy", "Lucia Fontaine", "Omar Brightwater", "Greta Lindqvist"]
+}

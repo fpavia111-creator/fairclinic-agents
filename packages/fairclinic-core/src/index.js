@@ -38,3 +38,4 @@ export { CLAIM_FIELDS, REMIT_FIELDS, DEPOSIT_FIELDS, APPOINTMENT_FIELDS, parseAd
 export { PhiMasker, PHI_MODES, PHI_KEY_FILE, phiKindOf, loadPhiKey } from './phi.js';
 export { REPORT_TEXT, COLUMN_LABELS, CATEGORY_LABELS, SECTION_TITLES, sectionTitle, reportText } from './report-text.js';
 export { categorise, denialLines } from './denials.js';
+export { clinicAgent, clinicDemo, CLINIC_LIMITS, T9, fld, fileArg, AS_OF_ARG, MONTH_ARG, REFUSE } from './clinic.js';

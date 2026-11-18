@@ -177,3 +177,20 @@ export function agentContract({ manifest, casesFile }) {
   }
 }
 
+
+/**
+ * For an agent's own domain tests: copies its fixtures to a temporary root (as
+ * root/fixtures) and returns call(tool, args, opts) that approves once as
+ * "Pat Example" when a call needs a named click. Paths in args start with fixtures/.
+ */
+export function fixtureRunner(manifest, fixturesDir) {
+  const root = mkdtempSync(join(tmpdir(), `${manifest.name}-domain-`));
+  cpSync(fixturesDir, join(root, 'fixtures'), { recursive: true });
+  const call = async (tool, args, { mode = 'assist', approve = true, lang, autoActions = [] } = {}) => {
+    const rt = new AgentRuntime(manifest, { root, stateDir: join(root, '.fairclinic-test'), audit: false, mode, autoActions, ...(lang ? { lang } : {}) });
+    let r = await rt.call(tool, args);
+    if (r.status === 'needs_approval' && approve) { rt.approvals.approve(r.approval_id, 'Pat Example'); r = await rt.call(tool, args); }
+    return r;
+  };
+  return { root, call };
+}

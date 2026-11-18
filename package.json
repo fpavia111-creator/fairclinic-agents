@@ -1,7 +1,7 @@
 {
   "name": "fairclinic-agents",
   "private": true,
-  "description": "Fairclinic medical billing agents monorepo.",
+  "description": "Fairclinic: back-office agents for dental practices and veterinary clinics (Mythos Machines, Fair Agents).",
   "license": "MIT",
   "workspaces": [
     "packages/fairclinic-core",
@@ -16,11 +16,12 @@
     "bench": "node scripts/bench.mjs",
     "plugin": "node scripts/plugin-files.mjs",
     "plugin:check": "node scripts/plugin-files.mjs --check",
-    "fixtures": "node scripts/make-fixtures.mjs",
     "mcp:check": "node scripts/mcp-conformance.mjs",
     "intl": "node scripts/intl-check.mjs",
     "readme": "node scripts/readme-heads.mjs && node scripts/readme-sections.mjs",
-    "readme:check": "node scripts/readme-sections.mjs --check"
+    "readme:check": "node scripts/readme-sections.mjs --check",
+    "evals": "node scripts/run-all-evals.mjs",
+    "evals:add-safety": "node scripts/eval-safety.mjs"
   },
   "engines": {
     "node": ">=20"

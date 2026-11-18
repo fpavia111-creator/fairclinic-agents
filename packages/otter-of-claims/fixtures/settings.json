@@ -1,0 +1,9 @@
+{
+  "note": "Fictional settings for the demo practice.",
+  "follow_up_days": 30,
+  "recontact_days": 14,
+  "unsent_days": 3,
+  "default_filing_days": 365,
+  "filing_days": { "Demo Smile Plan": 90 },
+  "warn_before_days": 45
+}

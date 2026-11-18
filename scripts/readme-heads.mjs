@@ -7,7 +7,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const PK = join(dirname(fileURLToPath(import.meta.url)), '..', 'packages');
-const UP = { ar: 'A/R', dme: 'DME', kpis: 'KPIs', edi: 'EDI' };
+const UP = { preauths: 'Pre-authorizations', petclaims: 'Pet Claims', noshows: 'No-shows', writeoffs: 'Write-offs', druglogs: 'Drug Logs', sendouts: 'Send-outs' };
 export const titleOf = (n) => n.split('-').map((w, i) => UP[w] || (i === 1 ? 'of' : w[0].toUpperCase() + w.slice(1))).join(' ');
 
 for (const n of readdirSync(PK).filter((x) => /-of-/.test(x)).sort()) {
@@ -19,19 +19,19 @@ for (const n of readdirSync(PK).filter((x) => /-of-/.test(x)).sort()) {
 
 ${m.description}${never}
 
-MIT · Node 20 or newer · local files only · patient identifiers masked before results reach the model · built on [\`fairclinic-core\`](../fairclinic-core)
+MIT · Node 20 or newer · local files only · patient, pet and client names masked before results reach the model · built on [\`fairclinic-core\`](../fairclinic-core)
 
 \`\`\`bash
 npx -y ${n} demo
-npx -y ${n} mcp --root ./billing-files
+npx -y ${n} mcp --root ./clinic-exports
 \`\`\`
 
 ## Limits
 
-- It checks only what is in the files and config you load. Code tables, fee schedules, payer rules and limits are as current as what you give it; the built-in tables and example rules are starting points, not any payer's policy.
-- It is not coding, legal, compliance or medical advice. A person reviews every result before a claim, appeal, refund or message goes anywhere; the agent sends nothing.
+- It checks only what is in the files and settings you load. Thresholds and fee schedules are as current as what you give it; the defaults are starting points, not anyone's policy or a standard of care.
+- It is not clinical, legal, tax, coding or compliance advice, and it never decides whether a rule is met. A person reviews every result before anything is billed, sent, filed, refunded or corrected; the agent does none of those.
 - Export layouts named in "Columns it reads" were written from knowledge of each system and not tested against a live account; \`inspect\` shows how a file was read.
-- Patient masking keeps identifiers away from the model; it does not replace your HIPAA program (business associate agreements, access control, retention).
+- Masking keeps names and contact details away from the model; it does not replace your privacy program. Dental files are protected health information: a business associate agreement is signed before any file is held.
 `;
   writeFileSync(f, txt); console.log(`${n}: README head written`);
 }

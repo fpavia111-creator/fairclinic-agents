@@ -34,15 +34,15 @@ const keys = (kind, list) => list.map((k) => [norm(k), kind]);
 
 // Field names (any case or punctuation) → kind. Kinds marked strict are masked only in strict mode.
 const KEY_KIND = new Map([
-  ...keys('name', ['patient_name', 'patient', 'patient_full_name', 'patient_first_name', 'patient_last_name', 'patient_first', 'patient_last', 'first_name', 'last_name', 'middle_name', 'subscriber_name', 'insured_name', 'guarantor', 'guarantor_name', 'responsible_party', 'member_name', 'beneficiary', 'beneficiary_name', 'subscriber', 'insured']),
+  ...keys('name', ['patient_name', 'patient', 'patient_full_name', 'patient_first_name', 'patient_last_name', 'patient_first', 'patient_last', 'first_name', 'last_name', 'middle_name', 'subscriber_name', 'insured_name', 'guarantor', 'guarantor_name', 'responsible_party', 'member_name', 'beneficiary', 'beneficiary_name', 'subscriber', 'insured', 'client_name', 'client', 'client_first_name', 'client_last_name', 'owner_name', 'owner', 'pet_name', 'pet', 'animal_name', 'animal', 'reviewer', 'reviewer_name', 'review_author', 'referred_patient', 'plan_member', 'member']),
   ...keys('dob', ['dob', 'date_of_birth', 'birth_date', 'birthdate', 'patient_dob', 'subscriber_dob', 'member_dob', 'birthday']),
   ...keys('member_id', ['member_id', 'subscriber_id', 'insured_id', 'policy_number', 'policy_id', 'medicare_id', 'mbi', 'hicn', 'medicaid_id', 'health_plan_id', 'member_number', 'subscriber_number']),
-  ...keys('mrn', ['mrn', 'medical_record_number', 'chart_number', 'chart_no', 'patient_id', 'patient_number']),
-  ...keys('account', ['patient_account', 'account_number', 'patient_account_number', 'guarantor_account', 'account_no']),
+  ...keys('mrn', ['mrn', 'medical_record_number', 'chart_number', 'chart_no', 'patient_id', 'patient_number', 'pet_id', 'animal_id']),
+  ...keys('account', ['patient_account', 'account_number', 'patient_account_number', 'guarantor_account', 'account_no', 'client_id', 'client_number', 'client_account', 'owner_id', 'guarantor_id', 'membership_id', 'member_account']),
   ...keys('ssn', ['ssn', 'social_security_number', 'social_security', 'ssn_last4']),
-  ...keys('address', ['address', 'patient_address', 'street', 'street_address', 'address1', 'address2', 'address_line_1', 'address_line_2', 'home_address', 'subscriber_address']),
-  ...keys('phone', ['phone', 'phone_number', 'home_phone', 'mobile_phone', 'mobile', 'cell_phone', 'telephone', 'fax', 'patient_phone']),
-  ...keys('email', ['email', 'email_address', 'patient_email', 'guarantor_email']),
+  ...keys('address', ['address', 'patient_address', 'street', 'street_address', 'address1', 'address2', 'address_line_1', 'address_line_2', 'home_address', 'subscriber_address', 'client_address', 'owner_address']),
+  ...keys('phone', ['phone', 'phone_number', 'home_phone', 'mobile_phone', 'mobile', 'cell_phone', 'telephone', 'fax', 'patient_phone', 'client_phone', 'owner_phone']),
+  ...keys('email', ['email', 'email_address', 'patient_email', 'guarantor_email', 'client_email', 'owner_email']),
   ...keys('zip', ['zip', 'zip_code', 'postal_code', 'patient_zip', 'zipcode']),
   ...keys('claim', ['claim_id', 'claim_number', 'payer_claim_id', 'payer_claim_control_number', 'icn', 'patient_control_number', 'original_ref', 'claim_ids']),
   ...keys('service_date', ['date_of_service', 'service_date', 'dos', 'service_from', 'service_to', 'date_from', 'date_to', 'admission_date', 'discharge_date', 'statement_from', 'statement_to', 'admit_date', 'first_dos', 'last_dos']),

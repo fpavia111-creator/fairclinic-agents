@@ -36,6 +36,19 @@ export const EXPORTS = Object.freeze(Object.fromEntries([
   e('waystar_remit', 'Waystar', 'Remit detail export (CSV)', ['Patient Account', 'Payer ICN', 'Check #', 'Paid Amt']),
   e('office_ally_remit', 'Office Ally', 'ERA detail export (CSV)', ['Claim #', 'Check No', 'Paid', 'Adj Code']),
   e('open_dental_procedures', 'Open Dental', 'User query on the procedure log (CSV; database column names)', ['ProcDate', 'ProcCode', 'ToothNum', 'Surf', 'ProcFee'], { basis: 'documented', source: 'opendental.com/site/apiprocedurelogs.html: procedurelog.ProcDate, ProcFee, ToothNum, Surf, ProcStatus, CodeNum and procedurecode.ProcCode (the full schema pages need a support login)', checked: '2026-11-17', note: 'when the query includes ProcStatus, only completed procedures (C, or 2 in the database) are read; treatment-planned, existing and deleted ones are skipped', rows: completedOnly('ProcStatus') }),
+  // Dental practice-management exports (column names as recalled; none checked against documentation or a live account)
+  e('dentrix_outstanding_claims', 'Dentrix', 'Outstanding insurance claims report, exported to CSV', ['Patient Name', 'Carrier Name', 'Date Sent', 'Claim Amount']),
+  e('open_dental_claims', 'Open Dental', 'User query on the claim table (CSV; database column names)', ['ClaimNum', 'DateSent', 'ClaimFee', 'ClaimStatus']),
+  e('eaglesoft_treatment_plans', 'Eaglesoft', 'Treatment plan report, exported to CSV', ['Patient', 'Plan Status', 'Date Planned', 'Treatment Fee']),
+  e('curve_recall', 'Curve Dental', 'Recall list export (CSV)', ['Patient', 'Recall Type', 'Recall Due', 'Next Appointment']),
+  e('denticon_production', 'Denticon', 'Production and collections by provider, exported to CSV', ['Provider', 'Gross Production', 'Adjustments', 'Collections']),
+  e('dentrix_adjustments', 'Dentrix', 'Adjustments by type report, exported to CSV', ['Adjustment Type', 'Patient Name', 'Entered By', 'Amount']),
+  // Veterinary practice-management exports (column names as recalled; none checked against documentation or a live account)
+  e('avimark_controlled_log', 'AVImark', 'Controlled drug log report, exported to CSV', ['Drug', 'Date', 'Quantity', 'Running Balance', 'Initials']),
+  e('cornerstone_reminders', 'Cornerstone', 'Reminder list report, exported to CSV', ['Client ID', 'Patient Name', 'Reminder Description', 'Due Date']),
+  e('ezyvet_invoice_lines', 'ezyVet', 'Invoice lines export (CSV)', ['Invoice #', 'Animal Name', 'Product Name', 'Qty', 'Total (incl tax)']),
+  e('covetrus_pulse_inventory', 'Covetrus Pulse', 'Inventory on hand with lots, exported to CSV', ['Item Name', 'Lot Number', 'Expiration Date', 'Quantity On Hand']),
+  e('shepherd_invoices', 'Shepherd', 'Invoice item export (CSV)', ['Invoice Number', 'Client', 'Patient', 'Item', 'Amount']),
 ].map((x) => [x.id, x])));
 
 /** Row hook for Open Dental's procedure log: keep completed procedures only (status C, stored as 2), when the status column is there. */
