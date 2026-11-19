@@ -34,13 +34,22 @@ export function checkSendouts(lab, charges, { settings = {} } = {}) {
   const markup = settings.min_markup || 2, window = settings.match_days ?? 3;
   const itemFor = (test) => map.get(norm(test)) || norm(test);
   const pool = charges.filter((c) => str(c.patient_name) && isoDate(c.date)).map((c, i) => ({ i, pet: norm(c.patient_name), date: isoDate(c.date), item: norm(c.item), name: str(c.item), amount: num(c.amount) || 0, client_name: str(c.client_name), used: false }));
-  // Charges indexed by pet and item, so each test looks only at its own candidates.
-  const byKey = new Map(); for (const c of pool) { const k = `${c.pet}|${c.item}`; (byKey.get(k) || byKey.set(k, []).get(k)).push(c); }
+  // Charges indexed by pet and item and sorted by date, so each test looks only at its own candidates,
+  // starting after the ones already taken at the front.
+  const DAY = 86400000;
+  const byKey = new Map(); for (const c of pool) { c.t = Date.parse(`${c.date}T00:00:00Z`); const k = `${c.pet}|${c.item}`; (byKey.get(k) || byKey.set(k, []).get(k)).push(c); }
+  for (const list of byKey.values()) { list.sort((a, b) => a.t - b.t || a.i - b.i); list.start = 0; }
+  const take = (list, t) => {
+    if (!list) return null;
+    while (list.start < list.length && list[list.start].used) list.start++;
+    for (let j = list.start; j < list.length; j++) { const c = list[j]; if (c.t > t + window * DAY) break; if (!c.used && c.t >= t - window * DAY) return c; }
+    return null;
+  };
   const items = [];
   const tests = lab.filter((l) => str(l.accession) && isoDate(l.date)).sort((a, b) => (isoDate(a.date) < isoDate(b.date) ? -1 : isoDate(a.date) > isoDate(b.date) ? 1 : str(a.accession) < str(b.accession) ? -1 : 1));
   for (const l of tests) {
     const pet = norm(l.patient_name), d = isoDate(l.date), want = itemFor(l.test), cost = round2(num(l.lab_cost) || 0);
-    const hit = (byKey.get(`${pet}|${want}`) || []).find((c) => !c.used && Math.abs(daysBetween(c.date, d)) <= window);
+    const hit = take(byKey.get(`${pet}|${want}`), Date.parse(`${d}T00:00:00Z`));
     let status = 'ok', detail;
     if (!hit) { status = 'not_charged'; detail = `${str(l.test)} for this pet on ${d} (lab cost ${cost}) has no matching client charge within ${window} day(s).`; }
     else {
