@@ -1,0 +1,174 @@
+{
+  "suite": "fairclinic-ppo-fees",
+  "root": "..",
+  "data_note": "Fictional fee schedules and allowed lines in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv",
+        "paid": "fixtures/allowed-paid.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.plans": 2,
+          "result.codes_checked": 17,
+          "result.needs_review": 5,
+          "result.paid_below_schedule": 1,
+          "result.underpaid_amount": 30,
+          "result.fee_below_allowed": 1,
+          "result.left_by_low_fees": 32,
+          "result.not_in_schedule": 1,
+          "result.no_office_fee": 1,
+          "result.deep_discount": 1
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv",
+        "paid": "fixtures/allowed-paid.csv"
+      },
+      "expect": {
+        "contains": [
+          "1 of 1 line(s) allowed below the plan's own fee of 790 (lowest 760)",
+          "Your office fee 120 is below the plan's allowed 128",
+          "about 32 was left on 4 line(s)",
+          "D2950 is not in its fee schedule file",
+          "D9110 has a plan fee of 75 and no office fee",
+          "a 48.31% write-off on every D2740"
+        ]
+      }
+    },
+    {
+      "id": "without-paid-lines",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.codes_checked": 16,
+          "result.paid_below_schedule": 0,
+          "result.not_in_schedule": 0,
+          "result.fee_below_allowed": 1,
+          "result.left_by_low_fees": 0
+        }
+      }
+    },
+    {
+      "id": "deep-discount-setting",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv",
+        "settings": "fixtures/settings-deep.json"
+      },
+      "expect": {
+        "equals": {
+          "result.deep_discount": 4
+        }
+      }
+    },
+    {
+      "id": "by-plan",
+      "tool": "fees_by_plan",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.by_plan.0.plan": "Example Dental PPO",
+          "result.by_plan.0.codes": 8,
+          "result.by_plan.1.codes": 7
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv",
+        "paid": "fixtures/allowed-paid.csv",
+        "status": "ok"
+      },
+      "expect": {
+        "length": {
+          "result.items": 12
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "toleranse"
+        ]
+      }
+    },
+    {
+      "id": "schedule-missing-plan-column-said-aloud",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/office-fees.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "No column found for: plan, allowed"
+        ]
+      }
+    },
+    {
+      "id": "no-patient-names",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv",
+        "paid": "fixtures/allowed-paid.csv"
+      },
+      "expect": {
+        "not_contains": [
+          "Achebe",
+          "Quintero"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "fees_write_report",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/ppo-schedules.csv",
+        "paid": "fixtures/allowed-paid.csv",
+        "out_dir": "fairclinic-out/evals/fees"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "fees-ppo-check.csv",
+          "fees-ppo-check.html"
+        ]
+      }
+    }
+  ]
+}

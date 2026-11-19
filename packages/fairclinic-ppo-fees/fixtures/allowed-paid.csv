@@ -1,0 +1,12 @@
+Plan,Code,Date of Service,Patient,Allowed
+Example Dental PPO,D1110,2026-10-02,Rowan Achebe,88.00
+Example Dental PPO,D1110,2026-10-05,Kenji Abernathy,88.00
+Example Dental PPO,D1110,2026-10-09,Lucia Fontaine,88.00
+Example Dental PPO,D2740,2026-10-15,Theo Vasquez-Lind,760.00
+Example Dental PPO,D2391,2026-10-20,Rowan Achebe,168.00
+Sample Mutual Dental,D1110,2026-10-03,Marisol Quintero,120.00
+Sample Mutual Dental,D1110,2026-10-06,Dmitri Okonkwo,120.00
+Sample Mutual Dental,D1110,2026-10-10,Omar Brightwater,120.00
+Sample Mutual Dental,D1110,2026-10-12,Greta Lindqvist,120.00
+Sample Mutual Dental,D2950,2026-10-21,Priya Halvorsen,220.00
+Sample Mutual Dental,D2740,2026-10-28,Priya Halvorsen,610.00

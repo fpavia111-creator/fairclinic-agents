@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-ppo-fees",
+  "version": "0.1.0",
+  "description": "Fairclinic PPO Fees: your office fee schedule against each PPO's allowed amounts and what each PPO actually allowed: lines allowed below the plan's own fee, office fees below a plan fee, codes missing from a schedule or from your fees, and the write-off percent per code and plan. It never sets fees or touches a contract.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-ppo-fees": "bin/fairclinic-ppo-fees.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-ppo-fees.js demo",
+    "eval": "node bin/fairclinic-ppo-fees.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-ppo-fees"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-ppo-fees#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "ppo",
+    "fee-schedule",
+    "dental-insurance",
+    "write-offs"
+  ]
+}
