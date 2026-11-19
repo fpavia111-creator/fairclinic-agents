@@ -1,0 +1,55 @@
+{
+  "name": "fairclinic-preauthorizations",
+  "version": "0.1.0",
+  "description": "Fairclinic Pre-authorizations: dental pre-authorizations and pre-treatment estimates that need a person: no answer from the carrier, approved but not scheduled, expiring or expired before the work is done, scheduled or done after the approval ran out, reduced or denied, or never sent. Patient names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-preauthorizations": "bin/fairclinic-preauthorizations.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-preauthorizations.js demo",
+    "eval": "node bin/fairclinic-preauthorizations.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-preauthorizations"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-preauthorizations#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "preauthorization",
+    "predetermination",
+    "pre-treatment-estimate"
+  ]
+}

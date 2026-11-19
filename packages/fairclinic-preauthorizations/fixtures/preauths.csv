@@ -1,0 +1,12 @@
+Pre-auth #,Patient,Carrier,Provider,Procedure,Fee,Requested,Created,Date Sent,Status,Response Date,Approved Amount,Valid Until,Scheduled,Completed
+P301,Rowan Achebe,Example Dental PPO,Dr. Ada Example,D2740,1180.00,590.00,2026-08-30,2026-09-01,Approved,2026-09-20,590.00,2027-03-20,2026-12-02,
+P302,Marisol Quintero,Sample Mutual Dental,Dr. Ben Sample,D4341,1250.00,625.00,2026-09-29,2026-10-01,Sent,,,,,
+P303,Theo Vasquez-Lind,Example Dental PPO,Dr. Ada Example,D6010,2400.00,1200.00,2026-05-28,2026-06-01,Approved,2026-06-20,1200.00,2026-12-01,,
+P304,Priya Halvorsen,Demo Smile Plan,Dr. Ben Sample,D2950,310.00,155.00,2026-03-30,2026-04-01,Approved,2026-04-10,155.00,2026-10-10,,
+P305,Dmitri Okonkwo,Sample Mutual Dental,Dr. Ada Example,D2750,1100.00,550.00,2026-08-12,2026-08-15,Approved,2026-08-30,330.00,2027-02-28,2027-03-10,
+P306,Saoirse Delacroix,Test Dental Network,Dr. Ben Sample,D7240,520.00,260.00,2026-09-08,2026-09-10,Denied,2026-09-28,,,,
+P307,Kenji Abernathy,Example Dental PPO,Dr. Ada Example,D2391,240.00,120.00,2026-11-02,,Not sent,,,,,
+P308,Lucia Fontaine,Example Dental PPO,Dr. Ben Sample,D2740,1180.00,590.00,2026-11-03,2026-11-05,Sent,,,,,
+P309,Omar Brightwater,Sample Mutual Dental,Dr. Ada Example,D5110,1800.00,900.00,2026-07-28,2026-08-01,Approved,2026-08-20,900.00,2027-02-20,,
+P310,Greta Lindqvist,Test Dental Network,Dr. Ben Sample,D2740,1200.00,600.00,2026-06-25,2026-06-27,Approved,2026-07-01,600.00,2026-12-31,,2026-10-15
+P311,Rowan Achebe,Example Dental PPO,Dr. Ada Example,D2950,310.00,155.00,2026-04-25,2026-04-27,Approved,2026-05-01,155.00,2026-08-01,,2026-09-12

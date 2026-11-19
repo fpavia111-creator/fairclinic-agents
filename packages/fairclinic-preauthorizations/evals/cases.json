@@ -1,0 +1,320 @@
+{
+  "suite": "fairclinic-preauthorizations",
+  "root": "..",
+  "data_note": "Fictional pre-authorizations in ../fixtures, measured as of 2026-11-16. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.preauths": 11,
+          "result.needs_action": 8,
+          "result.expired": 1,
+          "result.expired_value": 155,
+          "result.expiring": 1,
+          "result.no_response": 1,
+          "result.denied": 1,
+          "result.not_sent": 1,
+          "result.reduced": 1,
+          "result.approved_at_risk": 2430
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "Sent 46 days ago with no answer",
+          "runs out in 15 day(s) (2026-12-01) and nothing is scheduled",
+          "ran out on 2026-10-10",
+          "Scheduled for 2027-03-10, after the approval runs out on 2027-02-28",
+          "Approved 330 of the 550 requested (60%)",
+          "Created 14 days ago and not sent",
+          "Completed 2026-09-12, after the approval ran out on 2026-08-01"
+        ]
+      }
+    },
+    {
+      "id": "status-counts",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.ok": 2,
+          "result.by_status.pending": 1,
+          "result.by_status.approved_unscheduled": 1,
+          "result.by_status.done_after_expiry": 1
+        }
+      }
+    },
+    {
+      "id": "scheduled-in-time-is-ok",
+      "tool": "preauth_explain",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "as_of": "2026-11-16",
+        "preauth": "P301"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.preauth.status": "ok"
+        },
+        "contains": [
+          "Nothing to do"
+        ]
+      }
+    },
+    {
+      "id": "recent-request-waits",
+      "tool": "preauth_explain",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "as_of": "2026-11-16",
+        "preauth": "P308"
+      },
+      "expect": {
+        "equals": {
+          "result.preauth.status": "pending"
+        }
+      }
+    },
+    {
+      "id": "later-date-more-expired",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "as_of": "2026-12-05"
+      },
+      "expect": {
+        "equals": {
+          "result.expired": 2
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "as_of": "2026-11-16",
+        "status": "denied"
+      },
+      "expect": {
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "respons_days"
+        ]
+      }
+    },
+    {
+      "id": "unknown-id-named",
+      "tool": "preauth_explain",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "preauth": "P999"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "P999 not found"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "preauth_write_report",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "out_dir": "fairclinic-out/evals/preauth"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "preauth-worklist.csv",
+          "preauth-worklist.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "preauth_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "../../outside.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "preauth_check",
+      "mode": "review",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.preauths": 11,
+          "result.needs_action": 8,
+          "result.expired": 1,
+          "result.expired_value": 155,
+          "result.expiring": 1,
+          "result.no_response": 1,
+          "result.denied": 1,
+          "result.not_sent": 1,
+          "result.reduced": 1,
+          "result.approved_at_risk": 2430
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "preauth_check",
+      "args": {
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "preauths"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "preauth_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "preauth_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-claim_submit",
+      "tool": "claim_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-clinical_advice",
+      "tool": "clinical_advice",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "preauth_check",
+      "args": {
+        "preauths": "fixtures/preauths.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Rowan Achebe",
+          "Marisol Quintero",
+          "Theo Vasquez-Lind",
+          "Priya Halvorsen",
+          "Dmitri Okonkwo",
+          "Saoirse Delacroix",
+          "Kenji Abernathy",
+          "Lucia Fontaine",
+          "Omar Brightwater",
+          "Greta Lindqvist"
+        ]
+      }
+    }
+  ]
+}
