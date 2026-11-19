@@ -1,0 +1,7 @@
+Reservation,Client,Patient,Service,Check In,Check Out,Add-ons,Status
+R1,Nadia Brennan,Biscuit,Boarding,2026-11-01,2026-11-05,Bath,Completed
+R2,Tobias Achterberg,Juniper,Boarding,2026-11-02,2026-11-09,Medication admin,Completed
+R3,Ines Mwangi,Mochi,Grooming - full,2026-11-06,2026-11-06,,Completed
+R4,Felix Oduya,Pepper,Boarding,2026-11-07,2026-11-10,Nail trim; Exit bath,Completed
+R5,Clara Benedetti,Ziggy,Daycare,2026-11-12,2026-11-12,,Completed
+R6,Jonah Whitfield,Olive,Boarding,2026-11-14,2026-11-16,,Cancelled

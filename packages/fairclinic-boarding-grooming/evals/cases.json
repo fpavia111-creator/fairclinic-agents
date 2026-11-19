@@ -1,0 +1,244 @@
+{
+  "suite": "fairclinic-boarding-grooming",
+  "root": "..",
+  "data_note": "Fictional reservations and invoice lines in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "boarding_check",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.reservations": 6,
+          "result.cancelled": 1,
+          "result.to_review": 3,
+          "result.missed_value": 155,
+          "result.by_finding.not_invoiced": 1,
+          "result.by_finding.nights_short": 1,
+          "result.by_finding.addon_not_invoiced": 2
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "boarding_check",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "7 night(s) from 2026-11-02 to 2026-11-09; 6 invoiced",
+          "Add-on Medication admin was booked and is not on the invoice (5)",
+          "Grooming - full 2026-11-06 has no invoice lines",
+          "Add-on Exit bath was booked and is not on the invoice (30)"
+        ]
+      }
+    },
+    {
+      "id": "without-prices",
+      "tool": "boarding_check",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.missed_value": 0,
+          "result.to_review": 3
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "boarding_check",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "status": "ok"
+      },
+      "expect": {
+        "length": {
+          "result.items": 2
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "boarding_check",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "price_list"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "boarding_write_report",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings.json",
+        "out_dir": "fairclinic-out/evals/boarding"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "boarding-invoices.csv",
+          "boarding-invoices.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "boarding_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "boarding_check",
+      "args": {
+        "reservations": "../../outside.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "boarding_check",
+      "mode": "review",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.reservations": 6,
+          "result.cancelled": 1,
+          "result.to_review": 3,
+          "result.missed_value": 155,
+          "result.by_finding.not_invoiced": 1,
+          "result.by_finding.nights_short": 1,
+          "result.by_finding.addon_not_invoiced": 2
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "boarding_check",
+      "args": {
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "reservations"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "boarding_check",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "boarding_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "boarding_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-client_charge",
+      "tool": "client_charge",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "boarding_check",
+      "args": {
+        "reservations": "fixtures/reservations.csv",
+        "invoices": "fixtures/shepherd-invoice-items.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Biscuit",
+          "Juniper",
+          "Mochi",
+          "Pepper",
+          "Ziggy",
+          "Olive",
+          "Nadia Brennan",
+          "Tobias Achterberg",
+          "Ines Mwangi",
+          "Felix Oduya",
+          "Clara Benedetti",
+          "Jonah Whitfield"
+        ]
+      }
+    }
+  ]
+}

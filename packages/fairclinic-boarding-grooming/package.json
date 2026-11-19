@@ -1,0 +1,57 @@
+{
+  "name": "fairclinic-boarding-grooming",
+  "version": "0.1.0",
+  "description": "Fairclinic Boarding and Grooming: boarding, daycare and grooming reservations against invoice lines: stays with no invoice, fewer nights or days invoiced than stayed, and booked add-ons not invoiced, valued at your list prices. It never changes an invoice or charges a client. Pet and client names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-boarding-grooming": "bin/fairclinic-boarding-grooming.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-boarding-grooming.js demo",
+    "eval": "node bin/fairclinic-boarding-grooming.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-boarding-grooming"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-boarding-grooming#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "boarding",
+    "grooming",
+    "daycare",
+    "invoicing",
+    "shepherd"
+  ]
+}
