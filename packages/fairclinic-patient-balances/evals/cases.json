@@ -1,0 +1,375 @@
+{
+  "suite": "fairclinic-patient-balances",
+  "root": "..",
+  "data_note": "Fictional accounts in ../fixtures, measured as of 2026-11-16. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "balances_check",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.accounts": 10,
+          "result.total": 4513.2,
+          "result.patient_portion": 3992.2,
+          "result.credits": 125,
+          "result.over_90": 2740,
+          "result.to_work": 5
+        }
+      }
+    },
+    {
+      "id": "statuses",
+      "tool": "balances_check",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.credit_balance": 1,
+          "result.by_status.plan_missed": 1,
+          "result.by_status.collections_review": 1,
+          "result.by_status.no_statement": 2,
+          "result.by_status.insurance_pending": 1,
+          "result.by_status.small_balance": 1,
+          "result.by_status.payment_plan": 1,
+          "result.by_status.ok": 2
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "balances_check",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "A credit of 125",
+          "On a payment plan with no payment for 67 days",
+          "680 over 90 days and no payment for 93 days",
+          "Patient portion 640 and no statement for 57 days",
+          "no statement recorded",
+          "waiting on 310 of insurance",
+          "below your small-balance amount of 5"
+        ]
+      }
+    },
+    {
+      "id": "buckets",
+      "tool": "balances_check",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.buckets.0-30": 833.2,
+          "result.buckets.31-60": 640,
+          "result.buckets.61-90": 300,
+          "result.buckets.90+": 2740
+        }
+      }
+    },
+    {
+      "id": "credit-first",
+      "tool": "balances_check",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.status": "credit_balance"
+        }
+      }
+    },
+    {
+      "id": "explain-account",
+      "tool": "balances_explain",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16",
+        "account": "G1001"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.account.status": "ok",
+          "result.account.patient_portion": 84
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "balances_check",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "statement_dayz"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "balances_write_report",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "out_dir": "fairclinic-out/evals/balances"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "balances-worklist.csv",
+          "balances-worklist.html"
+        ]
+      }
+    },
+    {
+      "id": "draft-letter-after-approval",
+      "tool": "balances_draft_balance_letter",
+      "approve": "Pat Example",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16",
+        "account": "G1005",
+        "practice": "Bright Example Dental (fictional)",
+        "out_dir": "fairclinic-out/evals/balances"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 640,
+          "result.open_markers": 3
+        }
+      }
+    },
+    {
+      "id": "no-letter-for-a-credit",
+      "tool": "balances_draft_balance_letter",
+      "approve": "Pat Example",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16",
+        "account": "G1003",
+        "out_dir": "fairclinic-out/evals/balances"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "no patient portion"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "balances_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "balances_check",
+      "args": {
+        "balances": "../../outside.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "balances_check",
+      "mode": "review",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.accounts": 10,
+          "result.total": 4513.2,
+          "result.patient_portion": 3992.2,
+          "result.credits": 125,
+          "result.over_90": 2740,
+          "result.to_work": 5
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "balances_check",
+      "args": {
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "balances"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "balances_check",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "balances_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "balances_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-refund_issue",
+      "tool": "refund_issue",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-message_send",
+      "tool": "message_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-collections_send",
+      "tool": "collections_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-review-mode-drafts-nothing",
+      "tool": "balances_draft_balance_letter",
+      "mode": "review",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16",
+        "account": "G1005",
+        "practice": "Bright Example Dental (fictional)",
+        "out_dir": "fairclinic-out/evals/balances"
+      },
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-draft-waits-for-a-yes",
+      "tool": "balances_draft_balance_letter",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "as_of": "2026-11-16",
+        "account": "G1005",
+        "practice": "Bright Example Dental (fictional)",
+        "out_dir": "fairclinic-out/evals/balances"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-approve-stays-one-click-in-auto",
+      "tool": "balances_request_send",
+      "mode": "auto",
+      "args": {
+        "draft": "fixtures/README.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "balances_check",
+      "args": {
+        "balances": "fixtures/ar-by-guarantor.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Rowan Achebe",
+          "Marisol Quintero",
+          "Theo Vasquez-Lind",
+          "Priya Halvorsen",
+          "Dmitri Okonkwo",
+          "Saoirse Delacroix",
+          "Kenji Abernathy",
+          "Lucia Fontaine",
+          "Omar Brightwater",
+          "Greta Lindqvist",
+          "G1005",
+          "G1009"
+        ]
+      }
+    }
+  ]
+}

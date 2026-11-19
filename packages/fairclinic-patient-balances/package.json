@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-patient-balances",
+  "version": "0.1.0",
+  "description": "Fairclinic Patient Balances: dental patient and guarantor balances aged, with the next step for each account: credits for a person to check, missed payment-plan payments, money over 90 days for collections review, no recent statement, waiting on insurance, small balances; and a plain balance reminder for one named person to send. Names and account numbers are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-patient-balances": "bin/fairclinic-patient-balances.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-patient-balances.js demo",
+    "eval": "node bin/fairclinic-patient-balances.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-patient-balances"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-patient-balances#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "accounts-receivable",
+    "patient-balances",
+    "statements",
+    "aging"
+  ]
+}

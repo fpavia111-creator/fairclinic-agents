@@ -1,0 +1,27 @@
+{
+  "suite": "fairclinic-patient-balances",
+  "root": "..",
+  "data_note": "Fictional accounts in ../fixtures, measured as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "balances_check", "args": { "balances": "fixtures/ar-by-guarantor.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.accounts": 10, "result.total": 4513.2, "result.patient_portion": 3992.2, "result.credits": 125, "result.over_90": 2740, "result.to_work": 5 } } },
+    { "id": "statuses", "tool": "balances_check", "args": { "balances": "fixtures/ar-by-guarantor.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.credit_balance": 1, "result.by_status.plan_missed": 1, "result.by_status.collections_review": 1, "result.by_status.no_statement": 2, "result.by_status.insurance_pending": 1, "result.by_status.small_balance": 1, "result.by_status.payment_plan": 1, "result.by_status.ok": 2 } } },
+    { "id": "reasons", "tool": "balances_check", "args": { "balances": "fixtures/ar-by-guarantor.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["A credit of 125", "On a payment plan with no payment for 67 days", "680 over 90 days and no payment for 93 days", "Patient portion 640 and no statement for 57 days", "no statement recorded", "waiting on 310 of insurance", "below your small-balance amount of 5"] } },
+    { "id": "buckets", "tool": "balances_check", "args": { "balances": "fixtures/ar-by-guarantor.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.buckets.0-30": 833.2, "result.buckets.31-60": 640, "result.buckets.61-90": 300, "result.buckets.90+": 2740 } } },
+    { "id": "credit-first", "tool": "balances_check", "args": { "balances": "fixtures/ar-by-guarantor.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.items.0.status": "credit_balance" } } },
+    { "id": "explain-account", "tool": "balances_explain", "args": { "balances": "fixtures/ar-by-guarantor.csv", "as_of": "2026-11-16", "account": "G1001" },
+      "expect": { "status": "executed", "equals": { "result.account.status": "ok", "result.account.patient_portion": 84 } } },
+    { "id": "settings-typo-refused", "tool": "balances_check", "args": { "balances": "fixtures/ar-by-guarantor.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["statement_dayz"] } },
+    { "id": "write-report", "tool": "balances_write_report", "args": { "balances": "fixtures/ar-by-guarantor.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/balances" },
+      "expect": { "status": "executed", "contains": ["balances-worklist.csv", "balances-worklist.html"] } },
+    { "id": "draft-letter-after-approval", "tool": "balances_draft_balance_letter", "approve": "Pat Example", "args": { "balances": "fixtures/ar-by-guarantor.csv", "as_of": "2026-11-16", "account": "G1005", "practice": "Bright Example Dental (fictional)", "out_dir": "fairclinic-out/evals/balances" },
+      "expect": { "status": "executed", "equals": { "result.amount": 640, "result.open_markers": 3 } } },
+    { "id": "no-letter-for-a-credit", "tool": "balances_draft_balance_letter", "approve": "Pat Example", "args": { "balances": "fixtures/ar-by-guarantor.csv", "as_of": "2026-11-16", "account": "G1003", "out_dir": "fairclinic-out/evals/balances" },
+      "expect": { "status": "error", "contains": ["no patient portion"] } }
+  ]
+}
