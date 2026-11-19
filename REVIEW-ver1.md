@@ -45,6 +45,8 @@ Every package is `fairclinic-<name above>` at version 0.1.0, MIT, with README, C
 - **lab-cases**: "no invoice" was reported even when no invoice file was given; now only checked when invoices are loaded.
 - **vaccine-reminders**: a sort comparator without parentheses put a reminder for a deceased pet below others; fixed and tested.
 - **Eval expectations**: several of my hand-computed totals were wrong (patient portion 668.4 not 668.6; stock value 1,166.8; pharmacy gap 2,103.64 because below-cost items also count toward the gap to target). The code was right in each case; the expectations were corrected after checking the arithmetic by hand.
+- **Bench, membership-plans**: at 10,000 rows (where the bench repeats member names) every payment of a repeated name became its own finding and the report string grew past what Node allows ("Invalid string length"); names of charges not on the roster were also looked up with a scan per name. Each member now gets one finding per kind with a count ("and 49 more like it"), names are looked up once, and a test covers it. 25.9 s with an error became 4.4 s.
+- **Bench, reference-labs**: every lab test scanned every charge for the same pet and item and parsed dates each time (7.9 s of matching at 10,000 rows). Charges are now indexed, sorted by date and taken from a moving start (0.8 s).
 - **Safety eval generator**: a first version expected report tools to be blocked in Review mode; the core allows local report files in Review by design, so that case was replaced by an unknown-argument case.
 
 ## Not checked yet (say this out loud)

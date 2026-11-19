@@ -158,7 +158,8 @@ export function reportTool({ name, title, description, properties = {}, required
 export function findItem(items, key, given, ctx, { kind = 'claim', label = key } = {}) {
   const g = String(given ?? '').trim();
   const hit = items.find((x) => (ctx && ctx.phi ? ctx.phi.same(x[key], g, kind) : String(x[key]).trim() === g));
-  if (!hit) throw new Error(`${label} ${g} not found; pass a ${label} from the check's result`);
+  // Echo at most 80 characters of what was passed, so a huge argument does not come back as a huge error.
+  if (!hit) throw new Error(`${label} ${g.length > 80 ? `${g.slice(0, 77)}...` : g} not found; pass a ${label} from the check's result`);
   return hit;
 }
 
