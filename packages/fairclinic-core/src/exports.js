@@ -44,7 +44,7 @@ export const EXPORTS = Object.freeze(Object.fromEntries([
   e('denticon_production', 'Denticon', 'Production and collections by provider, exported to CSV', ['Provider Name', 'Gross Prod', 'Net Prod', 'Total Collections']),
   e('dentrix_adjustments', 'Dentrix', 'Adjustments by type report, exported to CSV', ['Adjustment Type', 'Patient Name', 'Entered By', 'Amount']),
   // Veterinary practice-management exports (column names as recalled; none checked against documentation or a live account)
-  e('avimark_controlled_log', 'AVImark', 'Controlled drug log report, exported to CSV', ['Drug', 'Date', 'Quantity', 'Running Balance', 'Initials']),
+  e('avimark_controlled_log', 'AVImark', 'Controlled drug log report, exported to CSV', ['Drug Name', 'Trans Date', 'Qty', 'Balance', 'Initials']),
   e('cornerstone_reminders', 'Cornerstone', 'Reminder list report, exported to CSV', ['Client ID', 'Patient Name', 'Reminder Description', 'Due Date']),
   e('ezyvet_invoice_lines', 'ezyVet', 'Invoice lines export (CSV)', ['Invoice #', 'Animal Name', 'Product Name', 'Qty', 'Total (incl tax)']),
   e('covetrus_pulse_inventory', 'Covetrus Pulse', 'Inventory on hand with lots, exported to CSV', ['Item Name', 'Lot Number', 'Expiration Date', 'Quantity On Hand']),

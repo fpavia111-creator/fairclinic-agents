@@ -1,0 +1,270 @@
+{
+  "suite": "fairclinic-controlled-drugs",
+  "root": "..",
+  "data_note": "Fictional controlled drug log and counts in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "drugs_check",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.drugs": 4,
+          "result.entries": 16,
+          "result.to_review": 6,
+          "result.count_mismatches": 2,
+          "result.by_status.balance_math": 1,
+          "result.by_status.waste_no_witness": 1,
+          "result.by_status.no_patient": 1,
+          "result.by_status.missing_initials": 1
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "drugs_check",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv"
+      },
+      "expect": {
+        "contains": [
+          "Balance written as 18; 18.8 - 0.6 is 18.2 (off by -0.2)",
+          "Counted 17.5 on 2026-11-15; the log's entries add up to 17.7 (short by 0.2). The written balance (17.5) hides it",
+          "Counted 36.5 on 2026-11-15; the log's entries add up to 37.5 (short by 1)",
+          "Waste of 0.2 on 2026-11-05 with no witness",
+          "0.5 administered on 2026-11-08 with no patient",
+          "Entry on 2026-11-11 has no initials",
+          "not a compliance finding"
+        ]
+      }
+    },
+    {
+      "id": "by-drug",
+      "tool": "drugs_check",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.by_drug.0.drug": "Butorphanol 10 mg/mL",
+          "result.by_drug.0.difference": -1,
+          "result.by_drug.2.log_balance": 17.7,
+          "result.by_drug.2.written_balance": 17.5,
+          "result.by_drug.3.status": "ok"
+        }
+      }
+    },
+    {
+      "id": "witness-off-by-protocol",
+      "tool": "drugs_check",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings-nowitness.json"
+      },
+      "expect": {
+        "equals": {
+          "result.to_review": 5
+        }
+      }
+    },
+    {
+      "id": "drug-not-counted",
+      "tool": "drugs_check",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts-partial.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.no_count": 2
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "drugs_check",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "witness_needed"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "drugs_write_report",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv",
+        "out_dir": "fairclinic-out/evals/drugs"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "drugs-reconciliation.csv",
+          "drugs-reconciliation.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "drugs_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "drugs_check",
+      "args": {
+        "log": "../../outside.csv",
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "drugs_check",
+      "mode": "review",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.drugs": 4,
+          "result.entries": 16,
+          "result.to_review": 6,
+          "result.count_mismatches": 2,
+          "result.by_status.balance_math": 1,
+          "result.by_status.waste_no_witness": 1,
+          "result.by_status.no_patient": 1,
+          "result.by_status.missing_initials": 1
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "drugs_check",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "log"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "drugs_check",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "drugs_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "drugs_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-regulator_file",
+      "tool": "regulator_file",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-log_edit",
+      "tool": "log_edit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-order_place",
+      "tool": "order_place",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "drugs_check",
+      "args": {
+        "log": "fixtures/controlled-log.csv",
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Biscuit",
+          "Juniper",
+          "Mochi",
+          "Pepper",
+          "Ziggy",
+          "Nadia Brennan",
+          "Tobias Achterberg",
+          "Ines Mwangi",
+          "Felix Oduya",
+          "Clara Benedetti"
+        ]
+      }
+    }
+  ]
+}
