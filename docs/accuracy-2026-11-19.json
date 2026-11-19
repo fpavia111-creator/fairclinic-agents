@@ -5,11 +5,11 @@
     "planted_total": 180,
     "planted_found": 180,
     "unplanned": 0,
-    "clean_rows": 467,
+    "clean_rows": 468,
     "clean_false_positives": 0,
-    "mutation_cases": 95,
-    "mutation_caught": 95,
-    "mutation_side_findings": 5
+    "mutation_cases": 96,
+    "mutation_caught": 96,
+    "mutation_side_findings": 4
   },
   "agents": [
     {
@@ -98,8 +98,8 @@
       "unplanned": [],
       "clean_rows": 13,
       "clean_findings": [],
-      "mutation_cases": 3,
-      "mutation_caught": 3,
+      "mutation_cases": 4,
+      "mutation_caught": 4,
       "mutation_missed": [],
       "mutation_side_findings": 0
     },
@@ -252,12 +252,12 @@
       "planted_found": 5,
       "missed": [],
       "unplanned": [],
-      "clean_rows": 37,
+      "clean_rows": 38,
       "clean_findings": [],
       "mutation_cases": 3,
       "mutation_caught": 3,
       "mutation_missed": [],
-      "mutation_side_findings": 1
+      "mutation_side_findings": 0
     },
     {
       "agent": "fairclinic-ppo-writeoffs",

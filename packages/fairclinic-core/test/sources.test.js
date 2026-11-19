@@ -134,10 +134,11 @@ const DOCUMENTED = ['cms_hpt_csv_tall', 'cms_hpt_csv_tall_v3', 'cms_pfs_indicato
 
 test('the catalogue: every entry has a system, a label and a way to be recognised; only checked layouts say so', () => {
   const all = Object.values(EXPORTS); assert.ok(all.length >= 12);
-  for (const e of all) { assert.match(e.id, /^[a-z0-9_]+$/); assert.ok(e.system && e.label, e.id); assert.ok((e.signature && e.signature.length) || (e.headerless && typeof e.detect === 'function'), e.id); assert.ok(['documented', 'recalled'].includes(e.basis), e.id); }
+  for (const e of all) { assert.match(e.id, /^[a-z0-9_]+$/); assert.ok(e.system && e.label, e.id); assert.ok((e.signature && e.signature.length) || (e.headerless && typeof e.detect === 'function'), e.id); assert.ok(['documented', 'recalled', 'tested'].includes(e.basis), e.id); }
   assert.deepEqual(all.filter((e) => e.basis === 'documented').map((e) => e.id).sort(), DOCUMENTED);
-  for (const e of all.filter((x) => x.basis === 'documented')) assert.ok(e.source && /^\d{4}-\d{2}-\d{2}$/.test(e.checked), e.id);
-  assert.match(EXPORTS_BASIS_NOTE, /None was tested against a live account/);
+  for (const e of all.filter((x) => x.basis === 'documented' || x.basis === 'tested')) assert.ok(e.source && /^\d{4}-\d{2}-\d{2}$/.test(e.checked), e.id);
+  assert.deepEqual(all.filter((e) => e.basis === 'tested').map((e) => e.id).sort(), ['wa_doh_credentials'], 'only layouts read from the publisher\'s own public file say tested');
+  assert.match(EXPORTS_BASIS_NOTE, /None was tested against a live practice account/);
   assert.throws(() => exportProfile('nope', {}), /unknown export "nope"/);
   const p = exportProfile('waystar_remit', { claim_id: 'Patient Account' }, { note: 'n' }); assert.equal(p.system, 'Waystar'); assert.equal(p.note, 'n'); assert.deepEqual(p.map, { claim_id: 'Patient Account' });
 });

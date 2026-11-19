@@ -104,7 +104,7 @@ test('remit and claim exports group by claim; adjustment strings parse', () => {
 test('every section title and export profile is complete', () => {
   for (const [k, t] of Object.entries(SECTION_TITLES)) for (const l of LANGS) assert.ok(t[l], `${k} has no ${l}`);
   assert.deepEqual(sectionTitle('nope'), { en: 'nope' });
-  for (const [id, e] of Object.entries(EXPORTS)) { assert.ok(e.signature && e.signature.length && ['recalled', 'documented'].includes(e.basis), `${id} has a signature and basis`); assert.equal(exportProfile(id, {}).map && typeof exportProfile(id, {}).map, 'object'); }
+  for (const [id, e] of Object.entries(EXPORTS)) { assert.ok(e.signature && e.signature.length && ['recalled', 'documented', 'tested'].includes(e.basis), `${id} has a signature and basis`); assert.equal(exportProfile(id, {}).map && typeof exportProfile(id, {}).map, 'object'); }
   assert.throws(() => exportProfile('no_such_export', {}), /unknown export/);
   for (const fields of [CLAIM_FIELDS, REMIT_FIELDS]) for (const [k, f] of Object.entries(fields)) assert.ok(Array.isArray(f.aliases) && f.aliases.length, `${k} has aliases`);
 });
