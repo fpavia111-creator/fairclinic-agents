@@ -1,0 +1,21 @@
+{
+  "suite": "fairclinic-credential-expiry",
+  "root": "..",
+  "data_note": "Fictional credentials in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "credentials_check", "args": { "credentials": "fixtures/credentials.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.credentials": 8, "result.holders": 5, "result.to_act": 5, "result.next_expiry": "2026-12-15", "result.by_status.expired": 1, "result.by_status.expiring": 2, "result.by_status.missing_expiry": 1, "result.by_status.ce_short": 1, "result.by_status.renewal_submitted": 1, "result.by_status.ok": 2 } } },
+    { "id": "reasons", "tool": "credentials_check", "args": { "credentials": "fixtures/credentials.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["Expired on 2026-10-31, 16 day(s) ago", "Expires in 45 day(s) (2026-12-31) and no renewal is recorded as submitted", "18 of 30 CE hours recorded with renewal in 135 days", "No expiry date on file", "renewal submitted 2026-11-01"] } },
+    { "id": "numbers-show-last-four-only", "tool": "credentials_check", "args": { "credentials": "fixtures/credentials.csv", "as_of": "2026-11-16" },
+      "expect": { "not_contains": ["XE0000001", "DL-0055502"], "contains": ["0001"] } },
+    { "id": "shorter-warning", "tool": "credentials_check", "args": { "credentials": "fixtures/credentials.csv", "settings": "fixtures/settings-30.json", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.expiring": 1, "result.by_status.ok": 4 } } },
+    { "id": "status-filter", "tool": "credentials_check", "args": { "credentials": "fixtures/credentials.csv", "as_of": "2026-11-16", "status": "expiring" },
+      "expect": { "length": { "result.items": 2 } } },
+    { "id": "settings-typo-refused", "tool": "credentials_check", "args": { "credentials": "fixtures/credentials.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["warning_days"] } },
+    { "id": "write-report", "tool": "credentials_write_report", "args": { "credentials": "fixtures/credentials.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/credentials" },
+      "expect": { "status": "executed", "contains": ["credentials-expiry.csv", "credentials-expiry.html"] } }
+  ]
+}

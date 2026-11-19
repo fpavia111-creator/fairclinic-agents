@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-credential-expiry",
+  "version": "0.1.0",
+  "description": "Fairclinic Credential Expiry: dental and veterinary licences, DEA registrations, state permits, radiation registrations and malpractice insurance: expired, expiring with no renewal submitted, missing expiry dates, and CE hours short of what the next renewal needs. It never files a renewal or contacts a board, the DEA or an insurer.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-credential-expiry": "bin/fairclinic-credential-expiry.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-credential-expiry.js demo",
+    "eval": "node bin/fairclinic-credential-expiry.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-credential-expiry"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-credential-expiry#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "credentialing",
+    "license-expiry",
+    "dea-registration"
+  ]
+}
