@@ -1,0 +1,268 @@
+{
+  "suite": "fairclinic-pet-insurance-claims",
+  "root": "..",
+  "data_note": "Fictional pet insurance claims in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.claims": 7,
+          "result.open": 4,
+          "result.open_claimed": 3155,
+          "result.direct_pay_open": 1055,
+          "result.client_balances": 230,
+          "result.to_review": 5
+        }
+      }
+    },
+    {
+      "id": "statuses",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.info_requested": 1,
+          "result.by_status.direct_pay_balance": 1,
+          "result.by_status.not_submitted": 1,
+          "result.by_status.no_response": 1,
+          "result.by_status.denied": 1,
+          "result.by_status.pending": 1,
+          "result.by_status.paid": 1
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "Demo Pet Cover asked for more information on a claim submitted 2026-11-06",
+          "Paid 720 directly to the clinic against 950 claimed; 230 is left",
+          "Drafted 14 days ago and not submitted",
+          "Submitted 32 days ago with no decision",
+          "Denied by Sample Paws Mutual"
+        ]
+      }
+    },
+    {
+      "id": "by-insurer",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_insurer.0.insurer": "Sample Paws Mutual",
+          "result.by_insurer.0.amount": 1890
+        }
+      }
+    },
+    {
+      "id": "longer-response",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "settings": "fixtures/settings-45.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.to_review": 4
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "response"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "petclaims_write_report",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "as_of": "2026-11-16",
+        "out_dir": "fairclinic-out/evals/petclaims"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "petclaims-status.csv",
+          "petclaims-status.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "petclaims_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "../../outside.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "petclaims_check",
+      "mode": "review",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.claims": 7,
+          "result.open": 4,
+          "result.open_claimed": 3155,
+          "result.direct_pay_open": 1055,
+          "result.client_balances": 230,
+          "result.to_review": 5
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "petclaims_check",
+      "args": {
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "claims"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "petclaims_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "petclaims_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-claim_submit",
+      "tool": "claim_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-message_send",
+      "tool": "message_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-client_charge",
+      "tool": "client_charge",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "petclaims_check",
+      "args": {
+        "claims": "fixtures/pet-claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Biscuit",
+          "Juniper",
+          "Mochi",
+          "Pepper",
+          "Ziggy",
+          "Olive",
+          "Noodle",
+          "Nadia Brennan",
+          "Tobias Achterberg",
+          "Ines Mwangi",
+          "Felix Oduya",
+          "Jonah Whitfield"
+        ]
+      }
+    }
+  ]
+}

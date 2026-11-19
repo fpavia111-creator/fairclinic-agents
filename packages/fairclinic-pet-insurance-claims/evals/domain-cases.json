@@ -1,0 +1,21 @@
+{
+  "suite": "fairclinic-pet-insurance-claims",
+  "root": "..",
+  "data_note": "Fictional pet insurance claims in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "petclaims_check", "args": { "claims": "fixtures/pet-claims.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.claims": 7, "result.open": 4, "result.open_claimed": 3155, "result.direct_pay_open": 1055, "result.client_balances": 230, "result.to_review": 5 } } },
+    { "id": "statuses", "tool": "petclaims_check", "args": { "claims": "fixtures/pet-claims.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.info_requested": 1, "result.by_status.direct_pay_balance": 1, "result.by_status.not_submitted": 1, "result.by_status.no_response": 1, "result.by_status.denied": 1, "result.by_status.pending": 1, "result.by_status.paid": 1 } } },
+    { "id": "reasons", "tool": "petclaims_check", "args": { "claims": "fixtures/pet-claims.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["Demo Pet Cover asked for more information on a claim submitted 2026-11-06", "Paid 720 directly to the clinic against 950 claimed; 230 is left", "Drafted 14 days ago and not submitted", "Submitted 32 days ago with no decision", "Denied by Sample Paws Mutual"] } },
+    { "id": "by-insurer", "tool": "petclaims_check", "args": { "claims": "fixtures/pet-claims.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_insurer.0.insurer": "Sample Paws Mutual", "result.by_insurer.0.amount": 1890 } } },
+    { "id": "longer-response", "tool": "petclaims_check", "args": { "claims": "fixtures/pet-claims.csv", "settings": "fixtures/settings-45.json", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.to_review": 4 } } },
+    { "id": "settings-typo-refused", "tool": "petclaims_check", "args": { "claims": "fixtures/pet-claims.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["response"] } },
+    { "id": "write-report", "tool": "petclaims_write_report", "args": { "claims": "fixtures/pet-claims.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/petclaims" },
+      "expect": { "status": "executed", "contains": ["petclaims-status.csv", "petclaims-status.html"] } }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-pet-insurance-claims",
+  "version": "0.1.0",
+  "description": "Fairclinic Pet Insurance Claims: where each pet insurance claim stands: information requests from the insurer, direct payments that came in below the claim, claims drafted and not submitted, claims with no decision, and denials, with open amounts by insurer. It never submits a claim or charges a client. Pet and client names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-pet-insurance-claims": "bin/fairclinic-pet-insurance-claims.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-pet-insurance-claims.js demo",
+    "eval": "node bin/fairclinic-pet-insurance-claims.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-pet-insurance-claims"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-pet-insurance-claims#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "pet-insurance",
+    "claims",
+    "direct-pay",
+    "accounts-receivable"
+  ]
+}
