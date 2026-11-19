@@ -1,0 +1,15 @@
+Invoice #,Consult ID,Animal Name,Invoice Date,Product Name,Qty,Total (incl tax),Note
+INV-1,V1001,Biscuit,2026-11-12,Exam - comprehensive,1,68.00,
+INV-1,V1001,Biscuit,2026-11-12,Cefovecin injection,1,95.00,
+INV-2,V1002,Juniper,2026-11-12,Exam - comprehensive,1,68.00,
+INV-2,V1002,Juniper,2026-11-12,IV fluids (per day),1,85.00,
+INV-2,V1002,Juniper,2026-11-12,Hospitalization (per day),2,240.00,
+INV-3,V1003,Mochi,2026-11-13,Exam - comprehensive,1,68.00,
+INV-3,V1003,Mochi,2026-11-13,Nail trim,1,0.00,N/C
+INV-3,V1003,Mochi,2026-11-13,Rabies vaccine 1 year,1,28.00,
+INV-4,V1004,Pepper,2026-11-13,Dental cleaning,1,320.00,
+INV-4,V1004,Pepper,2026-11-13,Dental radiographs,1,180.00,
+INV-4,V1004,Pepper,2026-11-13,Anesthesia (per 30 min),3,225.00,
+INV-5,V1005,Ziggy,2026-11-13,Exam - comprehensive,1,68.00,
+INV-5,V1005,Ziggy,2026-11-13,Fecal test,1,42.00,
+INV-5,V1005,Ziggy,2026-11-13,Heartworm test,1,55.00,

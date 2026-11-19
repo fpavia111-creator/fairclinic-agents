@@ -1,0 +1,279 @@
+{
+  "suite": "fairclinic-missed-charges",
+  "root": "..",
+  "data_note": "Fictional treatment sheet, invoice lines and price list in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.visits": 5,
+          "result.recorded_lines": 15,
+          "result.to_review": 5,
+          "result.not_invoiced": 2,
+          "result.qty_short": 1,
+          "result.no_charge": 1,
+          "result.invoiced_not_recorded": 1,
+          "result.missed_value": 240
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "1 x Ear cytology recorded and not on the invoice (about 45 at 45 each)",
+          "2 recorded, 1 invoiced (about 85 short)",
+          "1 x CBC in-house recorded and not on the invoice (about 110",
+          "Invoiced at no charge (N/C); list price 22",
+          "1 x Heartworm test invoiced for 55 with no matching line"
+        ]
+      }
+    },
+    {
+      "id": "without-alias-the-wording-differs",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.not_invoiced": 3,
+          "result.invoiced_not_recorded": 2
+        }
+      }
+    },
+    {
+      "id": "without-prices",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.missed_value": 85,
+          "result.not_invoiced": 2
+        },
+        "contains": [
+          "no price in the price list"
+        ]
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok"
+      },
+      "expect": {
+        "length": {
+          "result.items": 11
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "aliases"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "charges_write_report",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv",
+        "settings": "fixtures/settings.json",
+        "out_dir": "fairclinic-out/evals/charges"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "charges-missed.csv",
+          "charges-missed.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "charges_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "../../outside.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "charges_check",
+      "mode": "review",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.visits": 5,
+          "result.recorded_lines": 15,
+          "result.to_review": 5,
+          "result.not_invoiced": 2,
+          "result.qty_short": 1,
+          "result.no_charge": 1,
+          "result.invoiced_not_recorded": 1,
+          "result.missed_value": 240
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "charges_check",
+      "args": {
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "treatments"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "charges_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "charges_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-client_charge",
+      "tool": "client_charge",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-message_send",
+      "tool": "message_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "charges_check",
+      "args": {
+        "treatments": "fixtures/treatment-sheet.csv",
+        "invoices": "fixtures/ezyvet-invoice-lines.csv",
+        "prices": "fixtures/price-list.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Biscuit",
+          "Juniper",
+          "Nadia Brennan",
+          "Tobias Achterberg",
+          "Ines Mwangi",
+          "Felix Oduya",
+          "Clara Benedetti"
+        ]
+      }
+    }
+  ]
+}

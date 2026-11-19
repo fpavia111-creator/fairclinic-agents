@@ -1,0 +1,16 @@
+Visit,Patient,Client,Date,Item,Qty,Staff
+V1001,Biscuit,Nadia Brennan,2026-11-12,Exam - comprehensive,1,Dr. Cora Example
+V1001,Biscuit,Nadia Brennan,2026-11-12,Cefovecin injection,1,Tech Lee
+V1001,Biscuit,Nadia Brennan,2026-11-12,Ear cytology,1,Tech Lee
+V1002,Juniper,Tobias Achterberg,2026-11-12,Exam - comprehensive,1,Dr. Felix Sample
+V1002,Juniper,Tobias Achterberg,2026-11-12,IV fluids (per day),2,Tech Lee
+V1002,Juniper,Tobias Achterberg,2026-11-12,Hospitalization (per day),2,Tech Lee
+V1002,Juniper,Tobias Achterberg,2026-11-12,CBC in-house,1,Tech Moss
+V1003,Mochi,Ines Mwangi,2026-11-13,Exam - comprehensive,1,Dr. Cora Example
+V1003,Mochi,Ines Mwangi,2026-11-13,Nail trim,1,Tech Moss
+V1003,Mochi,Ines Mwangi,2026-11-13,Rabies vaccine 1 year,1,Dr. Cora Example
+V1004,Pepper,Felix Oduya,2026-11-13,Dental cleaning,1,Dr. Felix Sample
+V1004,Pepper,Felix Oduya,2026-11-13,Dental radiographs,1,Tech Lee
+V1004,Pepper,Felix Oduya,2026-11-13,Anesthesia (per 30 min),3,Tech Lee
+V1005,Ziggy,Clara Benedetti,2026-11-13,Exam - comprehensive,1,Dr. Cora Example
+V1005,Ziggy,Clara Benedetti,2026-11-13,Fecal flotation,1,Tech Moss
