@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-reference-labs",
+  "version": "0.1.0",
+  "description": "Fairclinic Reference Labs: veterinary send-out tests on the reference lab's invoice matched to client charges for the same pet and date: tests not charged, charges below lab cost or under your markup rule, and send-out items charged with no test on the lab invoice. Pet and client names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-reference-labs": "bin/fairclinic-reference-labs.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-reference-labs.js demo",
+    "eval": "node bin/fairclinic-reference-labs.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-reference-labs"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-reference-labs#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "reference-lab",
+    "send-outs",
+    "charge-capture",
+    "lab-invoices"
+  ]
+}

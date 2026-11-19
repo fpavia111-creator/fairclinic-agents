@@ -1,0 +1,260 @@
+{
+  "suite": "fairclinic-reference-labs",
+  "root": "..",
+  "data_note": "Fictional reference lab invoice and client charges in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "sendouts_check",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tests": 5,
+          "result.lab_cost": 176.5,
+          "result.cost_not_charged": 22,
+          "result.to_review": 4,
+          "result.by_status.not_charged": 1,
+          "result.by_status.charged_below_cost": 1,
+          "result.by_status.low_markup": 1,
+          "result.by_status.charged_not_sent": 1,
+          "result.by_status.ok": 2
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "sendouts_check",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "Thyroid T4 for this pet on 2026-11-03 (lab cost 22) has no matching client charge",
+          "Charged 49 against a lab cost of 55",
+          "Charged 60, 1.54 times the lab cost of 39; your rule is 2 times",
+          "Lyme quantitative charged 85 on 2026-11-10 with no matching test"
+        ]
+      }
+    },
+    {
+      "id": "without-map",
+      "tool": "sendouts_check",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.not_charged": 2,
+          "result.to_review": 4
+        },
+        "not_contains": [
+          "charged_not_sent"
+        ]
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "sendouts_check",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok"
+      },
+      "expect": {
+        "length": {
+          "result.items": 2
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "sendouts_check",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "markup"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "sendouts_write_report",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json",
+        "out_dir": "fairclinic-out/evals/sendouts"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "sendouts-match.csv",
+          "sendouts-match.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "sendouts_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "sendouts_check",
+      "args": {
+        "lab": "../../outside.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "sendouts_check",
+      "mode": "review",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tests": 5,
+          "result.lab_cost": 176.5,
+          "result.cost_not_charged": 22,
+          "result.to_review": 4,
+          "result.by_status.not_charged": 1,
+          "result.by_status.charged_below_cost": 1,
+          "result.by_status.low_markup": 1,
+          "result.by_status.charged_not_sent": 1,
+          "result.by_status.ok": 2
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "sendouts_check",
+      "args": {
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "lab"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "sendouts_check",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "sendouts_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "sendouts_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-client_charge",
+      "tool": "client_charge",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-payment_send",
+      "tool": "payment_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "sendouts_check",
+      "args": {
+        "lab": "fixtures/lab-invoice.csv",
+        "charges": "fixtures/client-charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Biscuit",
+          "Juniper",
+          "Mochi",
+          "Pepper",
+          "Ziggy",
+          "Olive",
+          "Nadia Brennan",
+          "Ines Mwangi",
+          "Felix Oduya",
+          "Clara Benedetti",
+          "Jonah Whitfield"
+        ]
+      }
+    }
+  ]
+}
