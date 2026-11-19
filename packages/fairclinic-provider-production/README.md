@@ -65,7 +65,7 @@ Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, 
 | `month` (required) | text | Month, Period, Date, Month Ending | - |
 | `gross_production` (required) | amount | Gross Production, Production, Gross Prod, Charges | - |
 | `adjustments` | amount | Adjustments, Write-offs, Adj, PPO Write-offs | - |
-| `collections` (required) | amount | Collections, Payments, Collected, Receipts | - |
+| `collections` (required) | amount | Collections, Total Collections, Payments, Collected, Receipts | - |
 
 Named exports recognised by their column names:
 
