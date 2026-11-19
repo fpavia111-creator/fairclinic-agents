@@ -1,0 +1,23 @@
+{
+  "suite": "fairclinic-lab-cases",
+  "root": "..",
+  "data_note": "Fictional lab case log and invoices in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "labs_check", "args": { "cases": "fixtures/lab-cases.csv", "invoices": "fixtures/lab-invoices.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.cases": 7, "result.invoices": 6, "result.invoiced": 2090, "result.to_work": 8, "result.remakes_charged": 285, "result.duplicates": 285, "result.not_in_log": 310 } } },
+    { "id": "statuses", "tool": "labs_check", "args": { "cases": "fixtures/lab-cases.csv", "invoices": "fixtures/lab-invoices.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.not_back_for_seat": 1, "result.by_status.overdue_from_lab": 1, "result.by_status.seated_not_billed": 1, "result.by_status.remake_charged": 1, "result.by_status.duplicate_invoice": 1, "result.by_status.invoice_no_case": 1, "result.by_status.case_not_returned": 1, "result.by_status.no_invoice": 1, "result.by_status.ok": 3 } } },
+    { "id": "reasons", "tool": "labs_check", "args": { "cases": "fixtures/lab-cases.csv", "invoices": "fixtures/lab-invoices.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["the seat appointment is in 1 day(s) (2026-11-17)", "Due back 2026-11-10, 6 day(s) ago", "Seated 2026-10-30 and not marked billed", "Returned 2026-10-03 and no invoice", "Invoice INV-9002 from Example Crown Lab appears more than once", "Remake of case L506 charged 285", "Case L999 is not in the case log", "Invoiced for case L503"] } },
+    { "id": "urgent-first", "tool": "labs_check", "args": { "cases": "fixtures/lab-cases.csv", "invoices": "fixtures/lab-invoices.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.items.0.case_id": "L502" } } },
+    { "id": "cases-only", "tool": "labs_check", "args": { "cases": "fixtures/lab-cases.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.invoices": 0, "result.to_work": 3 }, "not_contains": ["no_invoice"] } },
+    { "id": "status-filter", "tool": "labs_check", "args": { "cases": "fixtures/lab-cases.csv", "invoices": "fixtures/lab-invoices.csv", "as_of": "2026-11-16", "status": "remake_charged" },
+      "expect": { "length": { "result.items": 1 } } },
+    { "id": "settings-typo-refused", "tool": "labs_check", "args": { "cases": "fixtures/lab-cases.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["seat_buffer"] } },
+    { "id": "write-report", "tool": "labs_write_report", "args": { "cases": "fixtures/lab-cases.csv", "invoices": "fixtures/lab-invoices.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/labs" },
+      "expect": { "status": "executed", "contains": ["labs-worklist.csv", "labs-worklist.html"] } }
+  ]
+}

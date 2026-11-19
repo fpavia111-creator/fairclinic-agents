@@ -1,0 +1,7 @@
+Invoice,Lab,Case,Date,Amount,Remake
+INV-9001,Example Crown Lab,L501,2026-11-05,285.00,No
+INV-9002,Example Crown Lab,L504,2026-10-31,285.00,No
+INV-9003,Example Crown Lab,L999,2026-11-08,310.00,No
+INV-9004,Example Crown Lab,L506,2026-11-09,285.00,Yes
+INV-9002,Example Crown Lab,L504,2026-10-31,285.00,No
+INV-7710,Sample Denture Studio,L503,2026-11-12,640.00,No
