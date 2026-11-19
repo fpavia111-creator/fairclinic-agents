@@ -1,0 +1,55 @@
+{
+  "name": "fairclinic-wellness-plans",
+  "version": "0.1.0",
+  "description": "Fairclinic Wellness Plans: a month of veterinary wellness plan billing and plan use: failed, missed and wrong charges, services used beyond what the plan includes, and early cancellations where the services used are worth more than the fees paid. It never charges, retries or refunds. Pet and client names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-wellness-plans": "bin/fairclinic-wellness-plans.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-wellness-plans.js demo",
+    "eval": "node bin/fairclinic-wellness-plans.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-wellness-plans"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-wellness-plans#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "wellness-plans",
+    "recurring-billing",
+    "preventive-care-plans"
+  ]
+}

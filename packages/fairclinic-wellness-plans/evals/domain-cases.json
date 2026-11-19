@@ -1,0 +1,21 @@
+{
+  "suite": "fairclinic-wellness-plans",
+  "root": "..",
+  "data_note": "Fictional wellness plan enrollments, payments and use in ../fixtures; October 2026 as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "wellness_check", "args": { "enrollments": "fixtures/enrollments.csv", "payments": "fixtures/payments-2026-10.csv", "usage": "fixtures/plan-usage.csv", "settings": "fixtures/settings.json", "month": "2026-10", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.enrollments": 5, "result.collected": 98, "result.to_review": 4, "result.by_status.early_cancel_balance": 1, "result.by_status.failed_not_retried": 1, "result.by_status.wrong_amount": 1, "result.by_status.over_used": 1, "result.by_status.ok": 1, "result.unknown_plans": 0 } } },
+    { "id": "reasons", "tool": "wellness_check", "args": { "enrollments": "fixtures/enrollments.csv", "payments": "fixtures/payments-2026-10.csv", "usage": "fixtures/plan-usage.csv", "settings": "fixtures/settings.json", "month": "2026-10", "as_of": "2026-11-16" },
+      "expect": { "contains": ["Cancelled 2026-09-30 after 5 month(s): plan services used are worth 377 at list price against 175 in plan fees, a difference of 202", "The 2026-10 charge failed on 2026-10-10", "Charged 30 on 2026-10-01; the plan fee is 35", "3 x exam used; the plan includes 2. The extra 1 would be 68 at list price"] } },
+    { "id": "without-usage", "tool": "wellness_check", "args": { "enrollments": "fixtures/enrollments.csv", "payments": "fixtures/payments-2026-10.csv", "settings": "fixtures/settings.json", "month": "2026-10", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.to_review": 2 } } },
+    { "id": "settings-required", "tool": "wellness_check", "args": { "enrollments": "fixtures/enrollments.csv", "payments": "fixtures/payments-2026-10.csv" },
+      "expect": { "status": "error", "contains": ["settings"] } },
+    { "id": "settings-typo-refused", "tool": "wellness_check", "args": { "enrollments": "fixtures/enrollments.csv", "payments": "fixtures/payments-2026-10.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["plan"] } },
+    { "id": "status-filter", "tool": "wellness_check", "args": { "enrollments": "fixtures/enrollments.csv", "payments": "fixtures/payments-2026-10.csv", "usage": "fixtures/plan-usage.csv", "settings": "fixtures/settings.json", "month": "2026-10", "as_of": "2026-11-16", "status": "over_used" },
+      "expect": { "length": { "result.items": 1 } } },
+    { "id": "write-report", "tool": "wellness_write_report", "args": { "enrollments": "fixtures/enrollments.csv", "payments": "fixtures/payments-2026-10.csv", "usage": "fixtures/plan-usage.csv", "settings": "fixtures/settings.json", "month": "2026-10", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/wellness" },
+      "expect": { "status": "executed", "contains": ["wellness-plans.csv", "wellness-plans.html"] } }
+  ]
+}

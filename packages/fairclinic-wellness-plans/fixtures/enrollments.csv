@@ -1,0 +1,6 @@
+Client,Patient,Plan,Monthly Fee,Start Date,Status,Cancel Date
+Nadia Brennan,Biscuit,Puppy Plan,39.00,2026-03-01,Active,
+Tobias Achterberg,Juniper,Adult Cat,29.00,2026-01-10,Active,
+Ines Mwangi,Mochi,Adult Cat,29.00,2025-12-05,Active,
+Felix Oduya,Pepper,Adult Dog,35.00,2026-05-01,Cancelled,2026-09-30
+Clara Benedetti,Ziggy,Adult Dog,35.00,2026-02-01,Active,

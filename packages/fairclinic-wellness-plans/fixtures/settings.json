@@ -1,0 +1,10 @@
+{
+  "note": "Fictional plans and prices for the demo animal hospital.",
+  "plans": {
+    "Puppy Plan": { "monthly_fee": 39, "included": { "Exam": 3, "Vaccine": 6, "Fecal": 2 } },
+    "Adult Cat": { "monthly_fee": 29, "included": { "Exam": 2, "Vaccine": 3, "Bloodwork": 1 } },
+    "Adult Dog": { "monthly_fee": 35, "included": { "Exam": 2, "Vaccine": 3, "Bloodwork": 1, "Fecal": 1 } }
+  },
+  "service_prices": { "Exam": 68, "Vaccine": 32, "Bloodwork": 145, "Fecal": 42 },
+  "tolerance": 0.01
+}
