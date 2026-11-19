@@ -1,0 +1,21 @@
+{
+  "suite": "fairclinic-inventory-expiry",
+  "root": "..",
+  "data_note": "Fictional stock and count sheet in ../fixtures, as of 2026-11-16. No patient data. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "inventory_check", "args": { "stock": "fixtures/stock-on-hand.csv", "counts": "fixtures/count-sheet.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.lots": 6, "result.counted_items": 5, "result.to_review": 7, "result.expired_value": 420, "result.expiring_value": 366, "result.shrink_value": 97.4, "result.stock_value": 1166.8 } } },
+    { "id": "statuses", "tool": "inventory_check", "args": { "stock": "fixtures/stock-on-hand.csv", "counts": "fixtures/count-sheet.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.expired": 1, "result.by_status.shrink": 2, "result.by_status.expiring": 2, "result.by_status.overage": 1, "result.by_status.no_expiry_date": 1, "result.by_status.ok": 4 } } },
+    { "id": "reasons", "tool": "inventory_check", "args": { "stock": "fixtures/stock-on-hand.csv", "counts": "fixtures/count-sheet.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["2 on hand expired on 2026-10-31 (cost 420)", "180 on hand expire in 34 day(s) (2026-12-20), cost 81", "20 unit(s) missing (cost 2.4)", "1 unit(s) missing (cost 95)", "Counted 24, 2 more than the 22 expected", "no expiry date recorded"] } },
+    { "id": "expired-first", "tool": "inventory_check", "args": { "stock": "fixtures/stock-on-hand.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.items.0.status": "expired", "result.counted_items": 0 } } },
+    { "id": "shorter-window", "tool": "inventory_check", "args": { "stock": "fixtures/stock-on-hand.csv", "settings": "fixtures/settings-30.json", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.to_review": 2, "result.expiring_value": 0 } } },
+    { "id": "settings-typo-refused", "tool": "inventory_check", "args": { "stock": "fixtures/stock-on-hand.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["expiry_days"] } },
+    { "id": "write-report", "tool": "inventory_write_report", "args": { "stock": "fixtures/stock-on-hand.csv", "counts": "fixtures/count-sheet.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/inventory" },
+      "expect": { "status": "executed", "contains": ["inventory-expiry.csv", "inventory-expiry.html"] } }
+  ]
+}

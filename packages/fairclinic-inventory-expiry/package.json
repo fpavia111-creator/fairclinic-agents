@@ -1,0 +1,57 @@
+{
+  "name": "fairclinic-inventory-expiry",
+  "version": "0.1.0",
+  "description": "Fairclinic Inventory Expiry: veterinary or dental stock by lot: expired stock still on hand, stock expiring soon and lots with no expiry date, valued at cost; and shrink or overage from opening, received, used and counted. It never disposes of, returns or writes off stock.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-inventory-expiry": "bin/fairclinic-inventory-expiry.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-inventory-expiry.js demo",
+    "eval": "node bin/fairclinic-inventory-expiry.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-inventory-expiry"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-inventory-expiry#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "dental",
+    "inventory",
+    "expiry",
+    "shrink",
+    "covetrus"
+  ]
+}
