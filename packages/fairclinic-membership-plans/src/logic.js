@@ -53,21 +53,24 @@ export function checkMemberships(members, payments, visits = [], { month, settin
     const inMonth = (pays.get(k) || []).filter((p) => p.date >= mStart && p.date <= mEnd);
     const good = inMonth.filter((p) => p.ok); const failed = inMonth.filter((p) => !p.ok);
     const f = []; const add = (code, detail) => f.push({ code, detail });
-    if (cancel) for (const p of good.filter((x) => x.date > cancel)) add('billed_after_cancel', `Charged ${p.amount} on ${p.date}, after the membership ended on ${cancel}. A person decides about a refund.`);
+    // One finding per kind, naming the first case and counting the rest, so a member with many rows stays one line.
+    const addAll = (code, list, text) => { if (list.length) add(code, `${text(list[0])}${list.length > 1 ? ` (and ${list.length - 1} more like it)` : ''}`); };
+    if (cancel) addAll('billed_after_cancel', good.filter((x) => x.date > cancel), (p) => `Charged ${p.amount} on ${p.date}, after the membership ended on ${cancel}. A person decides about a refund.`);
     const lapsedOn = cancel || (annual && renew && renew < today && !(pays.get(k) || []).some((p) => p.ok && p.date >= renew) ? renew : null);
-    if (lapsedOn) for (const v of (vis.get(k) || []).filter((x) => x.date > lapsedOn)) add('used_after_lapse', `A visit on ${v.date}${v.code ? ` (${v.code})` : ''}${v.discount ? ` with a ${v.discount} member discount` : ''}, after the membership ended on ${lapsedOn}.`);
+    if (lapsedOn) addAll('used_after_lapse', (vis.get(k) || []).filter((x) => x.date > lapsedOn), (v) => `A visit on ${v.date}${v.code ? ` (${v.code})` : ''}${v.discount ? ` with a ${v.discount} member discount` : ''}, after the membership ended on ${lapsedOn}.`);
     if (annual && renew && renew < today && lapsedOn === renew) add('annual_lapsed', `The annual renewal on ${renew} has no payment.`);
     if (annual && renew && renew >= today && daysBetween(today, renew) <= warn) add('renewal_due', `Renews in ${daysBetween(today, renew)} day(s) (${renew}) for ${fee}.`);
     const activeAllMonth = !annual && start && start <= mEnd && !(cancel && cancel < mStart);
-    if (activeAllMonth && !good.length && failed.length) add('failed_not_retried', `The ${m} charge failed on ${failed.map((p) => p.date).join(', ')} and was not collected later in the month.`);
+    if (activeAllMonth && !good.length && failed.length) add('failed_not_retried', `The ${m} charge failed on ${failed.slice(0, 3).map((p) => p.date).join(', ')}${failed.length > 3 ? ` and ${failed.length - 3} other date(s)` : ''} and was not collected later in the month.`);
     else if (activeAllMonth && !good.length && !(cancel && cancel <= mEnd)) add('missed_payment', `No ${m} charge for ${fee} in the payment file.`);
-    if (!annual) for (const p of good.filter((x) => !cancel || x.date <= cancel)) if (Math.abs(p.amount - fee) > tol) add('wrong_amount', `Charged ${p.amount} on ${p.date}; the plan fee is ${fee}.`);
+    if (!annual) addAll('wrong_amount', good.filter((x) => (!cancel || x.date <= cancel) && Math.abs(x.amount - fee) > tol), (p) => `Charged ${p.amount} on ${p.date}; the plan fee is ${fee}.`);
     return { patient_name: str(r.patient_name), plan: str(r.plan), billing: annual ? 'annual' : 'monthly', fee, start_date: start, cancel_date: cancel, renewal_date: renew, collected: round2(good.reduce((s, p) => s + p.amount, 0)), status: STATUSES.find((s) => f.some((x) => x.code === s)) || (cancelled ? 'ok' : 'ok'), findings: f };
   });
+  const shown = new Map(); for (const p of payments) { const k = key(p.patient_name); if (k && !shown.has(k)) shown.set(k, str(p.patient_name)); }
   for (const [k, ps] of pays) {
     if (roster.has(k)) continue; const inMonth = ps.filter((p) => p.ok && p.date >= mStart && p.date <= mEnd); if (!inMonth.length) continue;
-    const name = str((payments.find((p) => key(p.patient_name) === k) || {}).patient_name);
-    items.push({ patient_name: name, plan: '', billing: '', fee: null, start_date: null, cancel_date: null, renewal_date: null, collected: round2(inMonth.reduce((s, p) => s + p.amount, 0)), status: 'not_in_roster', findings: [{ code: 'not_in_roster', detail: `Charged ${inMonth.map((p) => p.amount).join(', ')} in ${m} but not on the membership roster.` }] });
+    const total = round2(inMonth.reduce((s, p) => s + p.amount, 0));
+    items.push({ patient_name: shown.get(k) || '', plan: '', billing: '', fee: null, start_date: null, cancel_date: null, renewal_date: null, collected: total, status: 'not_in_roster', findings: [{ code: 'not_in_roster', detail: `Charged ${inMonth.length === 1 ? inMonth[0].amount : `${inMonth.length} times (${total})`} in ${m} but not on the membership roster.` }] });
   }
   items.sort((a, b) => STATUSES.indexOf(a.status) - STATUSES.indexOf(b.status) || (a.patient_name < b.patient_name ? -1 : 1));
   const expected = round2(items.filter((i) => i.billing === 'monthly' && i.start_date && i.start_date <= mEnd && !(i.cancel_date && i.cancel_date < mStart)).reduce((s, i) => s + i.fee, 0));

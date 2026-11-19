@@ -56,3 +56,9 @@ test('the billing list keeps names for the team; the result does not', async () 
   const r = await call('membership_write_report', { members: 'fixtures/members.csv', payments: 'fixtures/payments-2026-10.csv', month: '2026-10', as_of: '2026-11-16' });
   assert.match(readFileSync(`${root}/${r.result.files[0]}`, 'utf8'), /Dmitri Okonkwo/); assert.doesNotMatch(JSON.stringify(r), /Okonkwo/);
 });
+
+test('many charges for one member make one finding per kind, with a count', () => {
+  const pays = Array.from({ length: 50 }, (_, i) => pay({ amount: '25', date: `2026-10-${String((i % 28) + 1).padStart(2, '0')}` }));
+  const i = run([mem()], pays).items[0];
+  assert.equal(i.findings.filter((f) => f.code === 'wrong_amount').length, 1); assert.match(i.findings[0].detail, /and 49 more like it/);
+});

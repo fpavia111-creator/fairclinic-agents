@@ -34,11 +34,13 @@ export function checkSendouts(lab, charges, { settings = {} } = {}) {
   const markup = settings.min_markup || 2, window = settings.match_days ?? 3;
   const itemFor = (test) => map.get(norm(test)) || norm(test);
   const pool = charges.filter((c) => str(c.patient_name) && isoDate(c.date)).map((c, i) => ({ i, pet: norm(c.patient_name), date: isoDate(c.date), item: norm(c.item), name: str(c.item), amount: num(c.amount) || 0, client_name: str(c.client_name), used: false }));
+  // Charges indexed by pet and item, so each test looks only at its own candidates.
+  const byKey = new Map(); for (const c of pool) { const k = `${c.pet}|${c.item}`; (byKey.get(k) || byKey.set(k, []).get(k)).push(c); }
   const items = [];
   const tests = lab.filter((l) => str(l.accession) && isoDate(l.date)).sort((a, b) => (isoDate(a.date) < isoDate(b.date) ? -1 : isoDate(a.date) > isoDate(b.date) ? 1 : str(a.accession) < str(b.accession) ? -1 : 1));
   for (const l of tests) {
     const pet = norm(l.patient_name), d = isoDate(l.date), want = itemFor(l.test), cost = round2(num(l.lab_cost) || 0);
-    const hit = pool.find((c) => !c.used && c.pet === pet && c.item === want && Math.abs(daysBetween(c.date, d)) <= window);
+    const hit = (byKey.get(`${pet}|${want}`) || []).find((c) => !c.used && Math.abs(daysBetween(c.date, d)) <= window);
     let status = 'ok', detail;
     if (!hit) { status = 'not_charged'; detail = `${str(l.test)} for this pet on ${d} (lab cost ${cost}) has no matching client charge within ${window} day(s).`; }
     else {
