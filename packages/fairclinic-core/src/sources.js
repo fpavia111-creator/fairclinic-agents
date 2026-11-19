@@ -172,7 +172,7 @@ export function adaptRecords(table, def, { override = null, kind = '', arg = '',
     }
     // The agent's own name in another letter case or punctuation ("Date" for date) still maps,
     // so the agent always reads its own key.
-    if (has(f)) { const k = index.get(normHeader(f)); plan.push({ f, fd, spec: {}, from: [f] }); if (k !== f) { consumed.add(k); renamed++; } continue; }
+    if (has(f)) { const k = index.get(normHeader(f)); plan.push({ f, fd, spec: {}, from: [k === undefined ? f : k] }); if (k !== undefined && k !== f) { consumed.add(k); renamed++; } continue; }
     // A nested JSON object is never taken for a column by its name alone.
     const alias = (fd.aliases || []).find((a) => has(a) && !nested.has(index.get(normHeader(a))));
     if (alias !== undefined) { const k = index.get(normHeader(alias)); plan.push({ f, fd, spec: {}, from: [alias] }); mapped[f] = k; consumed.add(k); renamed++; }
@@ -191,7 +191,9 @@ export function adaptRecords(table, def, { override = null, kind = '', arg = '',
     plan.push({ f, fd, spec: {}, from: [k] }); mapped[f] = k; consumed.add(k); usedCols.add(k); renamed++; translated[f] = { column: clipName(k), language: hit.lang };
   }
   const forced = !!(ov.columns || ov.set || ov.date_order || ov.decimal || ov.profile || ov.encoding || ov.skip_rows !== undefined && ov.skip_rows !== null);
-  const adapted = !!(profile || renamed || forced || headerRow > 0);
+  // Values written the local way (12.11.2026, 1.234,50) under the agent's own column names still need reading.
+  const localValues = plan.some((p) => p.from.length && p.from.every((h) => typeof h === 'string') && records.slice(0, 5000).some((r) => { const v = String(r[p.from[0]] ?? '').trim(); if (!v) return false; if (p.fd.type === 'date' || p.fd.type === 'datetime') return !/^\d{4}-\d{2}-\d{2}/.test(v); if (p.fd.type === 'money' || p.fd.type === 'number') return !/^-?\d+(\.\d+)?$/.test(v); return false; }));
+  const adapted = !!(profile || renamed || forced || headerRow > 0 || localValues);
   const base = { arg, kind, file, format: table.format, ...(table.sheet ? { sheet: table.sheet } : {}), ...(table.encoding && table.encoding.name !== 'utf-8' ? { encoding: table.encoding.name } : {}), profile: profile ? profile.id : null, system: profile ? profile.system : null, export: profile ? profile.label || null : null };
   const encWarn = encodingWarning(table);
   if (!adapted) {

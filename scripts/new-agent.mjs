@@ -3,14 +3,14 @@
 // and the shared tests (MCP stdio, arg docs, evals). The agent's own manifest,
 // logic, demo, fixtures, evals and README are written by hand.
 //
-//   node scripts/new-agent.mjs <mammal>-of-<job> "<one-line description>" kw1,kw2
+//   node scripts/new-agent.mjs fairclinic-<what-it-does> "<one-line description>" kw1,kw2
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), '..');
 const [name, description, kw = ''] = process.argv.slice(2);
-if (!name || !/^[a-z]+-of-[a-z]+$/.test(name) || !description) { console.error('usage: new-agent.mjs <mammal>-of-<job> "<description>" kw1,kw2'); process.exit(2); }
+if (!name || !/^fairclinic-[a-z]+(-[a-z]+){0,3}$/.test(name) || name === 'fairclinic-core' || !description) { console.error('usage: new-agent.mjs fairclinic-<what-it-does> "<description>" kw1,kw2'); process.exit(2); }
 const root = join(repo, 'packages', name);
 const prefix = name.split('-')[0];
 const corePkg = JSON.parse(readFileSync(join(repo, 'packages/fairclinic-core/package.json'), 'utf8'));

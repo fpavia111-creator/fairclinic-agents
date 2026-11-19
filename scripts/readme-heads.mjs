@@ -7,10 +7,10 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const PK = join(dirname(fileURLToPath(import.meta.url)), '..', 'packages');
-const UP = { preauths: 'Pre-authorizations', petclaims: 'Pet Claims', noshows: 'No-shows', writeoffs: 'Write-offs', druglogs: 'Drug Logs', sendouts: 'Send-outs' };
-export const titleOf = (n) => n.split('-').map((w, i) => UP[w] || (i === 1 ? 'of' : w[0].toUpperCase() + w.slice(1))).join(' ');
+const UP = { era: 'ERA', ppo: 'PPO', writeoffs: 'Write-offs' };
+export const titleOf = (n) => n.split('-').map((w) => UP[w] || w[0].toUpperCase() + w.slice(1)).join(' ');
 
-for (const n of readdirSync(PK).filter((x) => /-of-/.test(x)).sort()) {
+for (const n of readdirSync(PK).filter((x) => x.startsWith('fairclinic-') && x !== 'fairclinic-core').sort()) {
   const f = join(PK, n, 'README.md'); if (existsSync(f)) continue;
   const { manifest: m } = await import(pathToFileURL(join(PK, n, 'src', 'index.js')).href);
   const refused = m.tools.filter((t) => (m.policy.rules.find((r) => r.tool === t.name) || {}).decision === 'block').map((t) => t.description.replace(/^Listed so agents can see it is refused\.\s*/, ''));

@@ -15,7 +15,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const PK = join(dirname(fileURLToPath(import.meta.url)), '..', 'packages');
 const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
-const agents = readdirSync(PK).filter((n) => /-of-/.test(n) && (existsSync(join(PK, n, 'evals', 'cases.json')) || existsSync(join(PK, n, 'evals', 'domain-cases.json'))) && (!only.length || only.includes(n))).sort();
+const agents = readdirSync(PK).filter((n) => n.startsWith('fairclinic-') && n !== 'fairclinic-core' && (existsSync(join(PK, n, 'evals', 'cases.json')) || existsSync(join(PK, n, 'evals', 'domain-cases.json'))) && (!only.length || only.includes(n))).sort();
 const FILE = /\.(csv|tsv|txt|json|jsonl|xlsx|835|837)$/i;
 for (const n of agents) {
   const { manifest: m } = await import(pathToFileURL(join(PK, n, 'src', 'index.js')).href);
