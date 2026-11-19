@@ -40,7 +40,7 @@ import { mkdtempSync, existsSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runEvalFile, undocumentedArgs, ONE_CLICK_CATEGORIES, AgentRuntime } from 'fairclinic-core';
+import { runEvalFile, undocumentedArgs, ONE_CLICK_CATEGORIES, AgentRuntime, phiKindOf } from 'fairclinic-core';
 import { manifest } from '../src/index.js';
 
 const bin = fileURLToPath(new URL('../bin/${name}.js', import.meta.url));
@@ -65,6 +65,12 @@ test('private evals all pass', async () => {
 
 test('no patient identifier from the fixtures reaches a result (masking on), in any eval case', async () => {
   const canaries = JSON.parse(readFileSync(new URL('../fixtures/phi-canaries.json', import.meta.url), 'utf8')).values.map((v) => v.toLowerCase());
+  if (!canaries.length) {
+    // This agent reads no patient data: then no column it reads may be a patient field.
+    const phi = Object.values(manifest.sources || {}).flatMap((s) => Object.keys(s.fields)).filter((f) => phiKindOf(f));
+    assert.deepEqual(phi, [], 'an agent that reads patient fields lists its fictional identifiers in phi-canaries.json');
+    return;
+  }
   assert.ok(canaries.length >= 3, 'list the fictional patient identifiers used in the fixtures');
   const data = JSON.parse(readFileSync(new URL('../evals/cases.json', import.meta.url), 'utf8'));
   const root = fileURLToPath(new URL('../evals/' + (data.root || '.') + '/', import.meta.url));

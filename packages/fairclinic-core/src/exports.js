@@ -41,7 +41,7 @@ export const EXPORTS = Object.freeze(Object.fromEntries([
   e('open_dental_claims', 'Open Dental', 'User query on the claim table (CSV; database column names)', ['ClaimNum', 'DateSent', 'ClaimFee', 'ClaimStatus']),
   e('eaglesoft_treatment_plans', 'Eaglesoft', 'Treatment plan report, exported to CSV', ['Patient', 'Plan Status', 'Date Planned', 'Treatment Fee']),
   e('curve_recall', 'Curve Dental', 'Recall list export (CSV)', ['Patient', 'Recall Type', 'Recall Due', 'Next Appointment']),
-  e('denticon_production', 'Denticon', 'Production and collections by provider, exported to CSV', ['Provider', 'Gross Production', 'Adjustments', 'Collections']),
+  e('denticon_production', 'Denticon', 'Production and collections by provider, exported to CSV', ['Provider Name', 'Gross Prod', 'Net Prod', 'Total Collections']),
   e('dentrix_adjustments', 'Dentrix', 'Adjustments by type report, exported to CSV', ['Adjustment Type', 'Patient Name', 'Entered By', 'Amount']),
   // Veterinary practice-management exports (column names as recalled; none checked against documentation or a live account)
   e('avimark_controlled_log', 'AVImark', 'Controlled drug log report, exported to CSV', ['Drug', 'Date', 'Quantity', 'Running Balance', 'Initials']),

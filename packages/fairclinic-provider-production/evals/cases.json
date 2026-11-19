@@ -1,0 +1,254 @@
+{
+  "suite": "fairclinic-provider-production",
+  "root": "..",
+  "data_note": "Fictional provider production in ../fixtures, July to October 2026. No patient data. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "production_check",
+      "args": {
+        "production": "fixtures/production-by-provider.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.providers": 4,
+          "result.months": 4,
+          "result.gross_production": 514300,
+          "result.adjustments": 135300,
+          "result.net_production": 379000,
+          "result.collections": 371300,
+          "result.collection_pct": 97.97,
+          "result.to_review": 4
+        }
+      }
+    },
+    {
+      "id": "statuses",
+      "tool": "production_check",
+      "args": {
+        "production": "fixtures/production-by-provider.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.production_drop": 1,
+          "result.by_status.low_collections": 1,
+          "result.by_status.high_adjustments": 1,
+          "result.by_status.missing_month": 1,
+          "result.by_status.ok": 12
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "production_check",
+      "args": {
+        "production": "fixtures/production-by-provider.csv"
+      },
+      "expect": {
+        "contains": [
+          "Collections are 87.89% of net production (31200 of 35500)",
+          "Adjustments are 40.3% of gross production",
+          "Gross production 31000 is 34.69% below this provider's other months",
+          "No row for Hana Test RDH in 2026-09"
+        ]
+      }
+    },
+    {
+      "id": "by-provider",
+      "tool": "production_by_provider",
+      "args": {
+        "production": "fixtures/production-by-provider.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.by_provider.1.provider": "Dr. Ben Sample",
+          "result.by_provider.1.collection_pct": 95.59,
+          "result.by_provider.2.months": 3
+        }
+      }
+    },
+    {
+      "id": "looser-target",
+      "tool": "production_check",
+      "args": {
+        "production": "fixtures/production-by-provider.csv",
+        "settings": "fixtures/settings-loose.json"
+      },
+      "expect": {
+        "equals": {
+          "result.to_review": 2
+        }
+      }
+    },
+    {
+      "id": "denticon-layout",
+      "tool": "production_check",
+      "args": {
+        "production": "fixtures/exports/denticon-production.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gross_production": 89900,
+          "result.collections": 66800,
+          "result.months": 1
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "production_check",
+      "args": {
+        "production": "fixtures/production-by-provider.csv",
+        "status": "missing_month"
+      },
+      "expect": {
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "production_check",
+      "args": {
+        "production": "fixtures/production-by-provider.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "drop_percent"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "production_write_report",
+      "args": {
+        "production": "fixtures/production-by-provider.csv",
+        "out_dir": "fairclinic-out/evals/production"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "production-by-provider.csv",
+          "production-by-provider.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "production_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "production_check",
+      "args": {
+        "production": "../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "production_check",
+      "mode": "review",
+      "args": {
+        "production": "fixtures/production-by-provider.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.providers": 4,
+          "result.months": 4,
+          "result.gross_production": 514300,
+          "result.adjustments": 135300,
+          "result.net_production": 379000,
+          "result.collections": 371300,
+          "result.collection_pct": 97.97,
+          "result.to_review": 4
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "production_check",
+      "args": {
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "production"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "production_check",
+      "args": {
+        "production": "fixtures/production-by-provider.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "production_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "production_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-payroll_change",
+      "tool": "payroll_change",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    }
+  ]
+}
