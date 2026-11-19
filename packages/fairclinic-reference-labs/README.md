@@ -18,7 +18,7 @@ npx -y fairclinic-reference-labs mcp --root ./clinic-exports
 `npx -y fairclinic-reference-labs demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Reference Labs demo (fictional animal hospital, reference lab, pets and clients, November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-reference-labs-demo-VhCUhJ
+Fairclinic Reference Labs demo (fictional animal hospital, reference lab, pets and clients, November 2026)
 
 ▶ Check the files
   status: executed  decision: allow

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-vaccine-reminders": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-vaccine-reminders@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

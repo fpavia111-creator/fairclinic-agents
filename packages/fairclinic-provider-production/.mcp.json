@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-provider-production": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-provider-production@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

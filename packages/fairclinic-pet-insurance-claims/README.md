@@ -18,7 +18,7 @@ npx -y fairclinic-pet-insurance-claims mcp --root ./clinic-exports
 `npx -y fairclinic-pet-insurance-claims demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Pet Insurance Claims demo (fictional animal hospital, insurers, pets and clients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-pet-insurance-claims-demo-BfkDJk
+Fairclinic Pet Insurance Claims demo (fictional animal hospital, insurers, pets and clients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

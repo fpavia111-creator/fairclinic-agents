@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-wellness-plans": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-wellness-plans@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

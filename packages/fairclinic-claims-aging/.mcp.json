@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-claims-aging": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-claims-aging@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

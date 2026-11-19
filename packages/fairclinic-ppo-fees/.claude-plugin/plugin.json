@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-ppo-fees",
+  "version": "0.1.0",
+  "description": "Fairclinic PPO Fees: your office fee schedule against each PPO's allowed amounts and what each PPO actually allowed: lines allowed below the plan's own fee, office fees below a plan fee, codes missing from a schedule or from your fees, and the write-off percent per code and plan. It never sets fees or touches a contract.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-ppo-fees#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "ppo",
+    "fee-schedule",
+    "dental-insurance",
+    "write-offs"
+  ]
+}

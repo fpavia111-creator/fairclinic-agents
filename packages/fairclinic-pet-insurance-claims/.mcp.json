@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-pet-insurance-claims": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-pet-insurance-claims@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

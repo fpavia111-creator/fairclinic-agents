@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-patient-balances",
+  "version": "0.1.0",
+  "description": "Fairclinic Patient Balances: dental patient and guarantor balances aged, with the next step for each account: credits for a person to check, missed payment-plan payments, money over 90 days for collections review, no recent statement, waiting on insurance, small balances; and a plain balance reminder for one named person to send. Names and account numbers are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-patient-balances#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "accounts-receivable",
+    "patient-balances",
+    "statements",
+    "aging"
+  ]
+}

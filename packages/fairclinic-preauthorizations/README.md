@@ -18,7 +18,7 @@ npx -y fairclinic-preauthorizations mcp --root ./clinic-exports
 `npx -y fairclinic-preauthorizations demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Pre-authorizations demo (fictional dental practice, carriers and patients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-preauthorizations-demo-pSuHTe
+Fairclinic Pre-authorizations demo (fictional dental practice, carriers and patients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

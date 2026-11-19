@@ -18,7 +18,7 @@ npx -y fairclinic-supply-costs mcp --root ./clinic-exports
 `npx -y fairclinic-supply-costs demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Supply Costs demo (fictional practice and suppliers, August to October 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-supply-costs-demo-NxYRXc
+Fairclinic Supply Costs demo (fictional practice and suppliers, August to October 2026)
 
 ▶ Check the files
   status: executed  decision: allow

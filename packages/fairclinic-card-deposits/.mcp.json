@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-card-deposits": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-card-deposits@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

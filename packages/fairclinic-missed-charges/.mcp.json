@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-missed-charges": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-missed-charges@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

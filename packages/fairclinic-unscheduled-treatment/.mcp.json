@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-unscheduled-treatment": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-unscheduled-treatment@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

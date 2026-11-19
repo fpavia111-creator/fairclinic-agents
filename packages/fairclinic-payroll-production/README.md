@@ -18,7 +18,7 @@ npx -y fairclinic-payroll-production mcp --root ./clinic-exports
 `npx -y fairclinic-payroll-production demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Payroll Production demo (fictional clinic and staff, October 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-payroll-production-demo-ai2cpT
+Fairclinic Payroll Production demo (fictional clinic and staff, October 2026)
 
 ▶ Check the files
   status: executed  decision: allow

@@ -18,7 +18,7 @@ npx -y fairclinic-claims-aging mcp --root ./clinic-exports
 `npx -y fairclinic-claims-aging demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Claims Aging demo (fictional dental practice and patients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-claims-aging-demo-4VPvmV
+Fairclinic Claims Aging demo (fictional dental practice and patients, as of 2026-11-16)
 
 ▶ Age the open claims
   status: executed  decision: allow

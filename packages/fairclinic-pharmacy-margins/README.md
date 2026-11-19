@@ -18,7 +18,7 @@ npx -y fairclinic-pharmacy-margins mcp --root ./clinic-exports
 `npx -y fairclinic-pharmacy-margins demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Pharmacy Margins demo (fictional animal hospital price list) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-pharmacy-margins-demo-RMLmCn
+Fairclinic Pharmacy Margins demo (fictional animal hospital price list)
 
 ▶ Check the files
   status: executed  decision: allow

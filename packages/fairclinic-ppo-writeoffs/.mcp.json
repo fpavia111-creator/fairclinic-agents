@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-ppo-writeoffs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-ppo-writeoffs@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

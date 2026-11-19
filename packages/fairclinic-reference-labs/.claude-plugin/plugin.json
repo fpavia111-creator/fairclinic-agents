@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-reference-labs",
+  "version": "0.1.0",
+  "description": "Fairclinic Reference Labs: veterinary send-out tests on the reference lab's invoice matched to client charges for the same pet and date: tests not charged, charges below lab cost or under your markup rule, and send-out items charged with no test on the lab invoice. Pet and client names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-reference-labs#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "reference-lab",
+    "send-outs",
+    "charge-capture",
+    "lab-invoices"
+  ]
+}

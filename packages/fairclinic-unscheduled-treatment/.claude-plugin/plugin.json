@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-unscheduled-treatment",
+  "version": "0.1.0",
+  "description": "Fairclinic Unscheduled Treatment: dental treatment that was accepted or proposed and never booked, per patient, with fees, insurance estimates and benefits left before the benefit year ends; old plans set aside for the dentist; a plain letter to one patient for one named person to send. Patient names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-unscheduled-treatment#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "treatment-plans",
+    "unscheduled-treatment",
+    "case-acceptance",
+    "insurance-benefits"
+  ]
+}

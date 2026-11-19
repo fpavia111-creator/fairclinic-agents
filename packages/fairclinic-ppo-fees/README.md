@@ -18,20 +18,20 @@ npx -y fairclinic-ppo-fees mcp --root ./clinic-exports
 `npx -y fairclinic-ppo-fees demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic PPO Fees demo (fictional practice fee schedule and PPO plans) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-ppo-fees-demo-f94KjO
+Fairclinic PPO Fees demo (fictional practice fee schedule and PPO plans)
 
 ▶ Check the files
   status: executed  decision: allow
-  17 plan and code pair(s) across 2 plan(s), 5 to review: 2 allowed below the plan's own fee (62), 1 office fee(s) below the plan fee (about 32 left), 1 code(s) missing from a schedule, 1 with no office fee, 1 deep discount(s).
+  17 plan and code pair(s) across 2 plan(s), 5 to review: 1 allowed below the plan's own fee (30), 1 office fee(s) below the plan fee (about 32 left), 1 code(s) missing from a schedule, 1 with no office fee, 1 deep discount(s).
     paid_below_schedule  Example Dental PPO    D2740  fee    1180  plan    790
     no_office_fee        Example Dental PPO    D9110  fee       -  plan     75
-    paid_below_schedule  Sample Mutual Dental  D1110  fee     120  plan    128
+    fee_below_allowed    Sample Mutual Dental  D1110  fee     120  plan    128
     deep_discount        Sample Mutual Dental  D2740  fee    1180  plan    610
     not_in_schedule      Sample Mutual Dental  D2950  fee     330  plan      -
 
 ▶ Write the worklist for the team
   status: executed  decision: allow
-  PPO fee check written: 17 plan and code pair(s) across 2 plan(s), 5 to review: 2 allowed below the plan's own fee (62), 1 office fee(s) below the plan fee (about 32 left), 1 code(s) missing from a schedule, 1 with no office fee, 1 deep discount(s). Files: fairclinic-out/fees/fees-ppo-check.csv, fairclinic-out/fees/fees-ppo-check.html.
+  PPO fee check written: 17 plan and code pair(s) across 2 plan(s), 5 to review: 1 allowed below the plan's own fee (30), 1 office fee(s) below the plan fee (about 32 left), 1 code(s) missing from a schedule, 1 with no office fee, 1 deep discount(s). Files: fairclinic-out/fees/fees-ppo-check.csv, fairclinic-out/fees/fees-ppo-check.html.
 
 ▶ Agent tries pms update itself
   status: blocked  decision: block

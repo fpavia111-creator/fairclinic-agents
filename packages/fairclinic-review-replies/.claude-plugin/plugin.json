@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-review-replies",
+  "version": "0.1.0",
+  "description": "Fairclinic Review Replies: online reviews that need a reply (low ratings first, and those that mention health or care details), reply drafts that thank or invite a call and never confirm the reviewer is a patient or client, and a check of any proposed reply for wording that would disclose a visit, care, records, a date or a name. One named person posts; the agent never does. Reviewer names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-review-replies#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "online-reviews",
+    "reputation",
+    "privacy"
+  ]
+}

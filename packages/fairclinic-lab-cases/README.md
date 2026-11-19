@@ -18,7 +18,7 @@ npx -y fairclinic-lab-cases mcp --root ./clinic-exports
 `npx -y fairclinic-lab-cases demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Lab Cases demo (fictional dental practice, labs and patients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-lab-cases-demo-IFVSFx
+Fairclinic Lab Cases demo (fictional dental practice, labs and patients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-reference-labs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-reference-labs@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

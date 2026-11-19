@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-era-posting": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-era-posting@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

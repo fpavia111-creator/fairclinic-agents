@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-no-shows",
+  "version": "0.1.0",
+  "description": "Fairclinic No-shows: dental or veterinary appointments that were missed or cancelled late and not rebooked, repeat no-shows, no-show fees in your policy that were not charged (a person decides), no-show and late-cancellation rates by provider, and the scheduled value lost. It never books, messages or charges anyone. Patient names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-no-shows#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "no-shows",
+    "appointments",
+    "scheduling"
+  ]
+}

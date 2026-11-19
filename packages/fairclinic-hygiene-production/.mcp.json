@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-hygiene-production": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-hygiene-production@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

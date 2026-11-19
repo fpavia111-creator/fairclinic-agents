@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-boarding-grooming": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-boarding-grooming@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

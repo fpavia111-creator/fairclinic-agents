@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-recall-gaps",
+  "version": "0.1.0",
+  "description": "Fairclinic Recall Gaps: dental recall and hygiene patients who are overdue and not booked, missed a booked visit, are due soon, or have lapsed, with the last contact date; and how many hygiene visits leave with the next visit booked, per hygienist. Patient names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-recall-gaps#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "recall",
+    "hygiene",
+    "reappointment",
+    "patient-reactivation"
+  ]
+}

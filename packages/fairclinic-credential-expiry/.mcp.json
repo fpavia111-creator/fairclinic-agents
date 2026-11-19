@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-credential-expiry": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-credential-expiry@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

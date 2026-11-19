@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-sterilization-logs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-sterilization-logs@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

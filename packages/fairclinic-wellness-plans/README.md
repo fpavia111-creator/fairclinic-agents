@@ -18,7 +18,7 @@ npx -y fairclinic-wellness-plans mcp --root ./clinic-exports
 `npx -y fairclinic-wellness-plans demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Wellness Plans demo (fictional animal hospital, plans, pets and clients, October 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-wellness-plans-demo-OpTVNL
+Fairclinic Wellness Plans demo (fictional animal hospital, plans, pets and clients, October 2026)
 
 ▶ Check the files
   status: executed  decision: allow

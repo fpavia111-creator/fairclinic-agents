@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-pet-insurance-claims",
+  "version": "0.1.0",
+  "description": "Fairclinic Pet Insurance Claims: where each pet insurance claim stands: information requests from the insurer, direct payments that came in below the claim, claims drafted and not submitted, claims with no decision, and denials, with open amounts by insurer. It never submits a claim or charges a client. Pet and client names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-pet-insurance-claims#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "pet-insurance",
+    "claims",
+    "direct-pay",
+    "accounts-receivable"
+  ]
+}

@@ -28,7 +28,8 @@ function demoText(n) {
   const root = mkdtempSync(join(tmpdir(), `${n}-readme-`));
   try {
     const out = execFileSync(process.execPath, [join(PK, n, 'bin', `${n}.js`), 'demo'], { cwd: root, encoding: 'utf8', env: { ...process.env, NO_COLOR: '1' }, timeout: 60000 });
-    return out.replace(/ in \/[^\s,]*(?=,| )/g, '').replace(/\/tmp\/[^\s)]*/g, '<demo folder>').replace(/\r/g, '').trimEnd().split('\n').slice(0, 70).join('\n');
+    // Temporary folders differ on every run: drop them, POSIX (/tmp/...) and Windows (C:\...\Temp\...) alike.
+    return out.replace(/ in \/[^\s,]*(?=,| |$)/gm, '').replace(/ in [A-Za-z]:\\[^\s,]*(?=,| |$)/gm, '').replace(/\/tmp\/[^\s)]*/g, '<demo folder>').replace(/[A-Za-z]:\\[^\s)]*\\Temp\\[^\s)]*/g, '<demo folder>').replace(/\r/g, '').trimEnd().split('\n').slice(0, 70).join('\n');
   } finally { rmSync(root, { recursive: true, force: true }); }
 }
 

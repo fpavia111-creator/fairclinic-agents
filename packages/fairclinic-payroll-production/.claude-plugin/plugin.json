@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-payroll-production",
+  "version": "0.1.0",
+  "description": "Fairclinic Payroll Production: dental or veterinary payroll hours and pay against collections per pay period: payroll as a percent of collections, collections per paid hour, periods over your target or missing a collections figure, high overtime by employee, and totals by role. Not a wage-and-hour review; it never changes pay or runs payroll.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-payroll-production#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "payroll",
+    "labor-cost",
+    "practice-kpis"
+  ]
+}

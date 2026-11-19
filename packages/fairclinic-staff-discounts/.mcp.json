@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-staff-discounts": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-staff-discounts@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

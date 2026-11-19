@@ -18,7 +18,7 @@ npx -y fairclinic-inventory-expiry mcp --root ./clinic-exports
 `npx -y fairclinic-inventory-expiry demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Inventory Expiry demo (fictional animal hospital stock, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-inventory-expiry-demo-4MNxMI
+Fairclinic Inventory Expiry demo (fictional animal hospital stock, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-controlled-drugs",
+  "version": "0.1.0",
+  "description": "Fairclinic Controlled Drugs: reconciles a veterinary controlled drug log (DEA schedule items) with the physical count: the balance worked out from the entries against the written balance and the count, arithmetic errors that hide a difference, waste with no witness, use with no patient, entries with no initials. It reports the log; it never decides compliance or files anything. Pet and client names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-controlled-drugs#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "controlled-substances",
+    "dea",
+    "drug-log",
+    "inventory"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-provider-production",
+  "version": "0.1.0",
+  "description": "Fairclinic Provider Production: dental production, adjustments and collections per provider and month: net production, collections as a percent of net, adjustments as a percent of gross, months well below a provider's others, and months missing from the export. Not a pay calculation or a judgment of anyone's clinical work.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-provider-production#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "production",
+    "collections",
+    "practice-kpis",
+    "provider-production"
+  ]
+}

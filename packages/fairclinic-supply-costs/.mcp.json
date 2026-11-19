@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-supply-costs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-supply-costs@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

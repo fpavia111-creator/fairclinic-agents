@@ -1,0 +1,20 @@
+{
+  "name": "fairclinic-estimate-variance",
+  "version": "0.1.0",
+  "description": "Fairclinic Estimate Variance: veterinary treatment estimates against the final invoice: invoices well above the high estimate (check the client approved the increase), well below the low estimate (check nothing was left off), approved estimates never invoiced, and invoices raised on declined estimates. Pet and client names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-estimate-variance#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "estimates",
+    "invoicing",
+    "client-approval"
+  ]
+}

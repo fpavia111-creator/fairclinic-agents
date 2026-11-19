@@ -1,0 +1,20 @@
+{
+  "name": "fairclinic-staff-discounts",
+  "version": "0.1.0",
+  "description": "Fairclinic Staff Discounts: veterinary discounts and write-offs on invoices against your own policy: approved by the person who gave them or with no approver above your limit, staff discounts on accounts not on the staff list, discounts above your percent limit and discounts with no reason, with totals by the person who entered them. A flag is a question for a manager, not a finding about anyone. Client names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-staff-discounts#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "discounts",
+    "write-offs",
+    "internal-controls"
+  ]
+}

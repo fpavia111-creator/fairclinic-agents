@@ -18,7 +18,7 @@ npx -y fairclinic-no-shows mcp --root ./clinic-exports
 `npx -y fairclinic-no-shows demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic No-shows demo (fictional practice and patients, 2 to 13 November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-no-shows-demo-OQMI8l
+Fairclinic No-shows demo (fictional practice and patients, 2 to 13 November 2026)
 
 ▶ Check the files
   status: executed  decision: allow

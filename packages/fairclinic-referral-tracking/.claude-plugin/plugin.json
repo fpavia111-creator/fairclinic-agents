@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-referral-tracking",
+  "version": "0.1.0",
+  "description": "Fairclinic Referral Tracking: referrals sent to specialists with no report back, referrals received that were never seen, referring doctors not thanked, and new patients and production by referral source. It reads dates and practice names only, never clinical details, and sends nothing. Patient names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-referral-tracking#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "referrals",
+    "specialists",
+    "new-patients"
+  ]
+}

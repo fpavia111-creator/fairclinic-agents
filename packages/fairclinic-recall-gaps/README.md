@@ -18,7 +18,7 @@ npx -y fairclinic-recall-gaps mcp --root ./clinic-exports
 `npx -y fairclinic-recall-gaps demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Recall Gaps demo (fictional dental practice and patients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-recall-gaps-demo-lfhL8e
+Fairclinic Recall Gaps demo (fictional dental practice and patients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

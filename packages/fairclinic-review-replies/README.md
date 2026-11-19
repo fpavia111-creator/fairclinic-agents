@@ -18,7 +18,7 @@ npx -y fairclinic-review-replies mcp --root ./clinic-exports
 `npx -y fairclinic-review-replies demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Review Replies demo (fictional clinic and reviews, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-review-replies-demo-jHNyBM
+Fairclinic Review Replies demo (fictional clinic and reviews, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

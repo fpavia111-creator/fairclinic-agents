@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-no-shows": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-no-shows@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

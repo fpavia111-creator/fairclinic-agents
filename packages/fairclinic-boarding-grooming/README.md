@@ -18,7 +18,7 @@ npx -y fairclinic-boarding-grooming mcp --root ./clinic-exports
 `npx -y fairclinic-boarding-grooming demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Boarding and Grooming demo (fictional animal hospital, pets and clients, November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-boarding-grooming-demo-UiP5UO
+Fairclinic Boarding and Grooming demo (fictional animal hospital, pets and clients, November 2026)
 
 ▶ Check the files
   status: executed  decision: allow

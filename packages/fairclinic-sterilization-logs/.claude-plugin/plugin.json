@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-sterilization-logs",
+  "version": "0.1.0",
+  "description": "Fairclinic Sterilization Logs: gaps and open items in sterilizer cycle logs and spore test logs: entries without a result, number or initials, failed cycles with no rerun logged, missing cycle numbers, long gaps between spore tests while a sterilizer was in use, and positive spore tests with no retest logged. A log completeness check, never a compliance determination.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-sterilization-logs#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "sterilization",
+    "infection-control",
+    "autoclave-log"
+  ]
+}

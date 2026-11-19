@@ -18,7 +18,7 @@ npx -y fairclinic-credential-expiry mcp --root ./clinic-exports
 `npx -y fairclinic-credential-expiry demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Credential Expiry demo (fictional practice, people and credentials, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-credential-expiry-demo-LCBfkF
+Fairclinic Credential Expiry demo (fictional practice, people and credentials, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

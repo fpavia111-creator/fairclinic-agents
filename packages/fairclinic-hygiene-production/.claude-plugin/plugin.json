@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-hygiene-production",
+  "version": "0.1.0",
+  "description": "Fairclinic Hygiene Production: dental hygiene production per worked hour for each hygienist, unfilled schedule time, the share of periodontal visits among cleanings, and production on days missing from the hours file. Not a pay calculation or a view on patient care.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-hygiene-production#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "hygiene",
+    "production-per-hour",
+    "hygiene-schedule",
+    "practice-kpis"
+  ]
+}

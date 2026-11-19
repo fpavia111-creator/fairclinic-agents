@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-ppo-fees": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-ppo-fees@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

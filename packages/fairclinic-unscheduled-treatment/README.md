@@ -18,7 +18,7 @@ npx -y fairclinic-unscheduled-treatment mcp --root ./clinic-exports
 `npx -y fairclinic-unscheduled-treatment demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Unscheduled Treatment demo (fictional dental practice and patients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-unscheduled-treatment-demo-En7868
+Fairclinic Unscheduled Treatment demo (fictional dental practice and patients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

@@ -18,7 +18,7 @@ npx -y fairclinic-referral-tracking mcp --root ./clinic-exports
 `npx -y fairclinic-referral-tracking demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Referral Tracking demo (fictional practices and patients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-referral-tracking-demo-zTE4sX
+Fairclinic Referral Tracking demo (fictional practices and patients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

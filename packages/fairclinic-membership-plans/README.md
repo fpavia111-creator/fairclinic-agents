@@ -18,7 +18,7 @@ npx -y fairclinic-membership-plans mcp --root ./clinic-exports
 `npx -y fairclinic-membership-plans demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Membership Plans demo (fictional dental practice and members, October 2026, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-membership-plans-demo-3HEtCh
+Fairclinic Membership Plans demo (fictional dental practice and members, October 2026, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

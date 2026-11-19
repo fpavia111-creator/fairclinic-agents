@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-pharmacy-margins": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-pharmacy-margins@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

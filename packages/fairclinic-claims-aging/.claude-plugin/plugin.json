@@ -1,0 +1,23 @@
+{
+  "name": "fairclinic-claims-aging",
+  "version": "0.1.0",
+  "description": "Fairclinic Claims Aging: dental insurance claims still unpaid, aged by date sent, with follow-up dates, timely-filing risk, unsent and duplicate claims, and a payer follow-up letter for one named person to send. Patient names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-claims-aging#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "dental-billing",
+    "insurance-claims",
+    "claims-aging",
+    "dentrix",
+    "eaglesoft",
+    "open-dental"
+  ]
+}

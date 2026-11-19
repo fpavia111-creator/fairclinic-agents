@@ -18,7 +18,7 @@ npx -y fairclinic-estimate-variance mcp --root ./clinic-exports
 `npx -y fairclinic-estimate-variance demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Estimate Variance demo (fictional animal hospital, pets and clients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-estimate-variance-demo-nol4hX
+Fairclinic Estimate Variance demo (fictional animal hospital, pets and clients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

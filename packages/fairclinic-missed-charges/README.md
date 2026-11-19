@@ -18,7 +18,7 @@ npx -y fairclinic-missed-charges mcp --root ./clinic-exports
 `npx -y fairclinic-missed-charges demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Missed Charges demo (fictional animal hospital, pets and clients, 12 and 13 November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-missed-charges-demo-P30jDw
+Fairclinic Missed Charges demo (fictional animal hospital, pets and clients, 12 and 13 November 2026)
 
 ▶ Check the files
   status: executed  decision: allow

@@ -1,0 +1,22 @@
+{
+  "name": "fairclinic-boarding-grooming",
+  "version": "0.1.0",
+  "description": "Fairclinic Boarding and Grooming: boarding, daycare and grooming reservations against invoice lines: stays with no invoice, fewer nights or days invoiced than stayed, and booked add-ons not invoiced, valued at your list prices. It never changes an invoice or charges a client. Pet and client names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-boarding-grooming#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "boarding",
+    "grooming",
+    "daycare",
+    "invoicing",
+    "shepherd"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-client-balances": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-client-balances@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

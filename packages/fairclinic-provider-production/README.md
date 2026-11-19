@@ -18,7 +18,7 @@ npx -y fairclinic-provider-production mcp --root ./clinic-exports
 `npx -y fairclinic-provider-production demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Provider Production demo (fictional dental practice, July to October 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-provider-production-demo-NOv8Y3
+Fairclinic Provider Production demo (fictional dental practice, July to October 2026)
 
 ▶ Check the files
   status: executed  decision: allow
@@ -71,7 +71,7 @@ Named exports recognised by their column names:
 
 | System | Export | Recognised by | Layout checked against vendor docs |
 |---|---|---|---|
-| Denticon | Production and collections by provider, exported to CSV | Provider, Gross Production, Adjustments, Collections | no |
+| Denticon | Production and collections by provider, exported to CSV | Provider Name, Gross Prod, Net Prod, Total Collections | no |
 
 Where a layout says "checked", its column names were compared with the publisher's template or documentation on that date (the CMS price-transparency templates, the pfs.data.cms.gov column lists and Open Dental's published procedure log fields). The NCCI, MUE and RVU file headers and the other practice-management and clearinghouse layouts were written from knowledge of the export and were not checked; where the vendor's public help says something about the export, the layout's note says what. None was tested against a live account.
 

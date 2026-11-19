@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-controlled-drugs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-controlled-drugs@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

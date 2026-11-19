@@ -18,7 +18,7 @@ npx -y fairclinic-ppo-writeoffs mcp --root ./clinic-exports
 `npx -y fairclinic-ppo-writeoffs demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic PPO Write-offs demo (fictional dental practice, staff and patients, November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-ppo-writeoffs-demo-zQjj9G
+Fairclinic PPO Write-offs demo (fictional dental practice, staff and patients, November 2026)
 
 ▶ Check the files
   status: executed  decision: allow

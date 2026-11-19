@@ -18,7 +18,7 @@ npx -y fairclinic-sterilization-logs mcp --root ./clinic-exports
 `npx -y fairclinic-sterilization-logs demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Sterilization Logs demo (fictional clinic and sterilizers, 2 to 13 November 2026, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-sterilization-logs-demo-oBIYtf
+Fairclinic Sterilization Logs demo (fictional clinic and sterilizers, 2 to 13 November 2026, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

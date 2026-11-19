@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-client-balances",
+  "version": "0.1.0",
+  "description": "Fairclinic Client Balances: veterinary client accounts receivable with the next step for each account: credits and unapplied deposits for a person to check, money over 90 days for collections review, no recent statement, and small balances. It never refunds, applies money or sends anyone to collections. Client names and account numbers are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-client-balances#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "accounts-receivable",
+    "client-balances",
+    "aging",
+    "statements"
+  ]
+}

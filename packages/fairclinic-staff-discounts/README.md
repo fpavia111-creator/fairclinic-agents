@@ -18,7 +18,7 @@ npx -y fairclinic-staff-discounts mcp --root ./clinic-exports
 `npx -y fairclinic-staff-discounts demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Staff Discounts demo (fictional animal hospital, staff and clients, November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-staff-discounts-demo-NVf7PN
+Fairclinic Staff Discounts demo (fictional animal hospital, staff and clients, November 2026)
 
 ▶ Check the files
   status: executed  decision: allow

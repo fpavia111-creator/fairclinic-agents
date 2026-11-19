@@ -1,0 +1,22 @@
+{
+  "name": "fairclinic-inventory-expiry",
+  "version": "0.1.0",
+  "description": "Fairclinic Inventory Expiry: veterinary or dental stock by lot: expired stock still on hand, stock expiring soon and lots with no expiry date, valued at cost; and shrink or overage from opening, received, used and counted. It never disposes of, returns or writes off stock.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-inventory-expiry#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "dental",
+    "inventory",
+    "expiry",
+    "shrink",
+    "covetrus"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-lab-cases": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-lab-cases@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

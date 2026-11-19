@@ -1,0 +1,20 @@
+{
+  "name": "fairclinic-wellness-plans",
+  "version": "0.1.0",
+  "description": "Fairclinic Wellness Plans: a month of veterinary wellness plan billing and plan use: failed, missed and wrong charges, services used beyond what the plan includes, and early cancellations where the services used are worth more than the fees paid. It never charges, retries or refunds. Pet and client names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-wellness-plans#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "wellness-plans",
+    "recurring-billing",
+    "preventive-care-plans"
+  ]
+}

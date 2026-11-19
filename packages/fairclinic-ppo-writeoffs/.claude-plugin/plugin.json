@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-ppo-writeoffs",
+  "version": "0.1.0",
+  "description": "Fairclinic PPO Write-offs: dental adjustments and write-offs split into contractual (PPO) and discretionary, with write-off percent of production by carrier and discretionary adjustments by the person who entered them; flags duplicates, contractual write-offs for out-of-network carriers or no carrier, adjustments without a reason, and large ones. Patient names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-ppo-writeoffs#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "write-offs",
+    "adjustments",
+    "ppo",
+    "dental-billing"
+  ]
+}

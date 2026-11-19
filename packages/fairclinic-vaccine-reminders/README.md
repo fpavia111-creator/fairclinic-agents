@@ -18,17 +18,17 @@ npx -y fairclinic-vaccine-reminders mcp --root ./clinic-exports
 `npx -y fairclinic-vaccine-reminders demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Vaccine Reminders demo (fictional animal hospital, pets and clients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-vaccine-reminders-demo-odDwqE
+Fairclinic Vaccine Reminders demo (fictional animal hospital, pets and clients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow
   10 reminder(s), 8 for active pets, 37.5% not yet due. 4 overdue and not booked. 5 to act on: 1 reminder(s) sent for pets marked deceased or inactive, 2 overdue with no recent reminder, 1 with no way to reach the client, 1 due soon with no reminder.
-    overdue_no_contact    Feline  Rabies 1 year    Overdue 14 days (due 2026-11-02), not booked, no reminder recorded.
     sent_to_inactive      Canine  DHPP             A reminder went out on 2026-11-02 for a pet marked deceased. Check the reminder settings for this pet.
-    no_contact_info       Canine  Bordetella       Overdue 93 days and there is no e-mail or phone on file to remind the client.
-    overdue_reminded      Feline  Rabies 1 year    Overdue 27 days; reminded 6 day(s) ago.
     overdue_no_contact    Feline  FVRCP            Overdue 47 days (due 2026-09-30), not booked, last reminder 76 days ago.
+    overdue_no_contact    Feline  Rabies 1 year    Overdue 14 days (due 2026-11-02), not booked, no reminder recorded.
+    no_contact_info       Canine  Bordetella       Overdue 93 days and there is no e-mail or phone on file to remind the client.
     due_soon_no_reminder  Canine  Rabies 3 year    Due in 9 day(s) (2026-11-25) and no reminder recorded.
+    overdue_reminded      Feline  Rabies 1 year    Overdue 27 days; reminded 6 day(s) ago.
 
 ▶ Write the worklist for the team
   status: executed  decision: allow

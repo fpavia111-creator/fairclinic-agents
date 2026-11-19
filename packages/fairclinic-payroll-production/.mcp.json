@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-payroll-production": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-payroll-production@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

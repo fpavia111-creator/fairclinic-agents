@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-recall-gaps": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-recall-gaps@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

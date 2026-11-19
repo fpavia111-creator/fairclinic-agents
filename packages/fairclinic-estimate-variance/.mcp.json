@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-estimate-variance": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-estimate-variance@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

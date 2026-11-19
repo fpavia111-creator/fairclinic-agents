@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-preauthorizations": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-preauthorizations@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

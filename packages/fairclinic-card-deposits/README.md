@@ -18,7 +18,7 @@ npx -y fairclinic-card-deposits mcp --root ./clinic-exports
 `npx -y fairclinic-card-deposits demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Card Deposits demo (fictional clinic, processor and bank, November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-card-deposits-demo-pUmVBh
+Fairclinic Card Deposits demo (fictional clinic, processor and bank, November 2026)
 
 ▶ Check the files
   status: executed  decision: allow

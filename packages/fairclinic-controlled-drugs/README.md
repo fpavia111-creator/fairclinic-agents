@@ -18,7 +18,7 @@ npx -y fairclinic-controlled-drugs mcp --root ./clinic-exports
 `npx -y fairclinic-controlled-drugs demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Controlled Drugs demo (fictional animal hospital, drugs, pets and staff, November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-controlled-drugs-demo-6BgNji
+Fairclinic Controlled Drugs demo (fictional animal hospital, drugs, pets and staff, November 2026)
 
 ▶ Check the files
   status: executed  decision: allow
@@ -78,7 +78,7 @@ Named exports recognised by their column names:
 
 | System | Export | Recognised by | Layout checked against vendor docs |
 |---|---|---|---|
-| AVImark | Controlled drug log report, exported to CSV | Drug, Date, Quantity, Running Balance, Initials | no |
+| AVImark | Controlled drug log report, exported to CSV | Drug Name, Trans Date, Qty, Balance, Initials | no |
 
 Where a layout says "checked", its column names were compared with the publisher's template or documentation on that date (the CMS price-transparency templates, the pfs.data.cms.gov column lists and Open Dental's published procedure log fields). The NCCI, MUE and RVU file headers and the other practice-management and clearinghouse layouts were written from knowledge of the export and were not checked; where the vendor's public help says something about the export, the layout's note says what. None was tested against a live account.
 

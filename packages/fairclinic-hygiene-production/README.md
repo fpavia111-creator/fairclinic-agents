@@ -18,7 +18,7 @@ npx -y fairclinic-hygiene-production mcp --root ./clinic-exports
 `npx -y fairclinic-hygiene-production demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Hygiene Production demo (fictional dental practice and hygienists, 2 to 6 November 2026) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-hygiene-production-demo-WerOYI
+Fairclinic Hygiene Production demo (fictional dental practice and hygienists, 2 to 6 November 2026)
 
 ▶ Check the files
   status: executed  decision: allow

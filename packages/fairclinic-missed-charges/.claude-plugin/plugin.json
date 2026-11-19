@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-missed-charges",
+  "version": "0.1.0",
+  "description": "Fairclinic Missed Charges: what a veterinary treatment sheet or medical record says was done, against what was invoiced, matched by visit (or pet and date) and item: items not invoiced, quantities invoiced short, lines at no charge to confirm, and invoiced items missing from the record, valued from your price list. Pet and client names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-missed-charges#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "missed-charges",
+    "charge-capture",
+    "invoicing",
+    "ezyvet"
+  ]
+}

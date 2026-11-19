@@ -18,7 +18,7 @@ npx -y fairclinic-client-balances mcp --root ./clinic-exports
 `npx -y fairclinic-client-balances demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic Client Balances demo (fictional animal hospital and clients, as of 2026-11-16) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-client-balances-demo-ekdvVc
+Fairclinic Client Balances demo (fictional animal hospital and clients, as of 2026-11-16)
 
 ▶ Check the files
   status: executed  decision: allow

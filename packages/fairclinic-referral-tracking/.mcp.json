@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-referral-tracking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-referral-tracking@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

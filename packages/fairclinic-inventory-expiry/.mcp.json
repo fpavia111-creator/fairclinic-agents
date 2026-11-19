@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairclinic-inventory-expiry": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairclinic-inventory-expiry@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

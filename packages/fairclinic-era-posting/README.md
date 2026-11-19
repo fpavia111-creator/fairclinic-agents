@@ -18,7 +18,7 @@ npx -y fairclinic-era-posting mcp --root ./clinic-exports
 `npx -y fairclinic-era-posting demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
-Fairclinic ERA Posting demo (fictional dental practice, carriers and patients) in C:\Users\fpavi\AppData\Local\Temp\fairclinic-era-posting-demo-FIYbU4
+Fairclinic ERA Posting demo (fictional dental practice, carriers and patients)
 
 ▶ Check the files
   status: executed  decision: allow

@@ -1,0 +1,21 @@
+{
+  "name": "fairclinic-lab-cases",
+  "version": "0.1.0",
+  "description": "Fairclinic Lab Cases: the dental lab case log against seat appointments, billing and lab invoices: cases not back for the seat appointment, overdue from the lab, seated and not billed, remakes charged, duplicate invoices, invoices for cases not in the log or not back yet, and returned cases with no invoice. It never pays a lab or changes a case. Patient names are masked before results reach the model.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-lab-cases#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "dental-lab",
+    "lab-cases",
+    "lab-invoices",
+    "accounts-payable"
+  ]
+}

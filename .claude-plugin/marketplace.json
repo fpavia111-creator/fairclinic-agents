@@ -1,491 +1,492 @@
 {
-  "name": "fairclinic-medical-billing",
+  "name": "fairclinic-agents",
   "owner": {
-    "name": "Fairclinic"
+    "name": "Mythos Machines"
   },
   "metadata": {
-    "description": "Thirty medical billing agents. Each reads your exported files (835, 837, 999, 277CA, 271, 278 or spreadsheets), masks patient identifiers before results reach the model, writes worklists locally and waits for a named person before anything is sent, refunded or paid."
+    "description": "Back-office agents for dental practices and veterinary clinics. Each reads files the clinic already exports (practice-management reports, 835 remittances, pet-insurance and processor exports), masks patient, pet and client names before results reach the model, writes worklists locally and waits for one named person before anything is sent, filed, refunded or paid."
   },
   "plugins": [
     {
-      "name": "aloe-of-statements",
-      "source": "./packages/aloe-of-statements",
-      "description": "Plans each patient statement cycle: who gets a first, second or final statement, who is held (insurance still pending, payment plan, dispute, estate or bankruptcy, bad address, small balance, recent payment) and who reaches collections review, and drafts a plain-language statement for a person to send. Patient identifiers are masked before results reach the model.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-boarding-grooming",
+      "source": "./packages/fairclinic-boarding-grooming",
+      "description": "Fairclinic Boarding and Grooming: boarding, daycare and grooming reservations against invoice lines: stays with no invoice, fewer nights or days invoiced than stayed, and booked add-ons not invoiced, valued at your list prices. It never changes an invoice or charges a client. Pet and client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "patient-statements",
-        "self-pay",
-        "dunning",
-        "patient-balance"
+        "practice-management",
+        "veterinary",
+        "boarding",
+        "grooming",
+        "daycare",
+        "invoicing",
+        "shepherd"
       ]
     },
     {
-      "name": "angelica-of-prices",
-      "source": "./packages/angelica-of-prices",
-      "description": "Hospital price transparency without the fines: checks a machine-readable file against the CMS v3.0 tall CSV template (headers, attestation, code pairs, the twelve conditional rules), compares it with the chargemaster, and computes the median, 10th and 90th percentile allowed amounts and counts from 835s the CMS way.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-card-deposits",
+      "source": "./packages/fairclinic-card-deposits",
+      "description": "Fairclinic Card Deposits: card processor batches against bank deposits and the practice system's card totals: batches that never arrived, deposits at a different amount, chargebacks, days where the practice system differs, high fees, and card deposits that match no batch. It never responds to disputes, refunds or posts anything.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "price-transparency",
-        "hospital",
-        "cms",
-        "mrf"
-      ]
-    },
-    {
-      "name": "anise-of-dental",
-      "source": "./packages/anise-of-dental",
-      "description": "Dental claims that go out right: checks tooth numbers, surfaces against the restoration code, anterior and posterior codes, quadrants for scaling and root planing, frequency limits against the patient's history, extracted teeth, crown replacement windows and the attachments payers ask for, from an 837D or a practice export.",
-      "version": "0.2.0",
-      "category": "medical-billing",
-      "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
+        "practice-management",
         "dental",
-        "cdt",
-        "837d"
+        "veterinary",
+        "payment-processing",
+        "bank-reconciliation",
+        "card-deposits",
+        "chargebacks"
       ]
     },
     {
-      "name": "basil-of-eligibility",
-      "source": "./packages/basil-of-eligibility",
-      "description": "Reads 271 eligibility responses against the appointment list and flags visits with inactive coverage, member not found, plan ending before the visit, another payer primary or no response, with copay and deductible to collect.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-claims-aging",
+      "source": "./packages/fairclinic-claims-aging",
+      "description": "Fairclinic Claims Aging: dental insurance claims still unpaid, aged by date sent, with follow-up dates, timely-filing risk, unsent and duplicate claims, and a payer follow-up letter for one named person to send. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "271",
-        "eligibility",
-        "verification",
-        "front-desk"
+        "practice-management",
+        "dental",
+        "dental-billing",
+        "insurance-claims",
+        "claims-aging",
+        "dentrix",
+        "eaglesoft",
+        "open-dental"
       ]
     },
     {
-      "name": "borage-of-estimates",
-      "source": "./packages/borage-of-estimates",
-      "description": "Keeps good faith estimates for self-pay and uninsured patients on time: counts business days from scheduling or request to each estimate's due date, finds missing and late estimates, compares final bills with estimates per provider against the 400-dollar dispute threshold, and drafts an estimate for a person to send. Patient identifiers are masked before results reach the model.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-client-balances",
+      "source": "./packages/fairclinic-client-balances",
+      "description": "Fairclinic Client Balances: veterinary client accounts receivable with the next step for each account: credits and unapplied deposits for a person to check, money over 90 days for collections review, no recent statement, and small balances. It never refunds, applies money or sends anyone to collections. Client names and account numbers are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "good-faith-estimate",
-        "no-surprises-act",
-        "self-pay",
-        "price-estimate"
-      ]
-    },
-    {
-      "name": "caraway-of-anesthesia",
-      "source": "./packages/caraway-of-anesthesia",
-      "description": "Anesthesia claims priced and paired right: computes base, time, physical-status and qualifying-circumstance units, checks start and stop times, AA, QK, QY, QX, QZ and AD against how many rooms the anesthesiologist covered at once, pairs each CRNA claim with its medical direction, and flags overlaps.",
-      "version": "0.2.0",
-      "category": "medical-billing",
-      "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "anesthesia",
-        "crna",
-        "asa",
-        "medical-direction"
-      ]
-    },
-    {
-      "name": "chamomile-of-ar",
-      "source": "./packages/chamomile-of-ar",
-      "description": "Chamomile of A/R: ages open insurance balances by payer and bucket, warns before timely-filing limits pass, finds claims filed late or with no payer response, and builds the follow-up call queue by dollars and age.",
-      "version": "0.2.0",
-      "category": "medical-billing",
-      "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
+        "practice-management",
+        "veterinary",
         "accounts-receivable",
+        "client-balances",
         "aging",
-        "timely-filing",
-        "follow-up"
+        "statements"
       ]
     },
     {
-      "name": "clover-of-charges",
-      "source": "./packages/clover-of-charges",
-      "description": "Matches completed visits to charges: finds visits with no charge, charges with no visit or on a cancelled one, late charge entry, missing expected codes, and E/M level mix by provider against peers. Patient identifiers are masked before results reach the model.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-controlled-drugs",
+      "source": "./packages/fairclinic-controlled-drugs",
+      "description": "Fairclinic Controlled Drugs: reconciles a veterinary controlled drug log (DEA schedule items) with the physical count: the balance worked out from the entries against the written balance and the count, arithmetic errors that hide a difference, waste with no witness, use with no patient, entries with no initials. It reports the log; it never decides compliance or files anything. Pet and client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
+        "practice-management",
+        "veterinary",
+        "controlled-substances",
+        "dea",
+        "drug-log",
+        "inventory"
+      ]
+    },
+    {
+      "name": "fairclinic-credential-expiry",
+      "source": "./packages/fairclinic-credential-expiry",
+      "description": "Fairclinic Credential Expiry: dental and veterinary licences, DEA registrations, state permits, radiation registrations and malpractice insurance: expired, expiring with no renewal submitted, missing expiry dates, and CE hours short of what the next renewal needs. It never files a renewal or contacts a board, the DEA or an insurer.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "dental",
+        "veterinary",
+        "credentialing",
+        "license-expiry",
+        "dea-registration"
+      ]
+    },
+    {
+      "name": "fairclinic-era-posting",
+      "source": "./packages/fairclinic-era-posting",
+      "description": "Fairclinic ERA Posting: reads dental ERAs (835 files or remittance exports) and compares each claim with what was posted in the practice system: payments not posted, posted amounts that differ, contractual write-offs that differ from the ERA, denials written off as contractual, reversals, postings that are not on the ERA, and check totals that do not tie. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "dental",
+        "dental-billing",
+        "era",
+        "835",
+        "remittance",
+        "payment-posting"
+      ]
+    },
+    {
+      "name": "fairclinic-estimate-variance",
+      "source": "./packages/fairclinic-estimate-variance",
+      "description": "Fairclinic Estimate Variance: veterinary treatment estimates against the final invoice: invoices well above the high estimate (check the client approved the increase), well below the low estimate (check nothing was left off), approved estimates never invoiced, and invoices raised on declined estimates. Pet and client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "veterinary",
+        "estimates",
+        "invoicing",
+        "client-approval"
+      ]
+    },
+    {
+      "name": "fairclinic-hygiene-production",
+      "source": "./packages/fairclinic-hygiene-production",
+      "description": "Fairclinic Hygiene Production: dental hygiene production per worked hour for each hygienist, unfilled schedule time, the share of periodontal visits among cleanings, and production on days missing from the hours file. Not a pay calculation or a view on patient care.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "dental",
+        "hygiene",
+        "production-per-hour",
+        "hygiene-schedule",
+        "practice-kpis"
+      ]
+    },
+    {
+      "name": "fairclinic-inventory-expiry",
+      "source": "./packages/fairclinic-inventory-expiry",
+      "description": "Fairclinic Inventory Expiry: veterinary or dental stock by lot: expired stock still on hand, stock expiring soon and lots with no expiry date, valued at cost; and shrink or overage from opening, received, used and counted. It never disposes of, returns or writes off stock.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "veterinary",
+        "dental",
+        "inventory",
+        "expiry",
+        "shrink",
+        "covetrus"
+      ]
+    },
+    {
+      "name": "fairclinic-lab-cases",
+      "source": "./packages/fairclinic-lab-cases",
+      "description": "Fairclinic Lab Cases: the dental lab case log against seat appointments, billing and lab invoices: cases not back for the seat appointment, overdue from the lab, seated and not billed, remakes charged, duplicate invoices, invoices for cases not in the log or not back yet, and returned cases with no invoice. It never pays a lab or changes a case. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "dental",
+        "dental-lab",
+        "lab-cases",
+        "lab-invoices",
+        "accounts-payable"
+      ]
+    },
+    {
+      "name": "fairclinic-membership-plans",
+      "source": "./packages/fairclinic-membership-plans",
+      "description": "Fairclinic Membership Plans: a month of in-house dental membership (savings) plan billing against the roster: missed and failed charges, wrong amounts, charges after cancelling, plan use after a membership ended, annual renewals due or lapsed, and charges for people not on the roster. It never charges, retries or refunds. Member names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "dental",
+        "membership-plan",
+        "in-house-plan",
+        "dental-savings-plan",
+        "recurring-billing"
+      ]
+    },
+    {
+      "name": "fairclinic-missed-charges",
+      "source": "./packages/fairclinic-missed-charges",
+      "description": "Fairclinic Missed Charges: what a veterinary treatment sheet or medical record says was done, against what was invoiced, matched by visit (or pet and date) and item: items not invoiced, quantities invoiced short, lines at no charge to confirm, and invoiced items missing from the record, valued from your price list. Pet and client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "veterinary",
+        "missed-charges",
         "charge-capture",
-        "charge-lag",
-        "em-levels"
+        "invoicing",
+        "ezyvet"
       ]
     },
     {
-      "name": "cumin-of-dme",
-      "source": "./packages/cumin-of-dme",
-      "description": "DME claims and rentals kept straight: checks rental and purchase modifiers, the capped-rental month (KH, KI, KJ) and the 13-month cap, oxygen months, right and left on paired items, prior authorization, the order before delivery and units, and tracks every rental to its next modifier.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-no-shows",
+      "source": "./packages/fairclinic-no-shows",
+      "description": "Fairclinic No-shows: dental or veterinary appointments that were missed or cancelled late and not rebooked, repeat no-shows, no-show fees in your policy that were not charged (a person decides), no-show and late-cancellation rates by provider, and the scheduled value lost. It never books, messages or charges anyone. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "dme",
-        "dmepos",
-        "rentals",
-        "hcpcs"
+        "practice-management",
+        "dental",
+        "veterinary",
+        "no-shows",
+        "appointments",
+        "scheduling"
       ]
     },
     {
-      "name": "dill-of-modifiers",
-      "source": "./packages/dill-of-modifiers",
-      "description": "Checks the modifiers on each claim line before it goes out: missing 25 on an E/M with a procedure, 25 or 57 on the wrong code, conflicting pairs, 59 with X modifiers, missing laterality, bilateral units, repeat modifiers with no first service, pricing order, and payer rules. Patient identifiers are masked before results reach the model.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-patient-balances",
+      "source": "./packages/fairclinic-patient-balances",
+      "description": "Fairclinic Patient Balances: dental patient and guarantor balances aged, with the next step for each account: credits for a person to check, missed payment-plan payments, money over 90 days for collections review, no recent statement, waiting on insurance, small balances; and a plain balance reminder for one named person to send. Names and account numbers are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "modifiers",
-        "modifier-25",
-        "modifier-59",
-        "laterality"
+        "practice-management",
+        "dental",
+        "accounts-receivable",
+        "patient-balances",
+        "statements",
+        "aging"
       ]
     },
     {
-      "name": "fennel-of-remits",
-      "source": "./packages/fennel-of-remits",
-      "description": "Matches 835 remittances to bank deposits by trace number, then amount and date, explains provider-level adjustments (recoveries, interest, levies), and drafts the payer inquiry for money without a remittance or a remittance without money.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-payroll-production",
+      "source": "./packages/fairclinic-payroll-production",
+      "description": "Fairclinic Payroll Production: dental or veterinary payroll hours and pay against collections per pay period: payroll as a percent of collections, collections per paid hour, periods over your target or missing a collections figure, high overtime by employee, and totals by role. Not a wage-and-hour review; it never changes pay or runs payroll.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "835",
-        "era",
-        "eft",
-        "reconciliation",
-        "plb"
+        "practice-management",
+        "dental",
+        "veterinary",
+        "payroll",
+        "labor-cost",
+        "practice-kpis"
       ]
     },
     {
-      "name": "ginger-of-edits",
-      "source": "./packages/ginger-of-edits",
-      "description": "Checks claims against the CMS NCCI procedure-to-procedure edits and medically unlikely edits files you download, by date of service, with the modifier indicator, bypass modifiers and MUE adjudication indicator, plus payer pair edits your team adds.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-pet-insurance-claims",
+      "source": "./packages/fairclinic-pet-insurance-claims",
+      "description": "Fairclinic Pet Insurance Claims: where each pet insurance claim stands: information requests from the insurer, direct payments that came in below the claim, claims drafted and not submitted, claims with no decision, and denials, with open amounts by insurer. It never submits a claim or charges a client. Pet and client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "ncci",
-        "mue",
-        "ptp",
-        "bundling",
-        "coding"
+        "practice-management",
+        "veterinary",
+        "pet-insurance",
+        "claims",
+        "direct-pay",
+        "accounts-receivable"
       ]
     },
     {
-      "name": "hyssop-of-fees",
-      "source": "./packages/hyssop-of-fees",
-      "description": "Prices each code on your fee schedule from the Medicare RVU and GPCI files (RVU x GPCI x conversion factor), finds fees below what payers would allow (money left on the table when payers pay the lesser of charge or allowed), below your target percent of Medicare, or with no Medicare price, and drafts a fee update for a person to approve.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-pharmacy-margins",
+      "source": "./packages/fairclinic-pharmacy-margins",
+      "description": "Fairclinic Pharmacy Margins: veterinary in-house pharmacy prices against cost: items priced below cost, cost rises not passed on, margins under your target with the gap on quantities sold, and prescription items with no dispensing fee. It never changes a price.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
+        "practice-management",
+        "veterinary",
+        "pharmacy",
+        "pricing",
+        "margins",
+        "inventory"
+      ]
+    },
+    {
+      "name": "fairclinic-ppo-fees",
+      "source": "./packages/fairclinic-ppo-fees",
+      "description": "Fairclinic PPO Fees: your office fee schedule against each PPO's allowed amounts and what each PPO actually allowed: lines allowed below the plan's own fee, office fees below a plan fee, codes missing from a schedule or from your fees, and the write-off percent per code and plan. It never sets fees or touches a contract.",
+      "version": "0.1.0",
+      "category": "practice-management",
+      "keywords": [
+        "practice-management",
+        "dental",
+        "ppo",
         "fee-schedule",
-        "chargemaster",
-        "rvu",
-        "gpci",
-        "pfs"
+        "dental-insurance",
+        "write-offs"
       ]
     },
     {
-      "name": "laurel-of-contracts",
-      "source": "./packages/laurel-of-contracts",
-      "description": "Compares what each payer pays per code against Medicare and each other, weighted by your volume, flags rates below your floor, keeps a calendar of contract end dates and notice deadlines (auto-renewal traps), and drafts a rate request for a person to send.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-ppo-writeoffs",
+      "source": "./packages/fairclinic-ppo-writeoffs",
+      "description": "Fairclinic PPO Write-offs: dental adjustments and write-offs split into contractual (PPO) and discretionary, with write-off percent of production by carrier and discretionary adjustments by the person who entered them; flags duplicates, contractual write-offs for out-of-network carriers or no carrier, adjustments without a reason, and large ones. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "payer-contracts",
-        "rates",
-        "renegotiation",
-        "contract-renewal"
+        "practice-management",
+        "dental",
+        "write-offs",
+        "adjustments",
+        "ppo",
+        "dental-billing"
       ]
     },
     {
-      "name": "lavender-of-credentialing",
-      "source": "./packages/lavender-of-credentialing",
-      "description": "Keeps provider credentialing and payer enrollment on track: license, DEA, board and malpractice expirations, CAQH re-attestation every 120 days, NPI check digits, enrollments pending too long, denied or not yet effective, and revalidation dates, with a work list and a calendar (.ics) of every due date.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-preauthorizations",
+      "source": "./packages/fairclinic-preauthorizations",
+      "description": "Fairclinic Pre-authorizations: dental pre-authorizations and pre-treatment estimates that need a person: no answer from the carrier, approved but not scheduled, expiring or expired before the work is done, scheduled or done after the approval ran out, reduced or denied, or never sent. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "credentialing",
-        "enrollment",
-        "caqh",
-        "revalidation",
-        "ics"
+        "practice-management",
+        "dental",
+        "preauthorization",
+        "predetermination",
+        "pre-treatment-estimate"
       ]
     },
     {
-      "name": "lovage-of-telehealth",
-      "source": "./packages/lovage-of-telehealth",
-      "description": "Telehealth claims coded the way each payer wants: checks place of service 02 or 10 against where the patient was, the 95, GT, 93 or FQ modifiers by payer, audio-only against video codes, deleted phone codes, the provider's license in the patient's state, consent for virtual check-ins, and same-day in-person visits.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-provider-production",
+      "source": "./packages/fairclinic-provider-production",
+      "description": "Fairclinic Provider Production: dental production, adjustments and collections per provider and month: net production, collections as a percent of net, adjustments as a percent of gross, months well below a provider's others, and months missing from the export. Not a pay calculation or a judgment of anyone's clinical work.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "telehealth",
-        "virtual-care",
-        "pos"
+        "practice-management",
+        "dental",
+        "production",
+        "collections",
+        "practice-kpis",
+        "provider-production"
       ]
     },
     {
-      "name": "mallow-of-kpis",
-      "source": "./packages/mallow-of-kpis",
-      "description": "Revenue cycle KPIs from your own claims and remittances: denial rate, first-pass rate, net collection, days to pay, days in A/R and unanswered claims, by payer, month and provider, against the targets you set.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-recall-gaps",
+      "source": "./packages/fairclinic-recall-gaps",
+      "description": "Fairclinic Recall Gaps: dental recall and hygiene patients who are overdue and not booked, missed a booked visit, are due soon, or have lapsed, with the last contact date; and how many hygiene visits leave with the next visit booked, per hygienist. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "kpi",
-        "dashboard",
-        "denial-rate",
-        "days-in-ar",
-        "net-collection"
+        "practice-management",
+        "dental",
+        "recall",
+        "hygiene",
+        "reappointment",
+        "patient-reactivation"
       ]
     },
     {
-      "name": "marjoram-of-registration",
-      "source": "./packages/marjoram-of-registration",
-      "description": "Checks patient registration and insurance records before the visit: member id shape per payer and Medicare MBI format, missing or impossible birth dates, subscriber and guarantor gaps, ended coverage, the same plan entered twice, and likely duplicate charts. Patient identifiers are masked before results reach the model.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-reference-labs",
+      "source": "./packages/fairclinic-reference-labs",
+      "description": "Fairclinic Reference Labs: veterinary send-out tests on the reference lab's invoice matched to client charges for the same pet and date: tests not charged, charges below lab cost or under your markup rule, and send-out items charged with no test on the lab invoice. Pet and client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "registration",
-        "demographics",
-        "mbi",
-        "duplicates"
+        "practice-management",
+        "veterinary",
+        "reference-lab",
+        "send-outs",
+        "charge-capture",
+        "lab-invoices"
       ]
     },
     {
-      "name": "mint-of-authorizations",
-      "source": "./packages/mint-of-authorizations",
-      "description": "Matches claims or scheduled services to your prior-authorization log and 278 responses, and flags services with no authorization, expired or not-yet-valid dates, codes not on the authorization, units used up, pended or denied reviews, and authorizations about to run out.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-referral-tracking",
+      "source": "./packages/fairclinic-referral-tracking",
+      "description": "Fairclinic Referral Tracking: referrals sent to specialists with no report back, referrals received that were never seen, referring doctors not thanked, and new patients and production by referral source. It reads dates and practice names only, never clinical details, and sends nothing. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "prior-authorization",
-        "278",
-        "utilization-review"
+        "practice-management",
+        "dental",
+        "veterinary",
+        "referrals",
+        "specialists",
+        "new-patients"
       ]
     },
     {
-      "name": "nettle-of-audits",
-      "source": "./packages/nettle-of-audits",
-      "description": "Coding audits without the spreadsheet: draws a reproducible random sample of charges per provider, gives the auditor a worksheet, then scores the results (agree, upcoded, downcoded, wrong code, modifier or diagnosis error, not supported) with accuracy and dollar impact by provider.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-review-replies",
+      "source": "./packages/fairclinic-review-replies",
+      "description": "Fairclinic Review Replies: online reviews that need a reply (low ratings first, and those that mention health or care details), reply drafts that thank or invite a call and never confirm the reviewer is a patient or client, and a check of any proposed reply for wording that would disclose a visit, care, records, a date or a name. One named person posts; the agent never does. Reviewer names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "coding-audit",
-        "compliance",
-        "e-m"
+        "practice-management",
+        "dental",
+        "veterinary",
+        "online-reviews",
+        "reputation",
+        "privacy"
       ]
     },
     {
-      "name": "rosemary-of-appeals",
-      "source": "./packages/rosemary-of-appeals",
-      "description": "Drafts a first-level appeal for a denied claim with quotes from the payer policies you supply (file and line), tracks every appeal against its filing deadline and the payer's response time, and never sends anything itself.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-staff-discounts",
+      "source": "./packages/fairclinic-staff-discounts",
+      "description": "Fairclinic Staff Discounts: veterinary discounts and write-offs on invoices against your own policy: approved by the person who gave them or with no approver above your limit, staff discounts on accounts not on the staff list, discounts above your percent limit and discounts with no reason, with totals by the person who entered them. A flag is a question for a manager, not a finding about anyone. Client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "appeals",
-        "denials",
-        "payer-policy"
+        "practice-management",
+        "veterinary",
+        "discounts",
+        "write-offs",
+        "internal-controls"
       ]
     },
     {
-      "name": "sage-of-claims",
-      "source": "./packages/sage-of-claims",
-      "description": "Scrubs 837 claims (or claim exports) before they go out, catching the errors payers reject on: NPIs, payer and member ids, dates, totals, codes, modifiers, diagnosis pointers, place of service, corrected-claim references and prior authorizations.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-sterilization-logs",
+      "source": "./packages/fairclinic-sterilization-logs",
+      "description": "Fairclinic Sterilization Logs: gaps and open items in sterilizer cycle logs and spore test logs: entries without a result, number or initials, failed cycles with no rerun logged, missing cycle numbers, long gaps between spore tests while a sterilizer was in use, and positive spore tests with no retest logged. A log completeness check, never a compliance determination.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "837",
-        "claim-scrubber",
-        "clean-claims",
-        "npi"
+        "practice-management",
+        "dental",
+        "veterinary",
+        "sterilization",
+        "infection-control",
+        "autoclave-log"
       ]
     },
     {
-      "name": "savory-of-plans",
-      "source": "./packages/savory-of-plans",
-      "description": "Tracks patient payment plans against your policy: installments due after a grace period, missed payments and plans to review for default, plans paid off or ahead, monthly amounts and terms outside your policy, plan options for a new balance, and a draft plan agreement for a person to send. Patient identifiers are masked before results reach the model.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-supply-costs",
+      "source": "./packages/fairclinic-supply-costs",
+      "description": "Fairclinic Supply Costs: dental or veterinary supplier invoices against production: supplies as a percent of production by month, unit prices up from the last price paid, the same line twice on an invoice, and categories far above their other months. It never pays a supplier or places an order.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "payment-plans",
-        "installments",
-        "patient-financing"
+        "practice-management",
+        "dental",
+        "veterinary",
+        "supply-costs",
+        "accounts-payable",
+        "practice-kpis"
       ]
     },
     {
-      "name": "sorrel-of-payers",
-      "source": "./packages/sorrel-of-payers",
-      "description": "Scores each payer from your 835s and claim submissions: days to pay, denial rate and top denial reasons, share of billed paid, reversals, and a month-by-month trend, against your targets. Patient identifiers are masked before results reach the model.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-unscheduled-treatment",
+      "source": "./packages/fairclinic-unscheduled-treatment",
+      "description": "Fairclinic Unscheduled Treatment: dental treatment that was accepted or proposed and never booked, per patient, with fees, insurance estimates and benefits left before the benefit year ends; old plans set aside for the dentist; a plain letter to one patient for one named person to send. Patient names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "payer-scorecard",
-        "days-to-pay",
-        "denial-rate"
+        "practice-management",
+        "dental",
+        "treatment-plans",
+        "unscheduled-treatment",
+        "case-acceptance",
+        "insurance-benefits"
       ]
     },
     {
-      "name": "tansy-of-credits",
-      "source": "./packages/tansy-of-credits",
-      "description": "Works the credit balance report: tells patient credits from payer overpayments, counts days against each payer's refund deadline (60 days from identification for Medicare by default), finds credits that should go to an open balance first or are nearing unclaimed-property age, and drafts each refund for a person to approve. Patient identifiers are masked before results reach the model.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-vaccine-reminders",
+      "source": "./packages/fairclinic-vaccine-reminders",
+      "description": "Fairclinic Vaccine Reminders: reads the veterinary practice system's reminder list for pets that are overdue and not booked, overdue with no recent reminder, due soon with no reminder, clients with no e-mail or phone, and reminders sent for pets marked deceased or inactive. Due dates come from your system; it never sets a schedule or sends a reminder. Pet and client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "credit-balances",
-        "refunds",
-        "overpayments",
-        "unclaimed-property"
+        "practice-management",
+        "veterinary",
+        "vaccine-reminders",
+        "compliance-rate",
+        "client-communication",
+        "cornerstone"
       ]
     },
     {
-      "name": "tarragon-of-labs",
-      "source": "./packages/tarragon-of-labs",
-      "description": "Lab claims that get paid: checks the CLIA number and certificate (QW on waived tests, nothing outside a waiver), finds panel components billed one by one or with their panel, venipuncture more than once a day, repeats without 91, diagnoses that do not support a test, and tests ordered more often than your rules allow.",
-      "version": "0.2.0",
-      "category": "medical-billing",
+      "name": "fairclinic-wellness-plans",
+      "source": "./packages/fairclinic-wellness-plans",
+      "description": "Fairclinic Wellness Plans: a month of veterinary wellness plan billing and plan use: failed, missed and wrong charges, services used beyond what the plan includes, and early cancellations where the services used are worth more than the fees paid. It never charges, retries or refunds. Pet and client names are masked before results reach the model.",
+      "version": "0.1.0",
+      "category": "practice-management",
       "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "lab",
-        "clia",
-        "panels"
-      ]
-    },
-    {
-      "name": "thyme-of-underpayments",
-      "source": "./packages/thyme-of-underpayments",
-      "description": "Compares what payers allowed on each 835 line with your contract (fee schedule, percent of Medicare or percent of charge, with modifier and multiple-procedure rules) and drafts the reprocessing request for a person to send.",
-      "version": "0.2.0",
-      "category": "medical-billing",
-      "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "835",
-        "underpayments",
-        "contracts",
-        "fee-schedule"
-      ]
-    },
-    {
-      "name": "verbena-of-rejects",
-      "source": "./packages/verbena-of-rejects",
-      "description": "Reads 999 and 277CA acknowledgements, ties each syntax error to the claim and segment in the 837 you sent, lists front-end rejections with what to fix, and flags claims that were never acknowledged.",
-      "version": "0.2.0",
-      "category": "medical-billing",
-      "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "999",
-        "277ca",
-        "rejections",
-        "acknowledgements"
-      ]
-    },
-    {
-      "name": "vervain-of-onboarding",
-      "source": "./packages/vervain-of-onboarding",
-      "description": "Go-live readiness for a new practice: checks the billing NPI, tax ID and billing address, the provider roster, every payer's EDI, ERA, EFT and credentialing enrollment, payer IDs and the fee schedule against the charges you will bill, and lists the blockers before go-live.",
-      "version": "0.2.0",
-      "category": "medical-billing",
-      "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "onboarding",
-        "go-live",
-        "enrollment",
-        "era",
-        "eft",
-        "edi",
-        "credentialing",
-        "setup"
-      ]
-    },
-    {
-      "name": "yarrow-of-denials",
-      "source": "./packages/yarrow-of-denials",
-      "description": "Sorts 835 denials by reason code and root cause into a worklist with the team and next step for each, learns payer-specific code meanings a person accepts, and never resubmits or appeals on its own.",
-      "version": "0.2.0",
-      "category": "medical-billing",
-      "keywords": [
-        "medical-billing",
-        "revenue-cycle",
-        "healthcare",
-        "denials",
-        "835",
-        "era",
-        "carc",
-        "rarc"
+        "practice-management",
+        "veterinary",
+        "wellness-plans",
+        "recurring-billing",
+        "preventive-care-plans"
       ]
     }
   ]
