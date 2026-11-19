@@ -1,0 +1,8 @@
+Estimate,Client,Patient,Date,Low,High,Approved
+E1,Nadia Brennan,Biscuit,2026-11-02,400.00,550.00,Yes
+E2,Tobias Achterberg,Juniper,2026-11-03,1200.00,1500.00,Yes
+E3,Ines Mwangi,Mochi,2026-11-05,300.00,380.00,Yes
+E4,Felix Oduya,Pepper,2026-10-01,800.00,950.00,Yes
+E5,Clara Benedetti,Ziggy,2026-11-08,150.00,200.00,Declined
+E6,Jonah Whitfield,Olive,2026-11-09,600.00,700.00,Yes
+E7,Mei Tanaka-Ross,Noodle,2026-11-14,250.00,320.00,Yes

@@ -1,0 +1,19 @@
+{
+  "suite": "fairclinic-estimate-variance",
+  "root": "..",
+  "data_note": "Fictional estimates and invoices in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "estimates_check", "args": { "estimates": "fixtures/estimates.csv", "invoices": "fixtures/invoices.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.estimates": 7, "result.invoiced": 5, "result.to_review": 4, "result.above_estimate": 390, "result.by_status.invoiced_without_approval": 1, "result.by_status.over_high": 1, "result.by_status.under_low": 1, "result.by_status.not_invoiced": 1, "result.by_status.ok": 2, "result.by_status.open": 1 } } },
+    { "id": "reasons", "tool": "estimates_check", "args": { "estimates": "fixtures/estimates.csv", "invoices": "fixtures/invoices.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["Invoiced 1890, 26% above the high estimate of 1500", "Invoiced 210, 30% below the low estimate of 300", "Approved on 2026-10-01 (46 days ago) for 800 to 950", "The estimate is marked declined and 180 was invoiced"] } },
+    { "id": "stricter-over", "tool": "estimates_check", "args": { "estimates": "fixtures/estimates.csv", "invoices": "fixtures/invoices.csv", "settings": "fixtures/settings-strict.json", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.over_high": 2 } } },
+    { "id": "status-filter", "tool": "estimates_check", "args": { "estimates": "fixtures/estimates.csv", "invoices": "fixtures/invoices.csv", "as_of": "2026-11-16", "status": "open" },
+      "expect": { "length": { "result.items": 1 } } },
+    { "id": "settings-typo-refused", "tool": "estimates_check", "args": { "estimates": "fixtures/estimates.csv", "invoices": "fixtures/invoices.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["over_percent"] } },
+    { "id": "write-report", "tool": "estimates_write_report", "args": { "estimates": "fixtures/estimates.csv", "invoices": "fixtures/invoices.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/estimates" },
+      "expect": { "status": "executed", "contains": ["estimates-variance.csv", "estimates-variance.html"] } }
+  ]
+}

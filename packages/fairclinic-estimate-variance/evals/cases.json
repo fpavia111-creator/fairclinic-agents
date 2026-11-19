@@ -1,0 +1,267 @@
+{
+  "suite": "fairclinic-estimate-variance",
+  "root": "..",
+  "data_note": "Fictional estimates and invoices in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "estimates_check",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.estimates": 7,
+          "result.invoiced": 5,
+          "result.to_review": 4,
+          "result.above_estimate": 390,
+          "result.by_status.invoiced_without_approval": 1,
+          "result.by_status.over_high": 1,
+          "result.by_status.under_low": 1,
+          "result.by_status.not_invoiced": 1,
+          "result.by_status.ok": 2,
+          "result.by_status.open": 1
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "estimates_check",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "Invoiced 1890, 26% above the high estimate of 1500",
+          "Invoiced 210, 30% below the low estimate of 300",
+          "Approved on 2026-10-01 (46 days ago) for 800 to 950",
+          "The estimate is marked declined and 180 was invoiced"
+        ]
+      }
+    },
+    {
+      "id": "stricter-over",
+      "tool": "estimates_check",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings-strict.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.over_high": 2
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "estimates_check",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "as_of": "2026-11-16",
+        "status": "open"
+      },
+      "expect": {
+        "length": {
+          "result.items": 1
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "estimates_check",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "over_percent"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "estimates_write_report",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "as_of": "2026-11-16",
+        "out_dir": "fairclinic-out/evals/estimates"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "estimates-variance.csv",
+          "estimates-variance.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "estimates_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "estimates_check",
+      "args": {
+        "estimates": "../../outside.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "estimates_check",
+      "mode": "review",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.estimates": 7,
+          "result.invoiced": 5,
+          "result.to_review": 4,
+          "result.above_estimate": 390,
+          "result.by_status.invoiced_without_approval": 1,
+          "result.by_status.over_high": 1,
+          "result.by_status.under_low": 1,
+          "result.by_status.not_invoiced": 1,
+          "result.by_status.ok": 2,
+          "result.by_status.open": 1
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "estimates_check",
+      "args": {
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "estimates"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "estimates_check",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "estimates_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "estimates_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-refund_issue",
+      "tool": "refund_issue",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-message_send",
+      "tool": "message_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "estimates_check",
+      "args": {
+        "estimates": "fixtures/estimates.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Biscuit",
+          "Juniper",
+          "Mochi",
+          "Pepper",
+          "Ziggy",
+          "Olive",
+          "Noodle",
+          "Nadia Brennan",
+          "Tobias Achterberg",
+          "Ines Mwangi",
+          "Felix Oduya",
+          "Clara Benedetti"
+        ]
+      }
+    }
+  ]
+}
