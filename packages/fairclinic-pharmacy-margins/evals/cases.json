@@ -1,0 +1,229 @@
+{
+  "suite": "fairclinic-pharmacy-margins",
+  "root": "..",
+  "data_note": "Fictional pharmacy price list and sales in ../fixtures. No patient data. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "pharmacy_check",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv",
+        "sales": "fixtures/sales-month.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_checked": 7,
+          "result.to_review": 4,
+          "result.by_status.below_cost": 1,
+          "result.by_status.cost_rise_not_passed": 1,
+          "result.by_status.low_margin": 1,
+          "result.by_status.no_dispensing_fee": 1,
+          "result.gap_to_target": 2103.64
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "pharmacy_check",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv",
+        "sales": "fixtures/sales-month.csv"
+      },
+      "expect": {
+        "contains": [
+          "Priced at 46, below its cost of 48; 40 sold lose 80",
+          "Cost went from 8.9 to 9.8 (+10.11%) and the price stayed at 14.5",
+          "Margin 40% of price; your target is 45%. At target the price would be about 0.22, 54.55 more on 3000 sold",
+          "A prescription item with no dispensing fee"
+        ]
+      }
+    },
+    {
+      "id": "without-sales",
+      "tool": "pharmacy_check",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.gap_to_target": 0,
+          "result.to_review": 4
+        }
+      }
+    },
+    {
+      "id": "lower-target",
+      "tool": "pharmacy_check",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv",
+        "settings": "fixtures/settings-30.json"
+      },
+      "expect": {
+        "equals": {
+          "result.to_review": 3
+        },
+        "not_contains": [
+          "your target is 30%"
+        ]
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "pharmacy_check",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv",
+        "status": "ok"
+      },
+      "expect": {
+        "length": {
+          "result.items": 3
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "pharmacy_check",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "target_margin"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "pharmacy_write_report",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv",
+        "sales": "fixtures/sales-month.csv",
+        "out_dir": "fairclinic-out/evals/pharmacy"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "pharmacy-margins.csv",
+          "pharmacy-margins.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "pharmacy_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "pharmacy_check",
+      "args": {
+        "prices": "../../outside.csv",
+        "sales": "fixtures/sales-month.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "pharmacy_check",
+      "mode": "review",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv",
+        "sales": "fixtures/sales-month.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_checked": 7,
+          "result.to_review": 4,
+          "result.by_status.below_cost": 1,
+          "result.by_status.cost_rise_not_passed": 1,
+          "result.by_status.low_margin": 1,
+          "result.by_status.no_dispensing_fee": 1,
+          "result.gap_to_target": 2103.64
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "pharmacy_check",
+      "args": {
+        "sales": "fixtures/sales-month.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "prices"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "pharmacy_check",
+      "args": {
+        "prices": "fixtures/pharmacy-prices.csv",
+        "sales": "fixtures/sales-month.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "pharmacy_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "pharmacy_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-order_place",
+      "tool": "order_place",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    }
+  ]
+}

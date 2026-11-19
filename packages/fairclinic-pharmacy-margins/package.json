@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-pharmacy-margins",
+  "version": "0.1.0",
+  "description": "Fairclinic Pharmacy Margins: veterinary in-house pharmacy prices against cost: items priced below cost, cost rises not passed on, margins under your target with the gap on quantities sold, and prescription items with no dispensing fee. It never changes a price.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-pharmacy-margins": "bin/fairclinic-pharmacy-margins.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-pharmacy-margins.js demo",
+    "eval": "node bin/fairclinic-pharmacy-margins.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-pharmacy-margins"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-pharmacy-margins#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "pharmacy",
+    "pricing",
+    "margins",
+    "inventory"
+  ]
+}
