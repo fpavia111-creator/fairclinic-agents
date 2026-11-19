@@ -97,7 +97,18 @@ Also from the other families' lessons: a `.gitattributes` keeps code, docs and f
 
 | Check (fresh clone, `git clone -c core.autocrlf=true`, `npm install --offline`, Windows 10, Node 24.20.0) | Result |
 |---|---|
-FINAL_BAR_ROWS
+| Clone and install | `git clone -c core.autocrlf=true` of commit 5fbe62c: only the 11 legacy-encoding intl fixtures check out with CRLF (on purpose); `npm install --offline` exit 0 (no dependency outside the repository) |
+| `try_it` demo | `node packages/fairclinic-claims-aging/bin/fairclinic-claims-aging.js demo`: exit 0, also with every Node network call (fetch, sockets, HTTP, DNS) made to throw |
+| `npm test` | 811 tests in 33 workspaces, 811 pass (core 134; agents 20 to 22 each). After the estimate-variance fix below: 812 |
+| `npm run evals` | 616 cases across 32 agents, 0 failed |
+| `npm run accuracy` / `npm run model-view` | the clean sets match the specs; 180/180, 0 on 468 clean rows, 96/96; 0 of 225 canaries in any result |
+| `npm run hostile` | 32 agents, 3,085 calls, 933 planted values (the clean sets add files), 0 calls refused or held because of planted data, 0 findings |
+| `npm run hostile:args` | 32 agents in six parallel groups, 16,292 calls (null, numbers, arrays, 200,000-character strings, `../` and absolute paths in every argument of every tool), 933 planted values, 0 findings |
+| `npm run intl` | 409 cases with spreadsheet inputs in 8 languages: every case that passes in English passes in every language (167 of 399 column names have a local word) |
+| `npm run bench -- --sizes 10000` | 75 tools across 32 agents, all executed under 10 s, 0 flagged. The slowest was the estimate-variance report at 9.8 s and 749 MB (6.4 s alone): each item repeated every invoice number of its estimate. Fixed after the run: 2.2 s and 162 MB, with a test |
+| `npm run readme:check` / `plugin:check` | pass / pass, on the CRLF-prone clone |
+| `npm run release:check:offline` | exit 0: 33 packages, metadata in order, working tree clean, secret scan clean (1,030 tracked files), honest copy clean (100 files), 7 one-click categories and none set to allow, no paid tier, `npm pack` of 33 packages (584 KB, no tests, state, output, keys or `.npmrc`) |
+| `npm view` for all 33 names | all 33 still free (E404), 19 Nov 2026 |
 
 ### Kurt's five questions
 
@@ -126,7 +137,7 @@ No public data fits the other 28 agents: they read a practice's own records (cla
 
 ### What changed in this pass
 
-Code: ERA posting (PLB and claim-less payments), credential expiry (board files and status), PPO fees (one-plan payer schedules, `not_offered`), pre-authorizations (no "expiring" when the visit is booked in time), Missed Charges demo (passes its settings), core masking (`strict` masks staff names), core scaffold (product names), core exports catalogue (a `tested` basis with source and date). Tests: 3 new domain tests (ERA provider adjustments, board credential file, schedule codes not offered), 1 new core test (strict masking of staff names), stronger scaffold, catalogue and pre-authorization tests; eval cases for the one-plan schedule. Tooling: `scripts/accuracy.mjs` with `accuracy-specs.mjs` and `fixtures/clean/` in every agent, `model-view.mjs`, `realdata.mjs`, `rules-doc.mjs`, `demo-args.mjs`, `.gitattributes`, CR-tolerant checks. Docs: `docs/accuracy-…`, `model-view-…`, `realdata-…`, `rules-…` (all 2026-11-19), `sales/final-pass.json`, the README checks paragraph.
+Code: ERA posting (PLB and claim-less payments), credential expiry (board files and status), PPO fees (one-plan payer schedules, `not_offered`), pre-authorizations (no "expiring" when the visit is booked in time), Missed Charges demo (passes its settings), core masking (`strict` masks staff names), core scaffold (product names), core exports catalogue (a `tested` basis with source and date), estimate variance (each invoice number once, at most ten; found by the bench). Tests: 4 new domain tests (ERA provider adjustments, board credential file, schedule codes not offered, invoice numbers listed once), 1 new core test (strict masking of staff names), stronger scaffold, catalogue and pre-authorization tests; eval cases for the one-plan schedule. Tooling: `scripts/accuracy.mjs` with `accuracy-specs.mjs` and `fixtures/clean/` in every agent, `model-view.mjs`, `realdata.mjs`, `rules-doc.mjs`, `demo-args.mjs`, `.gitattributes`, CR-tolerant checks. Docs: `docs/accuracy-…`, `model-view-…`, `realdata-…`, `rules-…` (all 2026-11-19), `sales/final-pass.json`, the README checks paragraph.
 
 ### For Kurt to decide
 
