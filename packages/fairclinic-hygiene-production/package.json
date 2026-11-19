@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-hygiene-production",
+  "version": "0.1.0",
+  "description": "Fairclinic Hygiene Production: dental hygiene production per worked hour for each hygienist, unfilled schedule time, the share of periodontal visits among cleanings, and production on days missing from the hours file. Not a pay calculation or a view on patient care.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-hygiene-production": "bin/fairclinic-hygiene-production.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-hygiene-production.js demo",
+    "eval": "node bin/fairclinic-hygiene-production.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-hygiene-production"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-hygiene-production#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "hygiene",
+    "production-per-hour",
+    "hygiene-schedule",
+    "practice-kpis"
+  ]
+}

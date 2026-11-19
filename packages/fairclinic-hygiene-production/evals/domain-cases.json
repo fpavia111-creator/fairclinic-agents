@@ -1,0 +1,21 @@
+{
+  "suite": "fairclinic-hygiene-production",
+  "root": "..",
+  "data_note": "Fictional hygiene hours and procedures in ../fixtures. No patient data. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "hygiene_check", "args": { "hours": "fixtures/hygiene-hours.csv", "procedures": "fixtures/hygiene-procedures.csv", "settings": "fixtures/settings.json" },
+      "expect": { "status": "executed", "equals": { "result.hygienists": 3, "result.production": 7980, "result.worked_hours": 48.5, "result.production_per_hour": 159.59, "result.open_hours": 7.5, "result.to_review": 2 } } },
+    { "id": "per-hygienist", "tool": "hygiene_check", "args": { "hours": "fixtures/hygiene-hours.csv", "procedures": "fixtures/hygiene-procedures.csv" },
+      "expect": { "equals": { "result.items.0.production_per_hour": 186.67, "result.items.0.perio_share_pct": 34.78, "result.items.1.status": "below_target", "result.items.1.open_pct": 25, "result.items.1.perio_share_pct": 14.29, "result.items.2.status": "no_hours", "result.items.2.production_per_hour": 150 } } },
+    { "id": "reasons", "tool": "hygiene_check", "args": { "hours": "fixtures/hygiene-hours.csv", "procedures": "fixtures/hygiene-procedures.csv" },
+      "expect": { "contains": ["240 of production on 2026-11-06 with no hours", "130 per worked hour (2340 over 18 hours)", "6 of 24 scheduled hours were unfilled (25%)"] } },
+    { "id": "lower-target", "tool": "hygiene_check", "args": { "hours": "fixtures/hygiene-hours.csv", "procedures": "fixtures/hygiene-procedures.csv", "settings": "fixtures/settings-low.json" },
+      "expect": { "equals": { "result.items.1.status": "open_time", "result.to_review": 2 } } },
+    { "id": "status-filter", "tool": "hygiene_check", "args": { "hours": "fixtures/hygiene-hours.csv", "procedures": "fixtures/hygiene-procedures.csv", "status": "ok" },
+      "expect": { "length": { "result.items": 1 } } },
+    { "id": "settings-typo-refused", "tool": "hygiene_check", "args": { "hours": "fixtures/hygiene-hours.csv", "procedures": "fixtures/hygiene-procedures.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["target_hourly"] } },
+    { "id": "write-report", "tool": "hygiene_write_report", "args": { "hours": "fixtures/hygiene-hours.csv", "procedures": "fixtures/hygiene-procedures.csv", "out_dir": "fairclinic-out/evals/hygiene" },
+      "expect": { "status": "executed", "contains": ["hygiene-production.csv", "hygiene-production.html"] } }
+  ]
+}
