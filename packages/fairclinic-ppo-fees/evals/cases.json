@@ -125,16 +125,16 @@
       }
     },
     {
-      "id": "schedule-missing-plan-column-said-aloud",
+      "id": "schedule-without-plan-asks-for-the-plan",
       "tool": "fees_check",
       "args": {
         "fees": "fixtures/office-fees.csv",
         "schedules": "fixtures/office-fees.csv"
       },
       "expect": {
-        "status": "executed",
+        "status": "error",
         "contains": [
-          "No column found for: plan, allowed"
+          "name the plan with the plan argument"
         ]
       }
     },
@@ -167,6 +167,24 @@
         "contains": [
           "fees-ppo-check.csv",
           "fees-ppo-check.html"
+        ]
+      }
+    },
+    {
+      "id": "one-plan-schedule-read-with-plan-argument",
+      "tool": "fees_check",
+      "args": {
+        "fees": "fixtures/office-fees.csv",
+        "schedules": "fixtures/one-plan-schedule.csv",
+        "plan": "Example Medicaid Dental"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.plans": 1
+        },
+        "contains": [
+          "Example Medicaid Dental"
         ]
       }
     },

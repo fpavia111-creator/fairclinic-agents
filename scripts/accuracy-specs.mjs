@@ -151,6 +151,7 @@ export const SPECS = {
       { id: 'writeoff-short', op: ['set', 'posted-payments.csv', { 'Claim ID': 'C2001' }, { 'Write-off Posted': '80.00' }], expect: ['C2001', 'writeoff_mismatch'] },
       { id: 'payment-typo', op: ['set', 'posted-payments.csv', { 'Claim ID': 'C2007' }, { 'Payment Posted': '204.00' }], expect: ['C2007', 'payment_mismatch'] },
       { id: 'not-posted', op: ['drop', 'posted-payments.csv', { 'Claim ID': 'C2001' }], expect: ['C2001', 'not_posted'] },
+      { id: 'provider-adjustment', op: ['text', 'era-2026-11.835', 'SE\\*20\\*0002', 'PLB*1999999984*20261231*WO:ICN2005*25.00~\nSE*21*0002'], expect: ['', 'provider_adjustment'] },
     ],
   },
 
@@ -348,7 +349,7 @@ export const SPECS = {
   },
 
   'fairclinic-ppo-fees': {
-    key: k('plan', 'code'), fine: ['ok'],
+    key: k('plan', 'code'), fine: ['ok', 'not_offered'],
     planted: { 'Example Dental PPO D2740': ['paid_below_schedule'], 'Example Dental PPO D9110': ['no_office_fee'], 'Sample Mutual Dental D1110': ['fee_below_allowed'], 'Sample Mutual Dental D2740': ['deep_discount'], 'Sample Mutual Dental D2950': ['not_in_schedule'] },
     clean: [
       ['set', 'allowed-paid.csv', { Plan: 'Example Dental PPO', Code: 'D2740' }, { Allowed: '790.00' }],
@@ -362,7 +363,7 @@ export const SPECS = {
     mutations: [
       { id: 'paid-below', op: ['set', 'allowed-paid.csv', { Plan: 'Example Dental PPO', Code: 'D2391' }, { Allowed: '150.00' }], expect: ['Example Dental PPO D2391', 'paid_below_schedule'] },
       { id: 'deep-discount', op: ['set', 'ppo-schedules.csv', { Plan: 'Example Dental PPO', Code: 'D0120' }, { Allowed: '30.00' }], expect: ['Example Dental PPO D0120', 'deep_discount'] },
-      { id: 'no-office-fee', op: ['drop', 'office-fees.csv', { Code: 'D0274' }], expect: ['Example Dental PPO D0274', 'no_office_fee'] },
+      { id: 'no-office-fee', op: ['drop', 'office-fees.csv', { Code: 'D2391' }], expect: ['Example Dental PPO D2391', 'no_office_fee'] },
     ],
   },
 

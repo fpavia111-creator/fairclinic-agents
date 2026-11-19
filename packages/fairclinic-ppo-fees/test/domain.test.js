@@ -32,8 +32,15 @@ test('an office fee below the plan fee is flagged with the estimate per line', (
 });
 
 test('a code paid by a plan but missing from its schedule, and a plan code with no office fee, are both named', () => {
-  const r = checkFees(fees, [...sch(), { plan: 'Example PPO', code: 'D9110', allowed: '75' }], paid('D2950', 220));
+  const r = checkFees(fees, [...sch(), { plan: 'Example PPO', code: 'D9110', allowed: '75' }], [...paid('D2950', 220), ...paid('D9110', 75)]);
   assert.equal(by(r).D2950.status, 'not_in_schedule'); assert.equal(by(r).D9110.status, 'no_office_fee');
+});
+
+test('a schedule code with no office fee that the plan never allowed is listed as not offered, not as work (a payer\'s full schedule)', () => {
+  const r = checkFees(fees, [...sch(), { plan: 'Example PPO', code: 'D9110', allowed: '75' }, { plan: 'Example PPO', code: 'D7140', allowed: '90' }], paid('D2950', 220));
+  assert.equal(by(r).D9110.status, 'not_offered'); assert.equal(by(r).D7140.status, 'not_offered');
+  assert.equal(r.not_offered, 2); assert.equal(r.no_office_fee, 0);
+  assert.equal(r.needs_review, r.items.filter((i) => !['ok', 'not_offered'].includes(i.status)).length);
 });
 
 test('deep discounts follow the setting', () => {

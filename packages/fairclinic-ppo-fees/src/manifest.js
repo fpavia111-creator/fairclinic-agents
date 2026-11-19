@@ -6,11 +6,18 @@ const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url),
 const args = {
   fees: fileArg('Your office fee schedule under --root (practice-management fee schedule export): code, description, office fee'),
   schedules: fileArg('PPO fee schedules under --root, one row per plan and code: plan, code, allowed amount'),
+  plan: { type: 'string', maxLength: 120, description: 'Plan name for a schedules file with no plan column (a payer\'s published schedule, one plan per file)' },
   paid: fileArg('Optional lines the PPOs allowed under --root (ERA or insurance payment detail export): plan, code, allowed amount'),
   settings: fileArg('Optional settings JSON: tolerance, deep_discount_pct'),
 };
-const run = (a, ctx) => checkFees(ctx.records(a.fees, 'fees'), ctx.records(a.schedules, 'schedules'), a.paid ? ctx.records(a.paid, 'paid') : [], { settings: a.settings ? ctx.readJson(a.settings, 'fee_settings') : {} });
-const summary = (o) => `${o.codes_checked} plan and code pair(s) across ${o.plans} plan(s), ${o.needs_review} to review: ${o.paid_below_schedule} allowed below the plan's own fee (${o.underpaid_amount}), ${o.fee_below_allowed} office fee(s) below the plan fee (about ${o.left_by_low_fees} left), ${o.not_in_schedule} code(s) missing from a schedule, ${o.no_office_fee} with no office fee, ${o.deep_discount} deep discount(s).`;
+const schedulesOf = (a, ctx) => {
+  const rows = ctx.records(a.schedules, 'schedules');
+  if (a.plan) return rows.map((r) => (String(r.plan ?? '').trim() ? r : { ...r, plan: a.plan }));
+  if (rows.some((r) => !String(r.plan ?? '').trim())) throw new Error(`${a.schedules} has rows with no plan: name the plan with the plan argument (a payer's published schedule has one plan per file)`);
+  return rows;
+};
+const run = (a, ctx) => checkFees(ctx.records(a.fees, 'fees'), schedulesOf(a, ctx), a.paid ? ctx.records(a.paid, 'paid') : [], { settings: a.settings ? ctx.readJson(a.settings, 'fee_settings') : {} });
+const summary = (o) => `${o.codes_checked} plan and code pair(s) across ${o.plans} plan(s), ${o.needs_review} to review: ${o.paid_below_schedule} allowed below the plan's own fee (${o.underpaid_amount}), ${o.fee_below_allowed} office fee(s) below the plan fee (about ${o.left_by_low_fees} left), ${o.not_in_schedule} code(s) missing from a schedule, ${o.no_office_fee} with no office fee, ${o.deep_discount} deep discount(s).${o.not_offered ? ` ${o.not_offered} code(s) on the schedules have no office fee and were not allowed on any line (listed as not_offered).` : ''}`;
 
 export const manifest = clinicAgent({
   pkg, prefix: 'fees', title: 'Fairclinic PPO Fees',

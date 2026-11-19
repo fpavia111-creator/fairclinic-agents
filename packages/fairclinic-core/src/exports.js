@@ -9,6 +9,7 @@
 // basis:
 //   'documented'  the column names were checked against the vendor's own
 //                 documentation (source and date given);
+//   'tested'      the agent read the publisher's own public file (source and date given);
 //   'recalled'    the layout was written from knowledge of the export and was
 //                 not checked against documentation or a live account.
 // Neither kind was tested against a live account. When a header differs, the
@@ -48,6 +49,8 @@ export const EXPORTS = Object.freeze(Object.fromEntries([
   e('cornerstone_reminders', 'Cornerstone', 'Reminder list report, exported to CSV', ['Client ID', 'Patient Name', 'Reminder Description', 'Due Date']),
   e('ezyvet_invoice_lines', 'ezyVet', 'Invoice lines export (CSV)', ['Invoice #', 'Animal Name', 'Product Name', 'Qty', 'Total (incl tax)']),
   e('covetrus_pulse_inventory', 'Covetrus Pulse', 'Inventory on hand with lots, exported to CSV', ['Item Name', 'Lot Number', 'Expiration Date', 'Quantity On Hand']),
+  // Public licensing-board files (tested on the published file on the date given)
+  e('wa_doh_credentials', 'Washington State Department of Health', 'Health Care Provider Credential Data (data.wa.gov qxh8-f4bd, CSV)', ['credentialnumber', 'lastname', 'firstname', 'credentialtype', 'expirationdate'], { basis: 'tested', source: 'data.wa.gov/resource/qxh8-f4bd.csv (public domain)', checked: '2026-11-19' }),
   e('shepherd_invoices', 'Shepherd', 'Invoice item export (CSV)', ['Invoice Number', 'Client', 'Patient', 'Item', 'Amount']),
 ].map((x) => [x.id, x])));
 

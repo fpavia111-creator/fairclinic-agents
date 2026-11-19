@@ -47,3 +47,22 @@ test('the report lists everything that is not ok', async () => {
   const r = await call('credentials_write_report', { credentials: 'fixtures/credentials.csv', as_of: '2026-11-16' });
   assert.equal(readFileSync(`${root}/${r.result.files[0]}`, 'utf8').trim().split('\n').length, 7);
 });
+
+test('a public board file (Washington State layout) is read: first and last name joined, the board status wins over the date', async () => {
+  const { root, call } = fixtureRunner(manifest, fileURLToPath(new URL('../fixtures', import.meta.url)));
+  const { writeFileSync } = await import('node:fs');
+  writeFileSync(`${root}/board.csv`, [
+    '"credentialnumber","lastname","firstname","middlename","credentialtype","status","birthyear","ceduedate","firstissuedate","lastissuedate","expirationdate","actiontaken"',
+    '"DE.DE.00000001","Example","Ada","","Dentist License","Active","","03/31/2027","01/01/2010","03/01/2026","03/31/2027","No"',
+    '"DE.DE.00000002","Sample","Ben","","Dentist License","Active","","10/31/2026","01/01/2012","10/01/2025","10/31/2026","No"',
+    '"VT.VT.00000003","Test","Cora","","Veterinary License","Expired","","","01/01/2015","01/01/2024","01/01/2025","No"',
+    '"VT.VT.00000004","Demo","Iris","","Veterinary License","Suspended","","","01/01/2015","01/01/2026","12/31/2027","Yes"',
+  ].join('\n') + '\n');
+  const r = await call('credentials_check', { credentials: 'board.csv', as_of: '2026-11-16' }, { phi: 'off' });
+  assert.equal(r.status, 'executed');
+  const by = Object.fromEntries(r.result.items.map((i) => [i.number.slice(-4), i]));
+  assert.equal(by['0001'].status, 'ok');
+  assert.equal(by['0002'].status, 'expired'); assert.match(by['0002'].findings[0].detail, /board still lists it as Active/);
+  assert.equal(by['0003'].status, 'not_active'); assert.equal(by['0004'].status, 'not_active', 'suspended even though the date is in the future');
+  assert.equal(r.result.holders, 4);
+});

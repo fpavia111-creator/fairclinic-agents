@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { clinicAgent, CLINIC_LIMITS, T9, fileArg, AS_OF_ARG, REFUSE, sectionTitle } from 'fairclinic-core';
+import { clinicAgent, CLINIC_LIMITS, T9, fileArg, AS_OF_ARG, REFUSE, sectionTitle, exportProfile } from 'fairclinic-core';
 import { CREDENTIAL_FIELDS, SETTINGS_SCHEMA, STATUSES, checkCredentials } from './logic.js';
 
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -9,20 +9,20 @@ const args = {
   as_of: AS_OF_ARG,
 };
 const run = (a, ctx) => checkCredentials(ctx.records(a.credentials, 'credentials'), { settings: a.settings ? ctx.readJson(a.settings, 'credential_settings') : {}, asOf: a.as_of });
-const summary = (o) => `${o.credentials} credential(s) for ${o.holders} holder(s); next expiry ${o.next_expiry || 'none'}. ${o.to_act} to act on: ${o.by_status.expired || 0} expired, ${o.by_status.expiring || 0} expiring with no renewal submitted, ${o.by_status.missing_expiry || 0} with no expiry date, ${o.by_status.ce_short || 0} short of CE hours; ${o.by_status.renewal_submitted || 0} renewal(s) waiting.`;
+const summary = (o) => `${o.credentials} credential(s) for ${o.holders} holder(s); next expiry ${o.next_expiry || 'none'}. ${o.to_act} to act on: ${o.by_status.not_active ? `${o.by_status.not_active} not active at the board, ` : ''}${o.by_status.expired || 0} expired, ${o.by_status.expiring || 0} expiring with no renewal submitted, ${o.by_status.missing_expiry || 0} with no expiry date, ${o.by_status.ce_short || 0} short of CE hours; ${o.by_status.renewal_submitted || 0} renewal(s) waiting.`;
 
 export const manifest = clinicAgent({
   pkg, prefix: 'credentials', title: 'Fairclinic Credential Expiry',
   description: pkg.description,
   args, required: ['credentials'], statuses: STATUSES,
   configSchemas: { credential_settings: SETTINGS_SCHEMA },
-  sources: { credentials: { label: 'Credentials', args: ['credentials'], fields: CREDENTIAL_FIELDS } },
+  sources: { credentials: { label: 'Credentials', args: ['credentials'], fields: CREDENTIAL_FIELDS, profiles: [exportProfile('wa_doh_credentials', { holder: 'lastname', holder_first: 'firstname', credential: 'credentialtype', credential_number: 'credentialnumber', expires: 'expirationdate', board_status: 'status' })] } },
   run, summary,
-  check: { title: 'Check credential expiries', description: 'Every licence, registration, permit and policy with days to expiry, renewal and CE hours, and a status: expired, expiring, missing_expiry, ce_short, renewal_submitted or ok. Numbers show their last four characters only.' },
+  check: { title: 'Check credential expiries', description: 'Every licence, registration, permit and policy with days to expiry, renewal and CE hours, and a status: not_active (the status column of a licensing board file says expired, revoked, suspended and the like), expired, expiring, missing_expiry, ce_short, renewal_submitted or ok. Numbers show their last four characters only.' },
   report: {
     title: T9('Credential expiries', 'Ablaufende Zulassungen und Nachweise', 'Échéances des titres et autorisations', 'Vencimientos de licencias y credenciales', 'Vencimentos de licenças e registros', 'Scadenze di abilitazioni e registrazioni', '資格・登録の期限', '执照与资质到期', '자격·면허 만료'),
     base: 'credentials-expiry',
-    rows: (o) => o.items.filter((i) => i.status !== 'ok').map((i) => ({ status: i.status, holder: i.holder, role: i.role, credential: i.credential, number: i.number, issuer: i.issuer, expires: i.expires, days_left: i.days_left, renewal_submitted: i.renewal_submitted, ce_required: i.ce_required, ce_done: i.ce_done, reasons: i.findings.map((f) => f.detail).join(' ') })),
+    rows: (o) => o.items.filter((i) => i.status !== 'ok').map((i) => ({ status: i.status, holder: i.holder, role: i.role, credential: i.credential, number: i.number, issuer: i.issuer, expires: i.expires, days_left: i.days_left, renewal_submitted: i.renewal_submitted, ce_required: i.ce_required, ce_done: i.ce_done, board_status: i.board_status, reasons: i.findings.map((f) => f.detail).join(' ') })),
     htmlColumns: ['status', 'holder', 'credential', 'expires', 'days_left', 'renewal_submitted', 'reasons'],
     sections: (o) => [{ title: sectionTitle('by_credential'), rows: o.by_credential, columns: ['credential', 'count'] }],
     limits: [CLINIC_LIMITS.files, 'Expiry dates and CE requirements are the ones in your list. Boards, the DEA and insurers set the real rules; check each renewal notice.', 'It never files a renewal or contacts a board, the DEA or an insurer.', CLINIC_LIMITS.advice],

@@ -58,3 +58,20 @@ test('the posting list keeps real names for the team; the result the model sees 
   assert.match(csv, /Marisol Quintero|QUINTERO/i); assert.doesNotMatch(JSON.stringify(r), /Quintero/i);
   assert.doesNotMatch(csv, /^ok,/m);
 });
+
+test('provider-level adjustments (835 PLB) are listed per check, also on a payment with no claims (Nevada Medicaid sample 835 layout)', async () => {
+  const o = matchRemits([era()], [post()], { payments: [{ trace_number: 'K1', payer: 'Example Dental PPO', amount: 100 }, { trace_number: 'K9', payer: 'Example Dental PPO', amount: 75 }], plb: [{ trace_number: 'K1', reason: 'WO', reference: 'R1', amount: 20 }, { trace_number: 'K9', reason: 'CS', reference: 'R2', amount: -75 }] });
+  const adj = o.items.filter((i) => i.status === 'provider_adjustment');
+  assert.equal(adj.length, 2); assert.equal(o.provider_adjustments, 2);
+  assert.match(adj.find((i) => i.check_number === 'K9').findings[0].detail, /no claims/);
+  const k9 = o.checks.find((c) => c.check_number === 'K9');
+  assert.equal(k9.claims, 0); assert.equal(k9.payment_amount, 75); assert.equal(k9.provider_adjustments, -75);
+  assert.equal(o.items.find((i) => i.claim_id === 'E1').status, 'ok', 'the claim itself still ties');
+  // A whole 835 with segments ended by line breaks and a claim-less PLB payment, read through the tool.
+  const { root, call } = fixtureRunner(manifest, fileURLToPath(new URL('../fixtures', import.meta.url)));
+  const { writeFileSync } = await import('node:fs');
+  writeFileSync(`${root}/plb.835`, ['ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *261112*1200*^*00501*000000009*0*T*:', 'GS*HP*SENDER*RECEIVER*20261112*1200*9*X*005010X221A1', 'ST*835*0001', 'BPR*I*75.00*C*CHK************20261112', 'TRN*1*K9*1000099909', 'N1*PR*Example Dental PPO', 'N1*PE*BRIGHT EXAMPLE DENTAL*XX*1999999984', 'PLB*1999999984*20261231*CS:R2*-75.00', 'SE*7*0001', 'GE*1*9', 'IEA*1*000000009', ''].join('\n'));
+  writeFileSync(`${root}/none.csv`, 'Claim ID,Check Number,Payment Posted,Write-off Posted\n');
+  const r = await call('era_check', { era: 'plb.835', posted: 'none.csv' });
+  assert.equal(r.status, 'executed'); assert.equal(r.result.provider_adjustments, 1); assert.equal(r.result.checks[0].payment_amount, 75);
+});

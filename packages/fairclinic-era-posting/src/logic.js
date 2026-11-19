@@ -21,11 +21,16 @@ export const SETTINGS_SCHEMA = Object.freeze({
   },
 });
 
-export const STATUSES = ['reversal', 'denial_written_off', 'denied', 'not_posted', 'payment_mismatch', 'writeoff_mismatch', 'not_on_era', 'ok'];
+export const STATUSES = ['reversal', 'denial_written_off', 'denied', 'not_posted', 'payment_mismatch', 'writeoff_mismatch', 'not_on_era', 'provider_adjustment', 'ok'];
 const adjOf = (c) => [...(c.adjustments || []), ...(c.lines || []).flatMap((l) => l.adjustments || [])];
 
-/** Match ERA claims to postings: one item per ERA claim, plus postings on an ERA check that are not on it, and check totals. */
-export function matchRemits(eraClaims, postings, { settings = {} } = {}) {
+/**
+ * Match ERA claims to postings: one item per ERA claim, plus postings on an ERA check that are not on it,
+ * one item per check that carries provider-level adjustments (835 PLB), and check totals.
+ * payments/plb come from readRemits: a check with no claims at all (only PLB) is still listed
+ * (found on the Nevada Medicaid sample 835, 19 Nov 2026).
+ */
+export function matchRemits(eraClaims, postings, { settings = {}, payments = [], plb = [] } = {}) {
   const tol = settings.tolerance ?? 0.01;
   const contractual = new Set((settings.contractual_reasons || ['45', '253', '131']).map((x) => String(x).toUpperCase()));
   const byClaim = new Map();
@@ -60,7 +65,17 @@ export function matchRemits(eraClaims, postings, { settings = {} } = {}) {
     return { claim_id: id, patient_name: str(c.patient_name) || (p && p.patient_name) || '', payer: str(c.payer), check_number: str(c.check_number), payment_date: isoDate(c.payment_date), billed: round2(num(c.charge) || 0), era_paid: paid, writeoff_expected: writeoffExpected, patient_portion: pr, posted_paid: p ? p.paid : null, posted_writeoff: p ? p.writeoff : null, posted_by: p ? [...p.posted_by].sort().join(', ') : '', status, findings: f };
   });
   const eraChecks = new Map();
-  for (const c of eraClaims) { const k = str(c.check_number); if (!k) continue; const x = eraChecks.get(k) || { check_number: k, payer: str(c.payer), era_amount: 0, posted_amount: 0, claims: 0 }; x.era_amount = round2(x.era_amount + (num(c.paid) || 0)); x.claims++; eraChecks.set(k, x); }
+  const newCheck = (k, payer) => ({ check_number: k, payer, era_amount: 0, posted_amount: 0, claims: 0, payment_amount: null, provider_adjustments: 0 });
+  for (const c of eraClaims) { const k = str(c.check_number); if (!k) continue; const x = eraChecks.get(k) || newCheck(k, str(c.payer)); x.era_amount = round2(x.era_amount + (num(c.paid) || 0)); x.claims++; eraChecks.set(k, x); }
+  for (const p of payments) { const k = str(p.trace_number); if (!k) continue; const x = eraChecks.get(k) || newCheck(k, str(p.payer)); x.payment_amount = num(p.amount); eraChecks.set(k, x); }
+  const plbBy = new Map();
+  for (const a of plb) { const k = str(a.trace_number); if (!k) continue; (plbBy.get(k) || plbBy.set(k, []).get(k)).push(a); }
+  for (const [k, list] of plbBy) {
+    const total = round2(list.reduce((s, a) => s + (num(a.amount) || 0), 0));
+    const x = eraChecks.get(k) || newCheck(k, str(list[0].payer)); x.provider_adjustments = total; eraChecks.set(k, x);
+    const parts = list.map((a) => `${a.reason || '?'}${a.reference ? ` ${a.reference}` : ''} ${round2(num(a.amount) || 0)}`).join('; ');
+    items.push({ claim_id: '', patient_name: '', payer: x.payer, check_number: k, payment_date: null, billed: null, era_paid: null, writeoff_expected: null, patient_portion: null, posted_paid: null, posted_writeoff: null, posted_by: '', status: 'provider_adjustment', findings: [{ code: 'provider_adjustment', detail: `${list.length} provider-level adjustment(s) on ${k}${x.claims ? '' : ', a payment with no claims on it'}: ${parts}; total ${total} (a negative amount adds to the payment, a positive one withholds from it). Post them to the practice's account, not to a patient, and check the reason with the payer if it is not clear.`, amount: total }] });
+  }
   for (const p of byClaim.values()) {
     if (eraIds.has(p.claim_id) || !eraChecks.has(p.check_number)) continue;
     items.push({ claim_id: p.claim_id, patient_name: p.patient_name, payer: p.payer, check_number: p.check_number, payment_date: null, billed: null, era_paid: null, writeoff_expected: null, patient_portion: null, posted_paid: p.paid, posted_writeoff: p.writeoff, posted_by: [...p.posted_by].sort().join(', '), status: 'not_on_era', findings: [{ code: 'not_on_era', detail: `Posted ${p.paid} against ${p.check_number}, but this claim is not on that ERA. It may belong to another claim or another payment.`, amount: p.paid }] });
@@ -72,7 +87,7 @@ export function matchRemits(eraClaims, postings, { settings = {} } = {}) {
   return {
     era_claims: eraClaims.length, era_paid: round2(checks.reduce((s, c) => s + c.era_amount, 0)), posted_paid: round2(checks.reduce((s, c) => s + c.posted_amount, 0)),
     not_posted: by.not_posted || 0, unposted_amount: round2(items.filter((i) => i.status === 'not_posted').reduce((s, i) => s + i.era_paid, 0)),
-    mismatches: (by.payment_mismatch || 0) + (by.writeoff_mismatch || 0), denials_written_off: by.denial_written_off || 0, denied: by.denied || 0, reversals: by.reversal || 0, not_on_era: by.not_on_era || 0,
+    mismatches: (by.payment_mismatch || 0) + (by.writeoff_mismatch || 0), denials_written_off: by.denial_written_off || 0, denied: by.denied || 0, reversals: by.reversal || 0, not_on_era: by.not_on_era || 0, provider_adjustments: by.provider_adjustment || 0,
     checks_not_tying: checks.filter((c) => c.status !== 'ties').length, patient_portion: round2(items.reduce((s, i) => s + (i.patient_portion || 0), 0)),
     by_status: by, checks, items,
   };
