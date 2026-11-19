@@ -1,0 +1,25 @@
+{
+  "suite": "fairclinic-membership-plans",
+  "root": "..",
+  "data_note": "Fictional membership roster, payments and visits in ../fixtures; October 2026 as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "membership_check", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "visits": "fixtures/visits.csv", "month": "2026-10", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.members": 9, "result.expected_monthly": 145, "result.collected": 131, "result.to_review": 8, "result.by_finding.missed_payment": 1, "result.by_finding.failed_not_retried": 1, "result.by_finding.wrong_amount": 1, "result.by_finding.billed_after_cancel": 1, "result.by_finding.used_after_lapse": 2, "result.by_finding.annual_lapsed": 1, "result.by_finding.not_in_roster": 1, "result.by_finding.renewal_due": 1 } } },
+    { "id": "reasons", "tool": "membership_check", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "visits": "fixtures/visits.csv", "month": "2026-10", "as_of": "2026-11-16" },
+      "expect": { "contains": ["No 2026-10 charge for 29", "The 2026-10 charge failed on 2026-10-12", "Charged 25 on 2026-10-05; the plan fee is 29", "after the membership ended on 2026-09-30", "A visit on 2026-10-08 (D2391) with a 52 member discount", "The annual renewal on 2026-10-05 has no payment", "Renews in 9 day(s)", "not on the membership roster"] } },
+    { "id": "refund-decisions-first", "tool": "membership_check", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "visits": "fixtures/visits.csv", "month": "2026-10", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.items.0.status": "billed_after_cancel", "result.items.0.collected": 29 } } },
+    { "id": "without-visits", "tool": "membership_check", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "month": "2026-10", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.annual_lapsed": 1, "result.to_review": 7 }, "not_contains": ["used_after_lapse\":"] } },
+    { "id": "other-month", "tool": "membership_check", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "month": "2026-09", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.collected": 29, "result.by_finding.missed_payment": 3 } } },
+    { "id": "status-filter", "tool": "membership_check", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "month": "2026-10", "as_of": "2026-11-16", "status": "ok" },
+      "expect": { "length": { "result.items": 3 } } },
+    { "id": "bad-month-refused", "tool": "membership_check", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "month": "October" },
+      "expect": { "status": "error", "contains": ["month"] } },
+    { "id": "settings-typo-refused", "tool": "membership_check", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["renewal_warn"] } },
+    { "id": "write-report", "tool": "membership_write_report", "args": { "members": "fixtures/members.csv", "payments": "fixtures/payments-2026-10.csv", "visits": "fixtures/visits.csv", "month": "2026-10", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/membership" },
+      "expect": { "status": "executed", "contains": ["membership-billing.csv", "membership-billing.html"] } }
+  ]
+}
