@@ -1,0 +1,91 @@
+{
+  "product": "Fairclinic",
+  "repo": "https://github.com/fpavia111-creator/fairclinic-agents",
+  "try_it": [
+    "git clone https://github.com/fpavia111-creator/fairclinic-agents",
+    "cd fairclinic-agents",
+    "npm install",
+    "node packages/fairclinic-claims-aging/bin/fairclinic-claims-aging.js demo"
+  ],
+  "accuracy": {
+    "agents": 32,
+    "planted_found": 180,
+    "planted_total": 180,
+    "clean_rows": 468,
+    "clean_false_positives": 0,
+    "mutation_cases": 96,
+    "mutation_caught": 96,
+    "note": "On fictional test data, 19 Nov 2026. The clean set covers all 32 agents: each agent's demo files with every planted problem removed, written by the same author as the rules. Measuring it found one wrong finding (a pre-authorization flagged as expiring although its visit was booked before the approval ends) and one demo that left out its own settings file and showed two wrong findings; both are fixed. The numbers say the rules do what they were written to do on data built to test them, not how they do on a real practice's exports."
+  },
+  "real_data": [
+    [
+      "Washington State Department of Health: Health Care Provider Credential Data",
+      "https://data.wa.gov/d/qxh8-f4bd",
+      "2026-11-19",
+      "Public domain (as stated on data.wa.gov)",
+      "fairclinic-credential-expiry on 47,539 dentist, dental hygiene, veterinary and veterinary technician credentials: 25,972 not active at the board, 3,650 expiring within 90 days, 438 with no expiry date, 12 past their expiry date that the board still lists as Active; every count equals a separate recount. Before this pass the agent could not read the file (first and last name in separate columns) and ignored the board's status; both fixed."
+    ],
+    [
+      "Nevada Medicaid: sample 835 remittance file (published as a PDF)",
+      "https://www.medicaid.nv.gov/Downloads/provider/Sample_835_File.pdf",
+      "2026-11-19",
+      "State of Nevada provider document; no licence stated; sample names and ids",
+      "fairclinic-era-posting on 3 remittances with segments ended by line breaks: 2 denials found (claim status 4), equal to a separate count. It showed a real gap, now fixed: a 1,812.27 payment made only of provider-level adjustments (PLB) with no claims was dropped from the result; it is now listed for a person to post at the account level."
+    ],
+    [
+      "CMS: NADAC (National Average Drug Acquisition Cost) 2026",
+      "https://data.medicaid.gov/dataset/fbb83258-11c7-47f5-8b18-5f8e79f7e704",
+      "2026-11-19",
+      "U.S. government work, public domain",
+      "fairclinic-pharmacy-margins on 26 human generics often dispensed by veterinary practices, with NADAC unit costs of 7 January and 18 November 2026 as cost and previous cost and fictional prices: 3 cost rises over 5% not passed on and 1 margin under target, equal to a separate recount; five-decimal unit costs read without rounding. No change needed."
+    ],
+    [
+      "Montana Medicaid (DPHHS): dental services fee schedules, January 2026 and July 2025 (Excel)",
+      "https://medicaidprovider.mt.gov/18",
+      "2026-11-19",
+      "State of Montana provider document; CDT codes are copyright of the American Dental Association",
+      "fairclinic-ppo-fees read 285 and 281 codes as one plan each against a fictional office fee list: 6 write-offs over 45%, equal to a separate recount. Before this pass it could not read either file (no plan column; columns named Proc and Fees or Office Fees; the sheet renamed between editions) and would have raised a finding for each of 277 codes the office never bills; fixed."
+    ]
+  ],
+  "formats": [
+    ["X12 835 remittance (any payer or clearinghouse)", "835 Health Care Claim Payment/Advice, 005010X221A1", "tested on a public sample"],
+    ["Washington State Department of Health", "Health Care Provider Credential Data (CSV, data.wa.gov)", "tested on a public sample"],
+    ["Montana Medicaid", "Dental services fee schedule (Excel)", "tested on a public sample"],
+    ["Dentrix", "Outstanding insurance claims report (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Dentrix", "Adjustments by type report (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Open Dental", "User query on the claim table (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Open Dental", "Claim payment query (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Eaglesoft", "Treatment plan report (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Curve Dental", "Recall list export (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Denticon", "Production and collections by provider (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["AVImark", "Controlled drug log report (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Cornerstone", "Reminder list report (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["ezyVet", "Invoice lines export (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Covetrus Pulse", "Inventory on hand with lots (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Shepherd", "Invoice item export (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"]
+  ],
+  "human_review": [
+    ["Dental insurance pack", "A person decides which claims to follow up, correct, appeal or write off, posts every payment and adjustment in the practice system, and approves each carrier status inquiry before it is sent."],
+    ["Dental patient revenue pack", "A person decides whom to call or write to and approves each patient letter and balance reminder; the dentist reviews old treatment plans; nothing is booked, charged or sent to collections by the agents."],
+    ["Dental practice numbers pack", "A person reads the production, lab and supply figures and decides what to change; the person who runs infection control checks each sterilization log gap against the practice's own protocol."],
+    ["Veterinary charge capture pack", "A person decides whether each missed or low charge goes on the client's invoice and whether each discount or write-off was within the hospital's policy."],
+    ["Veterinary pharmacy and controlled drugs pack", "A person investigates every count difference and log error and corrects the controlled drug log by hand; prices, expired stock and supplier credits are decided by the hospital."],
+    ["Veterinary client revenue pack", "A person decides whom to remind or call, follows up insurance decisions with the insurer and settles client balances; the veterinarian decides what care a pet needs."],
+    ["Front office and finance pack", "A person matches deposits with the bank, renews each licence and DEA registration, decides on staffing, and approves every public review reply before it is posted."],
+    ["Whole dental practice", "The same as the dental packs and the front office pack: the practice's own staff work every list, and one named person approves every draft."],
+    ["Whole veterinary hospital", "The same as the veterinary packs and the front office pack: the hospital's own staff work every list, and one named person approves every draft."],
+    ["Partner rollout", "The same at every location, with one named person per location who owns the lists and approves drafts."]
+  ],
+  "common_problems": [
+    "A dental claim 74 days old with no follow-up, and another two days from the carrier's filing limit",
+    "An insurance write-off posted as 196 where the 835 says 245, and a timely-filing denial written off in full",
+    "An accepted crown and buildup never scheduled, with 900 of insurance benefits left before the year ends",
+    "Ear cytology and an in-house blood count on the treatment sheet but not on the invoice",
+    "A controlled drug balance written as 18.0 where the entries give 18.2, and ketamine waste with no witness",
+    "A seven-night boarding stay invoiced for six nights",
+    "A card batch never deposited and another deposited 50 short",
+    "A vaccine reminder sent for a pet marked deceased"
+  ],
+  "reaches_the_model": "When an assistant calls a Fairclinic tool, its model receives the result as text. Patient, pet, client, owner, guarantor and reviewer names, account and member ids, birth dates, addresses, phone numbers and e-mails are replaced by stable pseudonyms such as PT-3f2a9c1d before the result leaves the agent, and credential numbers show their last four characters. Amounts, dates, procedure and drug names, codes, claim and invoice numbers and carrier, insurer and lab names are sent in clear, and so are staff and provider names (the strict mode masks those too) and free text such as review text and adjustment notes, where a name someone typed can get through. The result goes to whatever model the user's assistant uses: for dental records, use a model provider covered by a business associate agreement, or a local model. The report files written on the computer keep real names.",
+  "rules_maintained": "All 85 thresholds across the 32 agents (follow-up and filing days, margins, targets, fees, plan contents, warning windows) are settings in a JSON file the practice passes to each agent. The defaults are starting points chosen on 18 Nov 2026, not regulations, payer contracts or standards of care, and a misspelt or out-of-range setting is refused. A practice changes a rule by editing that file, and a changed export layout in fairclinic-sources.json, without a new release. The few lists taken from outside standards (X12 835 claim status and adjustment codes, a licensing board's status words) change with a new release; docs/rules-2026-11-19.md in the repository lists every one."
+}

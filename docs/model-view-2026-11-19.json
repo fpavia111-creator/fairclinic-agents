@@ -299,9 +299,7 @@
         "plan"
       ],
       "names_in_clear": [],
-      "free_text_in_clear": [
-        "description"
-      ],
+      "free_text_in_clear": [],
       "canaries": 9,
       "canary_leaks": 0,
       "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"

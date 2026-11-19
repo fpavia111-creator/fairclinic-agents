@@ -24,7 +24,7 @@ const DEMO_PHI_KEY = createHash('sha256').update('fairclinic demo key: fictional
 // Fields in clear that hold a staff member's, provider's or business's name.
 const STAFF = new Set(['provider', 'providers', 'dentist', 'vet', 'hygienist', 'employee', 'entered_by', 'approved_by', 'posted_by', 'holder', 'initials', 'staff', 'party', 'witness']);
 // Free text a person typed (anything could be in it).
-const FREE = new Set(['excerpt', 'note', 'reason', 'description', 'add_ons', 'memo']);
+const FREE = new Set(['excerpt', 'note', 'reason', 'add_ons', 'memo']); // procedure descriptions come from the fee schedule, not typed per patient
 const isPlain = (v) => /^-?[\d.,]+%?$/.test(v) || /^\d{4}-\d\d(-\d\d)?$/.test(v) || /^[a-z_]+$/.test(v);
 
 async function run(manifest, prefix, dir, args, phi) {

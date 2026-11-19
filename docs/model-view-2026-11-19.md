@@ -32,7 +32,7 @@ The result goes to whatever model the user's assistant uses. Dental files are pr
 | fairclinic-payroll-production | - | employee, role | employee | - | 0 (0) |
 | fairclinic-pet-insurance-claims | client_name, patient_name | claim_id, insurer, invoice_number | - | - | 12 (0) |
 | fairclinic-pharmacy-margins | - | item, item_type | - | - | 0 (0) |
-| fairclinic-ppo-fees | - | code, description, plan | - | description | 9 (0) |
+| fairclinic-ppo-fees | - | code, description, plan | - | - | 9 (0) |
 | fairclinic-ppo-writeoffs | patient_name | carrier, entered_by, note, type | entered_by | note | 10 (0) |
 | fairclinic-preauthorizations | patient_name | code, payer, preauth_id, provider | provider | - | 10 (0) |
 | fairclinic-provider-production | - | provider | provider | - | 0 (0) |
