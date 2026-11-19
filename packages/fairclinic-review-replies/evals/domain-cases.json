@@ -1,0 +1,25 @@
+{
+  "suite": "fairclinic-review-replies",
+  "root": "..",
+  "data_note": "Fictional reviews in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "reviews_check", "args": { "reviews": "fixtures/reviews.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.reviews": 5, "result.average_rating": 3.4, "result.to_reply": 3, "result.mention_health": 1, "result.by_status.low_rating_no_reply": 2, "result.by_status.needs_reply": 1, "result.by_status.replied": 2 } } },
+    { "id": "lowest-first", "tool": "reviews_check", "args": { "reviews": "fixtures/reviews.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.items.0.review_id": "RV2", "result.items.0.mentions_health": true, "result.items.1.review_id": "RV4" }, "contains": ["the reply must not confirm or add to them"] } },
+    { "id": "reply-that-discloses-is-refused", "tool": "reviews_check_reply", "args": { "reviews": "fixtures/reviews.csv", "reply": "We are sorry your cat's cleaning on November 3 did not help. We treated her carefully." },
+      "expect": { "status": "executed", "equals": { "result.ok": false }, "contains": ["confirms they are a patient or client", "says what the practice did", "mentions a date"] } },
+    { "id": "reply-naming-reviewer-is-refused", "tool": "reviews_check_reply", "args": { "reviews": "fixtures/reviews.csv", "reply": "Thank you Felix Oduya for the feedback." },
+      "expect": { "equals": { "result.ok": false }, "contains": ["names a reviewer or a patient"] } },
+    { "id": "general-reply-passes", "tool": "reviews_check_reply", "args": { "reviews": "fixtures/reviews.csv", "reply": "Thank you for the feedback. We take every comment seriously and would like to talk with you directly. Please call us and ask for the practice manager." },
+      "expect": { "equals": { "result.ok": true } } },
+    { "id": "settings-typo-refused", "tool": "reviews_check", "args": { "reviews": "fixtures/reviews.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["low_rate"] } },
+    { "id": "write-report", "tool": "reviews_write_report", "args": { "reviews": "fixtures/reviews.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/reviews" },
+      "expect": { "status": "executed", "contains": ["reviews-to-reply.csv", "reviews-to-reply.html"] } },
+    { "id": "draft-reply-after-approval", "tool": "reviews_draft_reply", "approve": "Pat Example", "args": { "reviews": "fixtures/reviews.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16", "review": "RV2", "out_dir": "fairclinic-out/evals/reviews" },
+      "expect": { "status": "executed", "equals": { "result.open_markers": 3 } } },
+    { "id": "draft-unknown-review", "tool": "reviews_draft_reply", "approve": "Pat Example", "args": { "reviews": "fixtures/reviews.csv", "review": "RV9", "out_dir": "fairclinic-out/evals/reviews" },
+      "expect": { "status": "error", "contains": ["RV9 not found"] } }
+  ]
+}

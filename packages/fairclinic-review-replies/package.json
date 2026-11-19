@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-review-replies",
+  "version": "0.1.0",
+  "description": "Fairclinic Review Replies: online reviews that need a reply (low ratings first, and those that mention health or care details), reply drafts that thank or invite a call and never confirm the reviewer is a patient or client, and a check of any proposed reply for wording that would disclose a visit, care, records, a date or a name. One named person posts; the agent never does. Reviewer names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-review-replies": "bin/fairclinic-review-replies.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-review-replies.js demo",
+    "eval": "node bin/fairclinic-review-replies.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-review-replies"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-review-replies#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "online-reviews",
+    "reputation",
+    "privacy"
+  ]
+}
