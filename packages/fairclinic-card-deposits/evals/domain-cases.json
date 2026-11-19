@@ -1,0 +1,21 @@
+{
+  "suite": "fairclinic-card-deposits",
+  "root": "..",
+  "data_note": "Fictional processor batches, bank lines and practice-system card totals in ../fixtures. No patient data. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "deposits_check", "args": { "batches": "fixtures/processor-batches.csv", "deposits": "fixtures/bank-lines.csv", "pms": "fixtures/pms-card-totals.csv", "settings": "fixtures/settings.json" },
+      "expect": { "status": "executed", "equals": { "result.batches": 5, "result.gross": 19750, "result.fees": 630.35, "result.net": 18769.65, "result.deposited": 15281.65, "result.chargebacks": 150, "result.to_review": 4, "result.by_finding.no_deposit": 1, "result.by_finding.amount_differs": 1, "result.by_finding.chargeback": 1, "result.by_finding.pms_differs": 1, "result.by_finding.fees_high": 1, "result.by_finding.deposit_unmatched": 1 } } },
+    { "id": "reasons", "tool": "deposits_check", "args": { "batches": "fixtures/processor-batches.csv", "deposits": "fixtures/bank-lines.csv", "pms": "fixtures/pms-card-totals.csv" },
+      "expect": { "contains": ["No bank deposit of 3438 within 5 day(s) of 2026-11-06", "Deposited 4721.52 on 2026-11-06; the batch net is 4771.52 (difference -50)", "A chargeback of 150 came out of this batch", "The practice system shows 3010 in card payments on 2026-11-05; the batch gross is 2980 (difference -30)", "Fees were 4.5% of gross", "A card deposit of 980 on 2026-11-09 matches no batch"] } },
+    { "id": "without-pms", "tool": "deposits_check", "args": { "batches": "fixtures/processor-batches.csv", "deposits": "fixtures/bank-lines.csv" },
+      "expect": { "not_contains": ["practice system shows"] } },
+    { "id": "longer-window-still-no-deposit", "tool": "deposits_check", "args": { "batches": "fixtures/processor-batches.csv", "deposits": "fixtures/bank-lines.csv", "settings": "fixtures/settings-wide.json" },
+      "expect": { "equals": { "result.by_finding.no_deposit": 1 }, "not_contains": ["Fees were"] } },
+    { "id": "status-filter", "tool": "deposits_check", "args": { "batches": "fixtures/processor-batches.csv", "deposits": "fixtures/bank-lines.csv", "pms": "fixtures/pms-card-totals.csv", "status": "ok" },
+      "expect": { "length": { "result.items": 2 } } },
+    { "id": "settings-typo-refused", "tool": "deposits_check", "args": { "batches": "fixtures/processor-batches.csv", "deposits": "fixtures/bank-lines.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["deposit_window"] } },
+    { "id": "write-report", "tool": "deposits_write_report", "args": { "batches": "fixtures/processor-batches.csv", "deposits": "fixtures/bank-lines.csv", "pms": "fixtures/pms-card-totals.csv", "out_dir": "fairclinic-out/evals/deposits" },
+      "expect": { "status": "executed", "contains": ["deposits-match.csv", "deposits-match.html"] } }
+  ]
+}

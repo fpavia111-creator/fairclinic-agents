@@ -1,0 +1,57 @@
+{
+  "name": "fairclinic-card-deposits",
+  "version": "0.1.0",
+  "description": "Fairclinic Card Deposits: card processor batches against bank deposits and the practice system's card totals: batches that never arrived, deposits at a different amount, chargebacks, days where the practice system differs, high fees, and card deposits that match no batch. It never responds to disputes, refunds or posts anything.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-card-deposits": "bin/fairclinic-card-deposits.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-card-deposits.js demo",
+    "eval": "node bin/fairclinic-card-deposits.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-card-deposits"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-card-deposits#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "payment-processing",
+    "bank-reconciliation",
+    "card-deposits",
+    "chargebacks"
+  ]
+}
