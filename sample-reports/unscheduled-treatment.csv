@@ -1,0 +1,6 @@
+status,patient_name,providers,unscheduled_accepted,unscheduled_proposed,stale_value,remaining_benefit,benefit_year_end,oldest_planned,codes,reasons,owner,decision
+benefits_expiring,Omar Brightwater,Dr. Ada Example,0,1800,0,1500,2026-12-31,2026-08-01,D5110,"1500 of benefits shown as remaining until 2026-12-31 (45 days), with 1800 of treatment not scheduled. 1800 of proposed treatment not scheduled (D5110).",,
+benefits_expiring,Rowan Achebe,Dr. Ada Example,1490,0,0,900,2026-12-31,2026-09-10,D2740 D2950,"900 of benefits shown as remaining until 2026-12-31 (45 days), with 1490 of treatment not scheduled. 1490 of accepted treatment not scheduled (D2740, D2950).",,
+accepted_unscheduled,Lucia Fontaine,Dr. Ben Sample,1180,0,0,,2026-12-31,2026-10-30,D2740,1180 of accepted treatment not scheduled (D2740).,,
+proposed_unscheduled,Marisol Quintero,Dr. Ben Sample,0,640,0,0,2026-12-31,2026-10-20,D4342,640 of proposed treatment not scheduled (D4342).,,
+stale,Priya Halvorsen,Dr. Ben Sample,0,0,1180,1200,2026-12-31,2025-08-01,D2740,1180 planned more than 365 days ago and not scheduled; the dentist decides whether the plan still stands.,,

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fairclinic sample reports</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Fairclinic sample reports</h1>
+<p class="mut">Written by the agents from their own fictional fixtures (no real practice, patient, pet, client, payer or insurer). Report files keep names for the team; only results sent to the AI model are masked.</p>
+<div class="wrap"><table><thead><tr><th scope="col">Agent</th><th scope="col">What it found</th><th scope="col">Files</th></tr></thead><tbody>
+<tr><td>fairclinic-claims-aging</td><td>Open dental claims written: 10 open claim(s), 3804.6 outstanding (2859 over 60 days): 2 to follow up, 1 denied, 2 near or past the filing limit, 1 not sent, 1 possible duplicate(s), 1 secondary claim(s) not sent.</td><td><a href="claims-aging.html">HTML</a> · <a href="claims-aging.csv">CSV</a></td></tr>
+<tr><td>fairclinic-era-posting</td><td>ERA posting check written: 7 ERA claim(s), 1550.6 paid; 1868.8 posted against those checks. 1 not posted (76.8), 2 posted differently, 1 denial(s) written off, 0 denial(s) to work, 1 reversal(s), 1 posting(s) not on the ERA, 2 check(s) that do not tie.</td><td><a href="era-posting.html">HTML</a> · <a href="era-posting.csv">CSV</a></td></tr>
+<tr><td>fairclinic-unscheduled-treatment</td><td>Unscheduled treatment written: 9 patient(s), 4 to contact: 2670 accepted and 2440 proposed treatment not scheduled; 2 patient(s) with 2400 of benefits ending soon; 1 plan(s) old enough for the dentist to review.</td><td><a href="unscheduled-treatment.html">HTML</a> · <a href="unscheduled-treatment.csv">CSV</a></td></tr>
+<tr><td>fairclinic-recall-gaps</td><td>Recall gaps written: 10 recall patient(s), 22.22% booked; 5 to contact: 2 overdue, 1 missed visit(s), 1 due soon, 1 lapsed; 1 contacted recently. Reappointment at hygiene visits: 75% (1 hygienist(s) below target).</td><td><a href="recall-gaps.html">HTML</a> · <a href="recall-gaps.csv">CSV</a></td></tr>
+<tr><td>fairclinic-sterilization-logs</td><td>Sterilization log check written: 2 sterilizer(s), 17 cycle(s), 4 spore test(s). 5 open item(s) in the logs: 1 positive spore test(s) with no retest logged, 1 failed cycle(s) with no rerun logged, 1 gap(s) between spore tests, 1 gap(s) in cycle numbers, 1 incomplete entr(ies). This is a log completeness check, not a compliance finding.</td><td><a href="sterilization-logs.html">HTML</a> · <a href="sterilization-logs.csv">CSV</a></td></tr>
+<tr><td>fairclinic-missed-charges</td><td>Missed charges written: 15 recorded line(s) over 5 visit(s). 5 to review: 2 not invoiced, 1 invoiced short, 1 at no charge, 1 invoiced but not on the record. About 240 not charged.</td><td><a href="missed-charges.html">HTML</a> · <a href="missed-charges.csv">CSV</a></td></tr>
+<tr><td>fairclinic-controlled-drugs</td><td>Controlled drug log reconciliation written: 4 drug(s), 16 log entr(ies). 6 item(s) to review: 2 count(s) that differ from the log, 1 arithmetic error(s) in written balances, 1 waste entr(ies) with no witness, 1 use(s) with no patient, 1 without initials, 0 drug(s) not counted. This reports the log; it is not a compliance finding.</td><td><a href="controlled-drugs.html">HTML</a> · <a href="controlled-drugs.csv">CSV</a></td></tr>
+<tr><td>fairclinic-vaccine-reminders</td><td>Vaccine reminder follow-up written: 10 reminder(s), 8 for active pets, 37.5% not yet due. 4 overdue and not booked. 5 to act on: 1 reminder(s) sent for pets marked deceased or inactive, 2 overdue with no recent reminder, 1 with no way to reach the client, 1 due soon with no reminder.</td><td><a href="vaccine-reminders.html">HTML</a> · <a href="vaccine-reminders.csv">CSV</a></td></tr>
+<tr><td>fairclinic-pet-insurance-claims</td><td>Pet insurance claims written: 7 claim(s), 4 open for 3155 (1055 owed directly to the clinic). 5 to work: 1 information request(s), 1 direct payment(s) short (230 left on client accounts), 1 drafted and not submitted, 1 with no decision, 1 denied.</td><td><a href="pet-insurance-claims.html">HTML</a> · <a href="pet-insurance-claims.csv">CSV</a></td></tr>
+<tr><td>fairclinic-card-deposits</td><td>Card batches and deposits written: 5 batch(es): gross 19750, fees 630.35 (3.19%), net 18769.65, deposited 15281.65. 4 to review: 1 with no deposit, 1 deposited at a different amount, 1 chargeback(s) (150), 1 day(s) where the practice system differs, 1 with high fees, 1 deposit(s) matching no batch.</td><td><a href="card-deposits.html">HTML</a> · <a href="card-deposits.csv">CSV</a></td></tr>
+</tbody></table></div>
+<p class="mut" style="margin-top:32px">Fictional data. Nothing was sent, filed or paid.</p>
+</main></body></html>

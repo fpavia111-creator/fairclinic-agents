@@ -1,0 +1,74 @@
+{
+  "product": "Fairclinic",
+  "industry": "Dental practices and veterinary clinics",
+  "kicker": "Dental practices, veterinary clinics and the groups that run them",
+  "lede": "Thirty-two small agents that check a dental practice's or veterinary clinic's back office from the files it already exports, insurance claims and remittances, treatment and recall gaps, missed charges, controlled drug logs, pharmacy, plans, deposits and payroll, and wait for one named person before anything is billed, sent or changed.",
+  "from": "$1,800",
+  "packages": [
+    ["$3,000 · One dental practice", "Dental insurance pack", "Claims aging and follow-ups, ERA posting against the 835, pre-authorizations, PPO fee schedules, write-offs by PPO (5 agents)"],
+    ["$2,500 · One dental practice", "Dental patient revenue pack", "Unscheduled treatment and benefits left, recall and hygiene reappointment gaps, patient balances, membership plans, no-shows (5 agents)"],
+    ["$2,000 · One dental practice", "Dental practice numbers pack", "Production and collections by provider, hygiene production per hour, lab cases and invoices, supply cost, sterilization log gaps (5 agents)"],
+    ["$2,500 · One veterinary hospital", "Veterinary charge capture pack", "Treatment sheet against invoice, reference lab send-outs, estimates against invoices, boarding and grooming, discounts by staff (5 agents)"],
+    ["$2,500 · One veterinary hospital", "Veterinary pharmacy and controlled drugs pack", "Controlled drug log against counts, inventory expiry and shrink, pharmacy margins, supply cost (4 agents)"],
+    ["$2,500 · One veterinary hospital", "Veterinary client revenue pack", "Vaccine reminders, wellness plan billing and use, pet insurance claims, client balances, no-shows (5 agents)"],
+    ["$1,800 · One practice", "Front office and finance pack", "Card batches against deposits, payroll against collections, licence and DEA expiries, referrals, review replies (5 agents)"],
+    ["$7,500 · One dental practice", "Whole dental practice", "21 agents mapped to your exports and set to your policies, one training session"],
+    ["$7,500 · One veterinary hospital", "Whole veterinary hospital", "20 agents mapped to your exports and set to your policies, one training session"],
+    ["$15,000 · Up to 10 locations", "Partner rollout", "For dental support organisations, veterinary groups and firms serving many practices: all 32 agents, one shared setup, every location mapped; $1,000 per location above 10"]
+  ],
+  "support": "Support after setup: $200 a month for one pack, $450 a month for a whole practice or hospital, $250 a month per location for partner rollouts. Covers export changes, new settings, new versions and a monthly check-in call.",
+  "notes": [
+    "Column layouts for Dentrix, Eaglesoft, Open Dental, Curve, Denticon, AVImark, Cornerstone, ezyVet, Covetrus Pulse and Shepherd were written from knowledge and are confirmed on your own exports at setup.",
+    "Thresholds such as follow-up days, filing limits, margins and payroll targets are your settings, not anyone's rules.",
+    "Sterilization and controlled drug checks report what your logs show; they never decide whether a rule is met.",
+    "Vaccine due dates come from your practice system; no agent decides what care a patient or pet needs.",
+    "Tested on fictional data only; no real practice, patient, payer or insurer was used.",
+    "Not clinical, legal, tax, coding or compliance advice."
+  ],
+  "warn": "Dental files are protected health information: a business associate agreement is signed before we hold any file. Everything runs on your computer from files you export, patient, pet and client names are masked before results reach the AI model, and nothing is billed, filed, refunded, paid, posted or changed in your practice system: drafts wait for one named person.",
+  "groups": [
+    ["Dental insurance", [
+      ["Claims aging", "Open dental claims by age, follow-up dates, filing limits, unsent, duplicate and secondary claims"],
+      ["ERA posting", "Each 835 claim against what was posted: unposted payments, write-off differences, denials written off"],
+      ["Pre-authorizations", "No answer from the carrier, approvals running out before the work is booked or done"],
+      ["PPO fees", "Your fees against each PPO's allowed amounts and what the PPO actually allowed"],
+      ["PPO write-offs", "Contractual and discretionary adjustments by plan and by person, with the ones to review"]
+    ]],
+    ["Dental patients and production", [
+      ["Unscheduled treatment", "Accepted and proposed treatment never booked, with benefits left before the year ends"],
+      ["Recall gaps", "Overdue and missed recall visits, and hygiene visits that leave without the next one booked"],
+      ["Patient balances", "Credits, missed plan payments, collections review and accounts with no recent statement"],
+      ["Membership plans", "In-house plan charges missed, failed or wrong, and plan use after a membership ended"],
+      ["Provider production", "Production, adjustments and collections per provider and month"],
+      ["Hygiene production", "Production per worked hour, unfilled time and the periodontal share by hygienist"],
+      ["Lab cases", "Cases not back for the seat appointment, seated and not billed, remakes and invoice problems"],
+      ["Sterilization logs", "Gaps in cycle and spore test logs, failed cycles with no rerun logged"]
+    ]],
+    ["Veterinary charges and pharmacy", [
+      ["Missed charges", "What the treatment sheet says was done against what was invoiced"],
+      ["Reference labs", "Send-out tests on the lab's invoice that were never charged or charged below cost"],
+      ["Estimate variance", "Invoices well above or below the estimate, and estimates never invoiced"],
+      ["Boarding and grooming", "Nights, days and add-ons booked against what was invoiced"],
+      ["Staff discounts", "Discounts and write-offs against your policy, by the person who gave them"],
+      ["Controlled drugs", "The drug log's arithmetic and balance against the physical count, waste and witness entries"],
+      ["Inventory expiry", "Expired and expiring stock by lot, and shrink from your counts"],
+      ["Pharmacy margins", "Items below cost, cost rises not passed on, margins under your target"]
+    ]],
+    ["Veterinary clients", [
+      ["Vaccine reminders", "Overdue pets with no recent reminder, unreachable clients, reminders sent for deceased pets"],
+      ["Wellness plans", "Failed and missed plan charges, use beyond the plan, early cancellations"],
+      ["Pet insurance claims", "Information requests, short direct payments, drafts not submitted, claims with no decision"],
+      ["Client balances", "Credits, unapplied deposits, collections review and accounts with no recent statement"]
+    ]],
+    ["Front office and finance (both)", [
+      ["Card deposits", "Processor batches against bank deposits and the practice system's card totals"],
+      ["Payroll production", "Payroll as a percent of collections per pay period, and overtime"],
+      ["Credential expiry", "Licences, DEA registrations and insurance expiring, and CE hours short"],
+      ["Referral tracking", "Referrals with no report back, referred patients never seen, doctors not thanked"],
+      ["Review replies", "Reviews to answer and reply drafts that never confirm someone is a patient"],
+      ["No-shows", "Missed and late-cancelled visits not rebooked, repeat no-shows, rates by provider"],
+      ["Supply costs", "Supplier invoices against production, price increases and repeated lines"]
+    ]]
+  ],
+  "closing": "Each one does one job, on your computer, from a file you export. Patient, pet and client names are masked before anything reaches the AI model, every result is written to a worklist your team owns, and nothing is billed, sent, filed, refunded or paid until one named person decides."
+}

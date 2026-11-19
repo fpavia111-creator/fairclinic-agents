@@ -1,0 +1,6 @@
+status,claim_id,client_name,patient_name,insurer,invoice_number,claimed,paid,submitted,reason,owner,decision
+info_requested,PC3,Ines Mwangi,Mochi,Demo Pet Cover,INV-303,210,,2026-11-06,Demo Pet Cover asked for more information on a claim submitted 2026-11-06. Send the records they asked for.,,
+direct_pay_balance,PC4,Felix Oduya,Pepper,Example Pet Insurance,INV-304,950,720,2026-11-02,Paid 720 directly to the clinic against 950 claimed; 230 is left on the client's account. A person decides how to bill it.,,
+not_submitted,PC6,Jonah Whitfield,Olive,Demo Pet Cover,INV-306,735,,,Drafted 14 days ago and not submitted.,,
+no_response,PC2,Tobias Achterberg,Juniper,Sample Paws Mutual,INV-302,1890,,2026-10-15,Submitted 32 days ago with no decision.,,
+denied,PC5,Clara Benedetti,Ziggy,Sample Paws Mutual,INV-305,180,,2026-11-08,Denied by Sample Paws Mutual. The client hears from the insurer; the clinic may be asked for records for an appeal.,,

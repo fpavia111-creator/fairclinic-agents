@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Controlled drug log reconciliation</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Controlled drug log reconciliation</h1>
+<p class="mut">4 drug(s), 16 log entr(ies). 6 item(s) to review: 2 count(s) that differ from the log, 1 arithmetic error(s) in written balances, 1 waste entr(ies) with no witness, 1 use(s) with no patient, 1 without initials, 0 drug(s) not counted. This reports the log; it is not a compliance finding.</p>
+
+<h2>By drug</h2><div class="wrap"><table><thead><tr><th scope="col">Drug</th><th scope="col">schedule</th><th scope="col">entries</th><th scope="col">log balance</th><th scope="col">written balance</th><th scope="col">counted</th><th scope="col">Difference</th><th scope="col">Status</th></tr></thead><tbody>
+<tr><td>Butorphanol 10 mg/mL</td><td>C-IV</td><td>4</td><td>37.5</td><td>37.5</td><td>36.5</td><td>-1</td><td>count_mismatch</td></tr>
+<tr><td>Diazepam 5 mg/mL</td><td>C-IV</td><td>2</td><td>14</td><td>14</td><td>14</td><td>0</td><td>ok</td></tr>
+<tr><td>Hydromorphone 2 mg/mL</td><td>C-II</td><td>6</td><td>17.7</td><td>17.5</td><td>17.5</td><td>-0.2</td><td>count_mismatch</td></tr>
+<tr><td>Ketamine 100 mg/mL</td><td>C-III</td><td>4</td><td>8.3</td><td>8.3</td><td>8.3</td><td>0</td><td>ok</td></tr>
+</tbody></table></div>
+<h2>All rows (8)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Drug</th><th scope="col">schedule</th><th scope="col">Date</th><th scope="col">entry type</th><th scope="col">quantity</th><th scope="col">running balance</th><th scope="col">Detail</th></tr></thead><tbody>
+<tr><td>count_mismatch</td><td>Butorphanol 10 mg/mL</td><td>C-IV</td><td>2026-11-15</td><td></td><td></td><td>37.5</td><td>Counted 36.5 on 2026-11-15; the log&#39;s entries add up to 37.5 (short by 1).</td></tr>
+<tr><td>count_mismatch</td><td>Hydromorphone 2 mg/mL</td><td>C-II</td><td>2026-11-15</td><td></td><td></td><td>17.5</td><td>Counted 17.5 on 2026-11-15; the log&#39;s entries add up to 17.7 (short by 0.2). The written balance (17.5) hides it because of 1 arithmetic error(s).</td></tr>
+<tr><td>balance_math</td><td>Hydromorphone 2 mg/mL</td><td>C-II</td><td>2026-11-09</td><td>Administered</td><td>0.6</td><td>18</td><td>Balance written as 18; 18.8 - 0.6 is 18.2 (off by -0.2).</td></tr>
+<tr><td>waste_no_witness</td><td>Ketamine 100 mg/mL</td><td>C-III</td><td>2026-11-05</td><td>Wasted</td><td>0.2</td><td>8.8</td><td>Waste of 0.2 on 2026-11-05 with no witness recorded.</td></tr>
+<tr><td>no_patient</td><td>Ketamine 100 mg/mL</td><td>C-III</td><td>2026-11-08</td><td>Administered</td><td>0.5</td><td>8.3</td><td>0.5 administered on 2026-11-08 with no patient recorded.</td></tr>
+<tr><td>missing_initials</td><td>Butorphanol 10 mg/mL</td><td>C-IV</td><td>2026-11-11</td><td>Administered</td><td>0.5</td><td>37.5</td><td>Entry on 2026-11-11 has no initials.</td></tr>
+<tr><td>ok</td><td>Diazepam 5 mg/mL</td><td>C-IV</td><td>2026-11-15</td><td></td><td></td><td>14</td><td>The count matches the balance worked out from the log.</td></tr>
+<tr><td>ok</td><td>Ketamine 100 mg/mL</td><td>C-III</td><td>2026-11-15</td><td></td><td></td><td>8.3</td><td>The count matches the balance worked out from the log.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you export and give it. It does not log in to the practice-management system, a payer or pet-insurer portal, a payment processor, a bank, a lab or a supplier.</li><li>This reports what the log and the count show. It does not decide whether any DEA or state rule is met, and it never files a report or form; your registrant and your written procedures decide what happens next.</li><li>Quantities are compared in the units the log uses; mixing mL and tablets for one drug will not add up.</li><li>Results returned to the AI model have patient, pet and client names, account numbers, birth dates and contact details masked. The files written here keep the real values for your team: keep them in a secure folder.</li><li>Not clinical, legal, tax, coding or compliance advice. It does not diagnose, recommend treatment or decide whether a rule is met. A person decides what to bill, pay, send, file or correct.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclinic agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

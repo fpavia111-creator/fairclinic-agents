@@ -1,0 +1,6 @@
+status,visit_id,invoice_number,patient_name,client_name,date,item,recorded_qty,invoiced_qty,missed_value,staff,reason,owner,decision
+not_invoiced,V1001,,Biscuit,Nadia Brennan,2026-11-12,Ear cytology,1,0,45,Tech Lee,1 x Ear cytology recorded and not on the invoice (about 45 at 45 each).,,
+not_invoiced,V1002,,Juniper,Tobias Achterberg,2026-11-12,CBC in-house,1,0,110,Tech Moss,1 x CBC in-house recorded and not on the invoice (about 110 at 110 each).,,
+qty_short,V1002,INV-2,Juniper,Tobias Achterberg,2026-11-12,IV fluids (per day),2,1,85,Tech Lee,"2 recorded, 1 invoiced (about 85 short).",,
+no_charge,V1003,INV-3,Mochi,Ines Mwangi,2026-11-13,Nail trim,1,1,0,Tech Moss,Invoiced at no charge (N/C); list price 22. Confirm it was meant.,,
+invoiced_not_recorded,V1005,INV-5,Ziggy,,2026-11-13,Heartworm test,0,1,0,,1 x Heartworm test invoiced for 55 with no matching line on the treatment sheet; check the record is complete.,,

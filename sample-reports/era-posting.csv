@@ -1,0 +1,7 @@
+status,claim_id,patient_name,payer,check_number,era_paid,posted_paid,writeoff_expected,posted_writeoff,patient_portion,posted_by,reasons,owner,decision
+writeoff_mismatch,C2002,THEO VASQUEZ-LIND,Example Dental PPO,EFT1101,588,588,245,196,147,Jo Front,"Posted write-off 196, the ERA's contractual adjustment is 245 (difference -49). The patient portion on the ERA is 147.",,
+not_posted,C2003,KENJI ABERNATHY,Example Dental PPO,EFT1101,76.8,,0,,19.2,,76.8 was paid on EFT1101 and no posting for this claim is in the export.,,
+denial_written_off,C2004,LUCIA FONTAINE,Example Dental PPO,EFT1101,0,0,0,540,0,Sam Billing,Denied (CO-29) but 540 was posted as a write-off. A denial is not a contractual write-off; work the denial before writing it off.,,
+payment_mismatch,C2005,MARISOL QUINTERO,Sample Mutual Dental,CHK55210,625,652,250,250,375,Sam Billing,"Posted 652, the ERA paid 625 (difference 27).",,
+reversal,C2006,PRIYA HALVORSEN,Sample Mutual Dental,CHK55210,-248,,-62,,0,,The carrier reversed 248 on this claim. Post the reversal by hand and check whether a corrected payment follows.,,
+not_on_era,C2009,Omar Brightwater,Example Dental PPO,EFT1101,,120,,0,,Jo Front,"Posted 120 against EFT1101, but this claim is not on that ERA. It may belong to another claim or another payment.",,

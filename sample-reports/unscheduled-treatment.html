@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unscheduled treatment</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Unscheduled treatment</h1>
+<p class="mut">9 patient(s), 4 to contact: 2670 accepted and 2440 proposed treatment not scheduled; 2 patient(s) with 2400 of benefits ending soon; 1 plan(s) old enough for the dentist to review.</p>
+
+<h2>By status</h2><div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td>benefits_expiring</td><td>2</td></tr>
+<tr><td>scheduled</td><td>2</td></tr>
+<tr><td>accepted_unscheduled</td><td>1</td></tr>
+<tr><td>proposed_unscheduled</td><td>1</td></tr>
+<tr><td>declined</td><td>1</td></tr>
+<tr><td>done</td><td>1</td></tr>
+<tr><td>stale</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (5)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Patient</th><th scope="col">unscheduled accepted</th><th scope="col">unscheduled proposed</th><th scope="col">remaining benefit</th><th scope="col">benefit year end</th><th scope="col">Reasons</th></tr></thead><tbody>
+<tr><td>benefits_expiring</td><td>Omar Brightwater</td><td>0</td><td>1800</td><td>1500</td><td>2026-12-31</td><td>1500 of benefits shown as remaining until 2026-12-31 (45 days), with 1800 of treatment not scheduled. 1800 of proposed treatment not scheduled (D5110).</td></tr>
+<tr><td>benefits_expiring</td><td>Rowan Achebe</td><td>1490</td><td>0</td><td>900</td><td>2026-12-31</td><td>900 of benefits shown as remaining until 2026-12-31 (45 days), with 1490 of treatment not scheduled. 1490 of accepted treatment not scheduled (D2740, D2950).</td></tr>
+<tr><td>accepted_unscheduled</td><td>Lucia Fontaine</td><td>1180</td><td>0</td><td></td><td>2026-12-31</td><td>1180 of accepted treatment not scheduled (D2740).</td></tr>
+<tr><td>proposed_unscheduled</td><td>Marisol Quintero</td><td>0</td><td>640</td><td>0</td><td>2026-12-31</td><td>640 of proposed treatment not scheduled (D4342).</td></tr>
+<tr><td>stale</td><td>Priya Halvorsen</td><td>0</td><td>0</td><td>1200</td><td>2026-12-31</td><td>1180 planned more than 365 days ago and not scheduled; the dentist decides whether the plan still stands.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you export and give it. It does not log in to the practice-management system, a payer or pet-insurer portal, a payment processor, a bank, a lab or a supplier.</li><li>Remaining benefits are what your export shows; the plan decides what it pays. The benefit year ends on 31 December unless the file says otherwise.</li><li>A plan older than the stale setting is set aside: the dentist decides whether it still stands.</li><li>Results returned to the AI model have patient, pet and client names, account numbers, birth dates and contact details masked. The files written here keep the real values for your team: keep them in a secure folder.</li><li>Dental files are protected health information: sign a business associate agreement with whoever sets this up before any file is held, and keep the output folder access-controlled.</li><li>Not clinical, legal, tax, coding or compliance advice. It does not diagnose, recommend treatment or decide whether a rule is met. A person decides what to bill, pay, send, file or correct.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclinic agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

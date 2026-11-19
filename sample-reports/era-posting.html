@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERA posting check</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>ERA posting check</h1>
+<p class="mut">7 ERA claim(s), 1550.6 paid; 1868.8 posted against those checks. 1 not posted (76.8), 2 posted differently, 1 denial(s) written off, 0 denial(s) to work, 1 reversal(s), 1 posting(s) not on the ERA, 2 check(s) that do not tie.</p>
+
+<h2>Check totals</h2><div class="wrap"><table><thead><tr><th scope="col">Check / EFT</th><th scope="col">Payer</th><th scope="col">Claims</th><th scope="col">era amount</th><th scope="col">posted amount</th><th scope="col">Difference</th><th scope="col">Status</th></tr></thead><tbody>
+<tr><td>CHK55210</td><td>Sample Mutual Dental</td><td>3</td><td>617</td><td>892</td><td>275</td><td>check_total_differs</td></tr>
+<tr><td>EFT1101</td><td>Example Dental PPO</td><td>4</td><td>933.6</td><td>976.8</td><td>43.2</td><td>check_total_differs</td></tr>
+</tbody></table></div>
+<h2>By status</h2><div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td>ok</td><td>2</td></tr>
+<tr><td>writeoff_mismatch</td><td>1</td></tr>
+<tr><td>not_posted</td><td>1</td></tr>
+<tr><td>denial_written_off</td><td>1</td></tr>
+<tr><td>payment_mismatch</td><td>1</td></tr>
+<tr><td>reversal</td><td>1</td></tr>
+<tr><td>not_on_era</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (6)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Claim</th><th scope="col">Check / EFT</th><th scope="col">era paid</th><th scope="col">posted paid</th><th scope="col">writeoff expected</th><th scope="col">posted writeoff</th><th scope="col">Reasons</th></tr></thead><tbody>
+<tr><td>writeoff_mismatch</td><td>C2002</td><td>EFT1101</td><td>588</td><td>588</td><td>245</td><td>196</td><td>Posted write-off 196, the ERA&#39;s contractual adjustment is 245 (difference -49). The patient portion on the ERA is 147.</td></tr>
+<tr><td>not_posted</td><td>C2003</td><td>EFT1101</td><td>76.8</td><td></td><td>0</td><td></td><td>76.8 was paid on EFT1101 and no posting for this claim is in the export.</td></tr>
+<tr><td>denial_written_off</td><td>C2004</td><td>EFT1101</td><td>0</td><td>0</td><td>0</td><td>540</td><td>Denied (CO-29) but 540 was posted as a write-off. A denial is not a contractual write-off; work the denial before writing it off.</td></tr>
+<tr><td>payment_mismatch</td><td>C2005</td><td>CHK55210</td><td>625</td><td>652</td><td>250</td><td>250</td><td>Posted 652, the ERA paid 625 (difference 27).</td></tr>
+<tr><td>reversal</td><td>C2006</td><td>CHK55210</td><td>-248</td><td></td><td>-62</td><td></td><td>The carrier reversed 248 on this claim. Post the reversal by hand and check whether a corrected payment follows.</td></tr>
+<tr><td>not_on_era</td><td>C2009</td><td>EFT1101</td><td></td><td>120</td><td></td><td>0</td><td>Posted 120 against EFT1101, but this claim is not on that ERA. It may belong to another claim or another payment.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you export and give it. It does not log in to the practice-management system, a payer or pet-insurer portal, a payment processor, a bank, a lab or a supplier.</li><li>Contractual write-offs are the CO adjustments with the reason codes in your settings (45, 253 and 131 by default); other CO codes are read as denials or limits.</li><li>A posting is matched to the ERA by claim id; postings on other checks are left out of the check totals.</li><li>Results returned to the AI model have patient, pet and client names, account numbers, birth dates and contact details masked. The files written here keep the real values for your team: keep them in a secure folder.</li><li>Dental files are protected health information: sign a business associate agreement with whoever sets this up before any file is held, and keep the output folder access-controlled.</li><li>Not clinical, legal, tax, coding or compliance advice. It does not diagnose, recommend treatment or decide whether a rule is met. A person decides what to bill, pay, send, file or correct.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclinic agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

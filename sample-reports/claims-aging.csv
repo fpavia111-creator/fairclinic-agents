@@ -1,0 +1,12 @@
+status,claim_id,patient_name,payer,claim_type,provider,date_of_service,date_sent,age_days,bucket,outstanding,file_by,next_follow_up,findings,reasons,owner,decision
+waiting,C1001,Rowan Achebe,Example Dental PPO,Primary,Dr. Ada Example,2026-10-28,2026-10-29,18,0-30,336,2027-10-28,2026-11-28,,,,
+follow_up,C1002,Marisol Quintero,Sample Mutual Dental,Primary,Dr. Ben Sample,2026-09-02,2026-09-03,74,61-90,625,2027-09-02,2026-11-16,follow_up,"Sent 74 days ago, no follow-up recorded.",,
+waiting,C1003,Theo Vasquez-Lind,Example Dental PPO,Primary,Dr. Ada Example,2026-08-11,2026-08-12,96,91-120,784,2027-08-11,2026-11-24,,,,
+filing_risk,C1004,Priya Halvorsen,Demo Smile Plan,Primary,Dr. Ben Sample,2026-08-20,2026-10-10,37,31-60,248,2026-11-18,2026-11-16,filing_risk follow_up,"2 day(s) left before the 90-day filing limit (2026-11-18). Sent 37 days ago, no follow-up recorded.",,
+unsent,C1005,Dmitri Okonkwo,Sample Mutual Dental,Primary,Dr. Ada Example,2026-11-09,,,unsent,148,2027-11-09,,unsent,Created for a 2026-11-09 visit and not sent after 7 days.,,
+denied,C1006,Saoirse Delacroix,Test Dental Network,Primary,Dr. Ben Sample,2026-09-15,2026-09-16,61,61-90,1070,2027-09-15,,denied,"Marked Denied by the carrier; it needs a corrected claim or an appeal, not a status call.",,
+follow_up,C1007,Kenji Abernathy,Example Dental PPO,Primary,Dr. Ada Example,2026-10-05,2026-10-06,41,31-60,76.8,2027-10-05,2026-11-16,follow_up,"Sent 41 days ago, last follow-up 27 days ago.",,
+duplicate,C1008,Kenji Abernathy,Example Dental PPO,Primary,Dr. Ada Example,2026-10-05,2026-10-07,40,31-60,76.8,2027-10-05,2026-11-16,duplicate follow_up,"Same patient, date of service and carrier as claim C1007; check that the carrier is not billed twice. Sent 40 days ago, no follow-up recorded.",,
+secondary_not_sent,C1009,Lucia Fontaine,Example Dental PPO,Primary,Dr. Ben Sample,2026-10-14,2026-10-15,32,closed,0,,,secondary_not_sent,The primary carrier paid 432; no secondary claim to Sample Mutual Dental for this visit is in the file. Send it with the primary's explanation of benefits.,,
+waiting,C1011,Omar Brightwater,Example Dental PPO,Secondary,Dr. Ada Example,2026-10-01,2026-10-20,27,0-30,60,2027-10-01,2026-11-19,,,,
+filing_risk,C1012,Greta Lindqvist,Test Dental Network,Primary,Dr. Ben Sample,2025-12-01,2025-12-03,348,120+,380,2026-12-01,2026-11-16,filing_risk follow_up,"15 day(s) left before the 365-day filing limit (2026-12-01). Sent 348 days ago, last follow-up 76 days ago.",,

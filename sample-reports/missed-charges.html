@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missed charges</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Missed charges</h1>
+<p class="mut">15 recorded line(s) over 5 visit(s). 5 to review: 2 not invoiced, 1 invoiced short, 1 at no charge, 1 invoiced but not on the record. About 240 not charged.</p>
+
+<h2>By status</h2><div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td>ok</td><td>11</td></tr>
+<tr><td>not_invoiced</td><td>2</td></tr>
+<tr><td>qty_short</td><td>1</td></tr>
+<tr><td>no_charge</td><td>1</td></tr>
+<tr><td>invoiced_not_recorded</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (5)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">visit id</th><th scope="col">Date</th><th scope="col">Item</th><th scope="col">recorded qty</th><th scope="col">invoiced qty</th><th scope="col">missed value</th><th scope="col">Reason</th></tr></thead><tbody>
+<tr><td>not_invoiced</td><td>V1001</td><td>2026-11-12</td><td>Ear cytology</td><td>1</td><td>0</td><td>45</td><td>1 x Ear cytology recorded and not on the invoice (about 45 at 45 each).</td></tr>
+<tr><td>not_invoiced</td><td>V1002</td><td>2026-11-12</td><td>CBC in-house</td><td>1</td><td>0</td><td>110</td><td>1 x CBC in-house recorded and not on the invoice (about 110 at 110 each).</td></tr>
+<tr><td>qty_short</td><td>V1002</td><td>2026-11-12</td><td>IV fluids (per day)</td><td>2</td><td>1</td><td>85</td><td>2 recorded, 1 invoiced (about 85 short).</td></tr>
+<tr><td>no_charge</td><td>V1003</td><td>2026-11-13</td><td>Nail trim</td><td>1</td><td>1</td><td>0</td><td>Invoiced at no charge (N/C); list price 22. Confirm it was meant.</td></tr>
+<tr><td>invoiced_not_recorded</td><td>V1005</td><td>2026-11-13</td><td>Heartworm test</td><td>0</td><td>1</td><td>0</td><td>1 x Heartworm test invoiced for 55 with no matching line on the treatment sheet; check the record is complete.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you export and give it. It does not log in to the practice-management system, a payer or pet-insurer portal, a payment processor, a bank, a lab or a supplier.</li><li>Items are matched by name; when the treatment sheet and the invoice word an item differently, name the pair in item_aliases.</li><li>A missed charge is for a person to add or to waive on purpose; the agent never changes an invoice or charges a client.</li><li>Results returned to the AI model have patient, pet and client names, account numbers, birth dates and contact details masked. The files written here keep the real values for your team: keep them in a secure folder.</li><li>Not clinical, legal, tax, coding or compliance advice. It does not diagnose, recommend treatment or decide whether a rule is met. A person decides what to bill, pay, send, file or correct.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclinic agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card batches and deposits</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Card batches and deposits</h1>
+<p class="mut">5 batch(es): gross 19750, fees 630.35 (3.19%), net 18769.65, deposited 15281.65. 4 to review: 1 with no deposit, 1 deposited at a different amount, 1 chargeback(s) (150), 1 day(s) where the practice system differs, 1 with high fees, 1 deposit(s) matching no batch.</p>
+
+<h2>By status</h2><div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td>ok</td><td>2</td></tr>
+<tr><td>no_deposit</td><td>1</td></tr>
+<tr><td>amount_differs</td><td>1</td></tr>
+<tr><td>chargeback</td><td>1</td></tr>
+<tr><td>deposit_unmatched</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (4)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">batch id</th><th scope="col">Date</th><th scope="col">gross</th><th scope="col">net</th><th scope="col">deposited</th><th scope="col">Reasons</th></tr></thead><tbody>
+<tr><td>no_deposit</td><td>B105</td><td>2026-11-06</td><td>3600</td><td>3438</td><td></td><td>No bank deposit of 3438 within 5 day(s) of 2026-11-06. Fees were 4.5% of gross (162 of 3600); your flag is 3.5%.</td></tr>
+<tr><td>amount_differs</td><td>B103</td><td>2026-11-04</td><td>5120</td><td>4771.52</td><td>4721.52</td><td>Deposited 4721.52 on 2026-11-06; the batch net is 4771.52 (difference -50).</td></tr>
+<tr><td>chargeback</td><td>B104</td><td>2026-11-05</td><td>2980</td><td>2743.58</td><td>2743.58</td><td>A chargeback of 150 came out of this batch. Someone responds to the dispute in the processor&#39;s portal before its deadline. The practice system shows 3010 in card payments on 2026-11-05; the batch gross is 2980 (difference -30).</td></tr>
+<tr><td>deposit_unmatched</td><td></td><td>2026-11-09</td><td></td><td></td><td>980</td><td>A card deposit of 980 on 2026-11-09 matches no batch in the file.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you export and give it. It does not log in to the practice-management system, a payer or pet-insurer portal, a payment processor, a bank, a lab or a supplier.</li><li>Deposits are matched by batch id in the bank description, else by the net amount within the deposit days; two batches with the same net on nearby days can swap.</li><li>Totals, rates and variances are arithmetic on the numbers in your files, not forecasts.</li><li>Not clinical, legal, tax, coding or compliance advice. It does not diagnose, recommend treatment or decide whether a rule is met. A person decides what to bill, pay, send, file or correct.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclinic agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

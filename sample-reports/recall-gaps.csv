@@ -1,0 +1,6 @@
+status,patient_name,recall_type,hygienist,due_date,days_overdue,next_appointment,last_contact,reason,owner,decision
+missed_appointment,Saoirse Delacroix,Prophy,Iris Demo,2026-10-20,27,2026-11-03,,The booked visit on 2026-11-03 has passed and the recall (due 2026-10-20) is still open; it was probably missed or cancelled.,,
+overdue,Theo Vasquez-Lind,Prophy,Hana Test,2026-08-01,107,,2026-09-01,"Overdue 107 days (due 2026-08-01), not booked, last contact 2026-09-01.",,
+overdue,Lucia Fontaine,Perio Maintenance,Iris Demo,2026-11-01,15,,,"Overdue 15 days (due 2026-11-01), not booked, no contact recorded.",,
+lapsed,Priya Halvorsen,Prophy,Iris Demo,2024-12-01,715,,,Overdue 715 days (due 2024-12-01); on the reactivation list.,,
+due_soon,Dmitri Okonkwo,Prophy,Hana Test,2026-12-01,0,,,Due in 15 day(s) (2026-12-01) and not booked.,,

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open dental claims</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Open dental claims</h1>
+<p class="mut">10 open claim(s), 3804.6 outstanding (2859 over 60 days): 2 to follow up, 1 denied, 2 near or past the filing limit, 1 not sent, 1 possible duplicate(s), 1 secondary claim(s) not sent.</p>
+
+<h2>By age bucket</h2><div class="wrap"><table><thead><tr><th scope="col">Aging bucket</th><th scope="col">Count</th><th scope="col">Amount</th></tr></thead><tbody>
+<tr><td>unsent</td><td>1</td><td>148</td></tr>
+<tr><td>0-30</td><td>2</td><td>396</td></tr>
+<tr><td>31-60</td><td>3</td><td>401.6</td></tr>
+<tr><td>61-90</td><td>2</td><td>1695</td></tr>
+<tr><td>91-120</td><td>1</td><td>784</td></tr>
+<tr><td>120+</td><td>1</td><td>380</td></tr>
+</tbody></table></div>
+<h2>By payer</h2><div class="wrap"><table><thead><tr><th scope="col">Payer</th><th scope="col">Count</th><th scope="col">Amount</th></tr></thead><tbody>
+<tr><td>Test Dental Network</td><td>2</td><td>1450</td></tr>
+<tr><td>Example Dental PPO</td><td>5</td><td>1333.6</td></tr>
+<tr><td>Sample Mutual Dental</td><td>2</td><td>773</td></tr>
+<tr><td>Demo Smile Plan</td><td>1</td><td>248</td></tr>
+</tbody></table></div>
+<h2>All rows (11)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Claim</th><th scope="col">Payer</th><th scope="col">date sent</th><th scope="col">Age (days)</th><th scope="col">outstanding</th><th scope="col">file by</th><th scope="col">Reasons</th></tr></thead><tbody>
+<tr><td>waiting</td><td>C1001</td><td>Example Dental PPO</td><td>2026-10-29</td><td>18</td><td>336</td><td>2027-10-28</td><td></td></tr>
+<tr><td>follow_up</td><td>C1002</td><td>Sample Mutual Dental</td><td>2026-09-03</td><td>74</td><td>625</td><td>2027-09-02</td><td>Sent 74 days ago, no follow-up recorded.</td></tr>
+<tr><td>waiting</td><td>C1003</td><td>Example Dental PPO</td><td>2026-08-12</td><td>96</td><td>784</td><td>2027-08-11</td><td></td></tr>
+<tr><td>filing_risk</td><td>C1004</td><td>Demo Smile Plan</td><td>2026-10-10</td><td>37</td><td>248</td><td>2026-11-18</td><td>2 day(s) left before the 90-day filing limit (2026-11-18). Sent 37 days ago, no follow-up recorded.</td></tr>
+<tr><td>unsent</td><td>C1005</td><td>Sample Mutual Dental</td><td></td><td></td><td>148</td><td>2027-11-09</td><td>Created for a 2026-11-09 visit and not sent after 7 days.</td></tr>
+<tr><td>denied</td><td>C1006</td><td>Test Dental Network</td><td>2026-09-16</td><td>61</td><td>1070</td><td>2027-09-15</td><td>Marked Denied by the carrier; it needs a corrected claim or an appeal, not a status call.</td></tr>
+<tr><td>follow_up</td><td>C1007</td><td>Example Dental PPO</td><td>2026-10-06</td><td>41</td><td>76.8</td><td>2027-10-05</td><td>Sent 41 days ago, last follow-up 27 days ago.</td></tr>
+<tr><td>duplicate</td><td>C1008</td><td>Example Dental PPO</td><td>2026-10-07</td><td>40</td><td>76.8</td><td>2027-10-05</td><td>Same patient, date of service and carrier as claim C1007; check that the carrier is not billed twice. Sent 40 days ago, no follow-up recorded.</td></tr>
+<tr><td>secondary_not_sent</td><td>C1009</td><td>Example Dental PPO</td><td>2026-10-15</td><td>32</td><td>0</td><td></td><td>The primary carrier paid 432; no secondary claim to Sample Mutual Dental for this visit is in the file. Send it with the primary&#39;s explanation of benefits.</td></tr>
+<tr><td>waiting</td><td>C1011</td><td>Example Dental PPO</td><td>2026-10-20</td><td>27</td><td>60</td><td>2027-10-01</td><td></td></tr>
+<tr><td>filing_risk</td><td>C1012</td><td>Test Dental Network</td><td>2025-12-03</td><td>348</td><td>380</td><td>2026-12-01</td><td>15 day(s) left before the 365-day filing limit (2026-12-01). Sent 348 days ago, last follow-up 76 days ago.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you export and give it. It does not log in to the practice-management system, a payer or pet-insurer portal, a payment processor, a bank, a lab or a supplier.</li><li>Filing limits are the days you set per carrier (365 by default); check each carrier&#39;s contract.</li><li>Outstanding is the insurance estimate (or the fee when there is none) less what was paid.</li><li>Results returned to the AI model have patient, pet and client names, account numbers, birth dates and contact details masked. The files written here keep the real values for your team: keep them in a secure folder.</li><li>Dental files are protected health information: sign a business associate agreement with whoever sets this up before any file is held, and keep the output folder access-controlled.</li><li>Not clinical, legal, tax, coding or compliance advice. It does not diagnose, recommend treatment or decide whether a rule is met. A person decides what to bill, pay, send, file or correct.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclinic agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

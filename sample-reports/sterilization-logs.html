@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sterilization log check</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Sterilization log check</h1>
+<p class="mut">2 sterilizer(s), 17 cycle(s), 4 spore test(s). 5 open item(s) in the logs: 1 positive spore test(s) with no retest logged, 1 failed cycle(s) with no rerun logged, 1 gap(s) between spore tests, 1 gap(s) in cycle numbers, 1 incomplete entr(ies). This is a log completeness check, not a compliance finding.</p>
+
+<h2>By sterilizer</h2><div class="wrap"><table><thead><tr><th scope="col">sterilizer</th><th scope="col">cycles</th><th scope="col">failed cycles</th><th scope="col">spore tests</th><th scope="col">positive tests</th><th scope="col">last spore test</th><th scope="col">open items</th></tr></thead><tbody>
+<tr><td>Autoclave A</td><td>12</td><td>2</td><td>2</td><td>0</td><td>2026-11-09</td><td>3</td></tr>
+<tr><td>Autoclave B</td><td>5</td><td>0</td><td>2</td><td>1</td><td>2026-11-12</td><td>2</td></tr>
+</tbody></table></div>
+<h2>All rows (5)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">sterilizer</th><th scope="col">Date</th><th scope="col">ref</th><th scope="col">Detail</th></tr></thead><tbody>
+<tr><td>positive_no_followup</td><td>Autoclave B</td><td>2026-11-12</td><td></td><td>Positive spore test on 2026-11-12 with no negative retest in the log since (4 days).</td></tr>
+<tr><td>failed_no_rerun</td><td>Autoclave A</td><td>2026-11-06</td><td>110</td><td>Cycle 110 on 2026-11-06 failed and no passing cycle follows it that day in the log. Check what happened to that load.</td></tr>
+<tr><td>spore_gap</td><td>Autoclave B</td><td>2026-11-12</td><td></td><td>13 days between spore tests (2026-10-30 to 2026-11-12) while the sterilizer was in use; your interval is 7 days.</td></tr>
+<tr><td>cycle_number_gap</td><td>Autoclave A</td><td>2026-11-05</td><td>107-109</td><td>Cycle numbers jump from 107 to 109: 1 cycle(s) not in the log.</td></tr>
+<tr><td>missing_entry</td><td>Autoclave A</td><td>2026-11-04</td><td>106</td><td>Cycle 106 on 2026-11-04 has no initials in the log.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you export and give it. It does not log in to the practice-management system, a payer or pet-insurer portal, a payment processor, a bank, a lab or a supplier.</li><li>This shows what the logs do and do not contain. It does not decide whether any law, rule or standard is met, and the spore interval is your own setting.</li><li>It does not tell anyone what to do with a load or a sterilizer; follow your written protocol and the manufacturer&#39;s instructions.</li><li>Not clinical, legal, tax, coding or compliance advice. It does not diagnose, recommend treatment or decide whether a rule is met. A person decides what to bill, pay, send, file or correct.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclinic agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>

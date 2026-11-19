@@ -1,0 +1,6 @@
+status,sterilizer,date,ref,detail,owner,decision
+positive_no_followup,Autoclave B,2026-11-12,,Positive spore test on 2026-11-12 with no negative retest in the log since (4 days).,,
+failed_no_rerun,Autoclave A,2026-11-06,110,Cycle 110 on 2026-11-06 failed and no passing cycle follows it that day in the log. Check what happened to that load.,,
+spore_gap,Autoclave B,2026-11-12,,13 days between spore tests (2026-10-30 to 2026-11-12) while the sterilizer was in use; your interval is 7 days.,,
+cycle_number_gap,Autoclave A,2026-11-05,107-109,Cycle numbers jump from 107 to 109: 1 cycle(s) not in the log.,,
+missing_entry,Autoclave A,2026-11-04,106,Cycle 106 on 2026-11-04 has no initials in the log.,,

@@ -1,0 +1,9 @@
+status,kind,drug,schedule,date,entry_type,quantity,running_balance,patient_name,initials,detail,owner,decision
+count_mismatch,drug,Butorphanol 10 mg/mL,C-IV,2026-11-15,,,37.5,,,Counted 36.5 on 2026-11-15; the log's entries add up to 37.5 (short by 1).,,
+count_mismatch,drug,Hydromorphone 2 mg/mL,C-II,2026-11-15,,,17.5,,,Counted 17.5 on 2026-11-15; the log's entries add up to 17.7 (short by 0.2). The written balance (17.5) hides it because of 1 arithmetic error(s).,,
+balance_math,entry,Hydromorphone 2 mg/mL,C-II,2026-11-09,Administered,0.6,18,Mochi,TL,Balance written as 18; 18.8 - 0.6 is 18.2 (off by -0.2).,,
+waste_no_witness,entry,Ketamine 100 mg/mL,C-III,2026-11-05,Wasted,0.2,8.8,,TL,Waste of 0.2 on 2026-11-05 with no witness recorded.,,
+no_patient,entry,Ketamine 100 mg/mL,C-III,2026-11-08,Administered,0.5,8.3,,TM,0.5 administered on 2026-11-08 with no patient recorded.,,
+missing_initials,entry,Butorphanol 10 mg/mL,C-IV,2026-11-11,Administered,0.5,37.5,Juniper,,Entry on 2026-11-11 has no initials.,,
+ok,drug,Diazepam 5 mg/mL,C-IV,2026-11-15,,,14,,,The count matches the balance worked out from the log.,,
+ok,drug,Ketamine 100 mg/mL,C-III,2026-11-15,,,8.3,,,The count matches the balance worked out from the log.,,

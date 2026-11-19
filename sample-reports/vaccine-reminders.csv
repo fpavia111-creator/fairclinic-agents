@@ -1,0 +1,7 @@
+status,client_id,client_name,patient_name,species,reminder,due_date,reminder_sent,reason,owner,decision
+sent_to_inactive,C105,Jonah Whitfield,Olive,Canine,DHPP,2026-11-30,2026-11-02,A reminder went out on 2026-11-02 for a pet marked deceased. Check the reminder settings for this pet.,,
+overdue_no_contact,C101,Tobias Achterberg,Juniper,Feline,FVRCP,2026-09-30,2026-09-01,"Overdue 47 days (due 2026-09-30), not booked, last reminder 76 days ago.",,
+overdue_no_contact,C101,Tobias Achterberg,Juniper,Feline,Rabies 1 year,2026-11-02,,"Overdue 14 days (due 2026-11-02), not booked, no reminder recorded.",,
+no_contact_info,C104,Clara Benedetti,Ziggy,Canine,Bordetella,2026-08-15,,Overdue 93 days and there is no e-mail or phone on file to remind the client.,,
+due_soon_no_reminder,C100,Nadia Brennan,Biscuit,Canine,Rabies 3 year,2026-11-25,,Due in 9 day(s) (2026-11-25) and no reminder recorded.,,
+overdue_reminded,C102,Ines Mwangi,Mochi,Feline,Rabies 1 year,2026-10-20,2026-11-10,Overdue 27 days; reminded 6 day(s) ago.,,

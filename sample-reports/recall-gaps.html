@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recall gaps</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Recall gaps</h1>
+<p class="mut">10 recall patient(s), 22.22% booked; 5 to contact: 2 overdue, 1 missed visit(s), 1 due soon, 1 lapsed; 1 contacted recently. Reappointment at hygiene visits: 75% (1 hygienist(s) below target).</p>
+
+<h2>By status</h2><div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td>overdue</td><td>2</td></tr>
+<tr><td>scheduled</td><td>2</td></tr>
+<tr><td>missed_appointment</td><td>1</td></tr>
+<tr><td>lapsed</td><td>1</td></tr>
+<tr><td>due_soon</td><td>1</td></tr>
+<tr><td>contacted</td><td>1</td></tr>
+<tr><td>not_due</td><td>1</td></tr>
+<tr><td>inactive</td><td>1</td></tr>
+</tbody></table></div>
+<h2>By hygienist</h2><div class="wrap"><table><thead><tr><th scope="col">Hygienist</th><th scope="col">visits</th><th scope="col">reappointed</th><th scope="col">rate pct</th><th scope="col">Status</th></tr></thead><tbody>
+<tr><td>Hana Test</td><td>4</td><td>4</td><td>100</td><td>ok</td></tr>
+<tr><td>Iris Demo</td><td>4</td><td>2</td><td>50</td><td>below_target</td></tr>
+</tbody></table></div>
+<h2>All rows (5)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">Status</th><th scope="col">Patient</th><th scope="col">recall type</th><th scope="col">due date</th><th scope="col">days overdue</th><th scope="col">last contact</th><th scope="col">Reason</th></tr></thead><tbody>
+<tr><td>missed_appointment</td><td>Saoirse Delacroix</td><td>Prophy</td><td>2026-10-20</td><td>27</td><td></td><td>The booked visit on 2026-11-03 has passed and the recall (due 2026-10-20) is still open; it was probably missed or cancelled.</td></tr>
+<tr><td>overdue</td><td>Theo Vasquez-Lind</td><td>Prophy</td><td>2026-08-01</td><td>107</td><td>2026-09-01</td><td>Overdue 107 days (due 2026-08-01), not booked, last contact 2026-09-01.</td></tr>
+<tr><td>overdue</td><td>Lucia Fontaine</td><td>Perio Maintenance</td><td>2026-11-01</td><td>15</td><td></td><td>Overdue 15 days (due 2026-11-01), not booked, no contact recorded.</td></tr>
+<tr><td>lapsed</td><td>Priya Halvorsen</td><td>Prophy</td><td>2024-12-01</td><td>715</td><td></td><td>Overdue 715 days (due 2024-12-01); on the reactivation list.</td></tr>
+<tr><td>due_soon</td><td>Dmitri Okonkwo</td><td>Prophy</td><td>2026-12-01</td><td>0</td><td></td><td>Due in 15 day(s) (2026-12-01) and not booked.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you export and give it. It does not log in to the practice-management system, a payer or pet-insurer portal, a payment processor, a bank, a lab or a supplier.</li><li>Due dates and recall types are the ones in your export; this agent does not set recall intervals.</li><li>Results returned to the AI model have patient, pet and client names, account numbers, birth dates and contact details masked. The files written here keep the real values for your team: keep them in a secure folder.</li><li>Dental files are protected health information: sign a business associate agreement with whoever sets this up before any file is held, and keep the output folder access-controlled.</li><li>Not clinical, legal, tax, coding or compliance advice. It does not diagnose, recommend treatment or decide whether a rule is met. A person decides what to bill, pay, send, file or correct.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairclinic agent from your files on this computer. Nothing was sent, submitted or paid. This page contains patient information: keep it in your secure folder and do not e-mail it.</p>
+</main></body></html>
