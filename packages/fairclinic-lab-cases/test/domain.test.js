@@ -28,7 +28,7 @@ test('seated work not marked billed is flagged', () => {
 test('a returned case with no invoice is listed only after the waiting days', () => {
   const other = [inv({ invoice_number: 'X', case_id: 'C2' })];
   assert.equal(checkLabs([kase({ returned_date: '2026-10-01', due_date: '2026-10-05', billed: 'Yes' }), kase({ case_id: 'C2', returned_date: '2026-10-01' })], other, { asOf: '2026-11-16' }).items.find((i) => i.case_id === 'C1').status, 'no_invoice');
-  assert.equal(st({ returned_date: '2026-11-10', billed: 'Yes' }, other), 'ok');
+  assert.equal(checkLabs([kase({ returned_date: '2026-11-10', billed: 'Yes' }), kase({ case_id: 'C2', returned_date: '2026-11-01' })], other, { asOf: '2026-11-16' }).items.find((i) => i.case_id === 'C1').status, 'ok');
   assert.equal(st({ returned_date: '2026-10-01', due_date: '2026-10-05', billed: 'Yes' }), 'ok', 'no invoice file, no invoice check');
 });
 
