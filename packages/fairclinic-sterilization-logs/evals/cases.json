@@ -1,0 +1,276 @@
+{
+  "suite": "fairclinic-sterilization-logs",
+  "root": "..",
+  "data_note": "Fictional sterilizer cycle and spore logs in ../fixtures, as of 2026-11-16. No patient data. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.sterilizers": 2,
+          "result.cycles": 17,
+          "result.spore_tests": 4,
+          "result.open_items": 5,
+          "result.by_status.positive_no_followup": 1,
+          "result.by_status.failed_no_rerun": 1,
+          "result.by_status.spore_gap": 1,
+          "result.by_status.cycle_number_gap": 1,
+          "result.by_status.missing_entry": 1
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "Positive spore test on 2026-11-12 with no negative retest in the log since (4 days)",
+          "Cycle 110 on 2026-11-06 failed and no passing cycle follows it that day",
+          "13 days between spore tests (2026-10-30 to 2026-11-12)",
+          "Cycle numbers jump from 107 to 109",
+          "Cycle 106 on 2026-11-04 has no initials",
+          "not a compliance finding"
+        ]
+      }
+    },
+    {
+      "id": "rerun-is-fine",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "not_contains": [
+          "Cycle 104 on"
+        ]
+      }
+    },
+    {
+      "id": "by-sterilizer",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_sterilizer.0.failed_cycles": 2,
+          "result.by_sterilizer.0.open_items": 3,
+          "result.by_sterilizer.1.positive_tests": 1,
+          "result.by_sterilizer.1.last_spore_test": "2026-11-12"
+        }
+      }
+    },
+    {
+      "id": "retest-window-not-yet-passed",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "as_of": "2026-11-13"
+      },
+      "expect": {
+        "equals": {
+          "result.open_items": 4
+        }
+      }
+    },
+    {
+      "id": "no-spore-file",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.spore_gap": 2
+        },
+        "contains": [
+          "Used, with no spore test in the log"
+        ]
+      }
+    },
+    {
+      "id": "longer-interval",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "settings": "fixtures/settings-14.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.open_items": 4
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "spore_days"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "sterilization_write_report",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "as_of": "2026-11-16",
+        "out_dir": "fairclinic-out/evals/sterilization"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "sterilization-log-check.csv",
+          "sterilization-log-check.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "sterilization_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "../../outside.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "sterilization_check",
+      "mode": "review",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.sterilizers": 2,
+          "result.cycles": 17,
+          "result.spore_tests": 4,
+          "result.open_items": 5,
+          "result.by_status.positive_no_followup": 1,
+          "result.by_status.failed_no_rerun": 1,
+          "result.by_status.spore_gap": 1,
+          "result.by_status.cycle_number_gap": 1,
+          "result.by_status.missing_entry": 1
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "sterilization_check",
+      "args": {
+        "spores": "fixtures/spore-tests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "cycles"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "sterilization_check",
+      "args": {
+        "cycles": "fixtures/cycle-log.csv",
+        "spores": "fixtures/spore-tests.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "sterilization_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "sterilization_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-regulator_file",
+      "tool": "regulator_file",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-log_edit",
+      "tool": "log_edit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    }
+  ]
+}

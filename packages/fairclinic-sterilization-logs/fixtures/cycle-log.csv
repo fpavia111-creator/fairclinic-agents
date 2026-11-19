@@ -1,0 +1,18 @@
+Date,Sterilizer,Cycle,Result,Initials
+2026-11-02,Autoclave A,101,Pass,HT
+2026-11-02,Autoclave A,102,Pass,HT
+2026-11-03,Autoclave A,103,Pass,HT
+2026-11-03,Autoclave A,104,Fail,HT
+2026-11-03,Autoclave A,105,Pass,HT
+2026-11-04,Autoclave A,106,Pass,
+2026-11-05,Autoclave A,107,Pass,ID
+2026-11-05,Autoclave A,109,Pass,ID
+2026-11-06,Autoclave A,110,Fail,ID
+2026-11-09,Autoclave A,111,Pass,HT
+2026-11-09,Autoclave A,112,Pass,HT
+2026-11-10,Autoclave A,113,Pass,HT
+2026-11-02,Autoclave B,201,Pass,ID
+2026-11-04,Autoclave B,202,Pass,ID
+2026-11-09,Autoclave B,203,Pass,ID
+2026-11-12,Autoclave B,204,Pass,ID
+2026-11-13,Autoclave B,205,Pass,HT
