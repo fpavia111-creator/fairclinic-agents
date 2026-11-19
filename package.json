@@ -25,7 +25,8 @@
     "accuracy": "node scripts/accuracy.mjs",
     "accuracy:write": "node scripts/accuracy.mjs --write --record",
     "model-view": "node scripts/model-view.mjs",
-    "realdata": "node scripts/realdata.mjs"
+    "realdata": "node scripts/realdata.mjs",
+    "rules-doc": "node scripts/rules-doc.mjs"
   },
   "engines": {
     "node": ">=20"

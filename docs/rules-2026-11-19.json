@@ -1,0 +1,626 @@
+{
+  "date": "2026-11-19",
+  "settings": [
+    {
+      "agent": "fairclinic-boarding-grooming",
+      "setting": "prices",
+      "schema": "boarding_settings",
+      "what": "List price per item or service name, to value what was not invoiced",
+      "default": "none (you list them)"
+    },
+    {
+      "agent": "fairclinic-card-deposits",
+      "setting": "deposit_days",
+      "schema": "deposit_settings",
+      "what": "Days after the batch date to look for the deposit",
+      "default": "5"
+    },
+    {
+      "agent": "fairclinic-card-deposits",
+      "setting": "tolerance",
+      "schema": "deposit_settings",
+      "what": "Differences up to this are equal",
+      "default": "0.01"
+    },
+    {
+      "agent": "fairclinic-card-deposits",
+      "setting": "fee_pct",
+      "schema": "deposit_settings",
+      "what": "Fees above this percent of gross are flagged",
+      "default": "3.5"
+    },
+    {
+      "agent": "fairclinic-claims-aging",
+      "setting": "follow_up_days",
+      "schema": "claims_settings",
+      "what": "Days after sending before a claim needs a follow-up",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-claims-aging",
+      "setting": "recontact_days",
+      "schema": "claims_settings",
+      "what": "Days after the last follow-up before the next one",
+      "default": "14"
+    },
+    {
+      "agent": "fairclinic-claims-aging",
+      "setting": "unsent_days",
+      "schema": "claims_settings",
+      "what": "Days after the visit before an unsent claim is flagged",
+      "default": "3"
+    },
+    {
+      "agent": "fairclinic-claims-aging",
+      "setting": "default_filing_days",
+      "schema": "claims_settings",
+      "what": "Timely filing limit when the payer has none listed",
+      "default": "365"
+    },
+    {
+      "agent": "fairclinic-claims-aging",
+      "setting": "filing_days",
+      "schema": "claims_settings",
+      "what": "Timely filing limit in days by payer name",
+      "default": "none (you list them)"
+    },
+    {
+      "agent": "fairclinic-claims-aging",
+      "setting": "warn_before_days",
+      "schema": "claims_settings",
+      "what": "Warn this many days before the filing limit",
+      "default": "45"
+    },
+    {
+      "agent": "fairclinic-client-balances",
+      "setting": "statement_days",
+      "schema": "client_balance_settings",
+      "what": "A balance with no statement in this many days is flagged",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-client-balances",
+      "setting": "collections_days",
+      "schema": "client_balance_settings",
+      "what": "Money over 90 days with no payment in this many days goes to collections review",
+      "default": "60"
+    },
+    {
+      "agent": "fairclinic-client-balances",
+      "setting": "small_balance",
+      "schema": "client_balance_settings",
+      "what": "Balances below this are left for your small-balance policy",
+      "default": "5"
+    },
+    {
+      "agent": "fairclinic-controlled-drugs",
+      "setting": "tolerance",
+      "schema": "drug_settings",
+      "what": "Differences up to this are equal",
+      "default": "0.001"
+    },
+    {
+      "agent": "fairclinic-controlled-drugs",
+      "setting": "waste_needs_witness",
+      "schema": "drug_settings",
+      "what": "List waste entries with no witness",
+      "default": "true; your own protocol"
+    },
+    {
+      "agent": "fairclinic-credential-expiry",
+      "setting": "warn_days",
+      "schema": "credential_settings",
+      "what": "Credentials expiring within this many days are listed",
+      "default": "90"
+    },
+    {
+      "agent": "fairclinic-credential-expiry",
+      "setting": "ce_warn_days",
+      "schema": "credential_settings",
+      "what": "CE hours are checked when renewal is within this many days",
+      "default": "180"
+    },
+    {
+      "agent": "fairclinic-era-posting",
+      "setting": "tolerance",
+      "schema": "remit_settings",
+      "what": "Differences up to this amount are treated as equal",
+      "default": "0.01"
+    },
+    {
+      "agent": "fairclinic-era-posting",
+      "setting": "contractual_reasons",
+      "schema": "remit_settings",
+      "what": "CO reason codes that are contractual write-offs",
+      "default": "45, 253, 131"
+    },
+    {
+      "agent": "fairclinic-estimate-variance",
+      "setting": "over_pct",
+      "schema": "estimate_settings",
+      "what": "An invoice more than this percent above the high estimate is flagged",
+      "default": "10"
+    },
+    {
+      "agent": "fairclinic-estimate-variance",
+      "setting": "under_pct",
+      "schema": "estimate_settings",
+      "what": "An invoice more than this percent below the low estimate is flagged",
+      "default": "20"
+    },
+    {
+      "agent": "fairclinic-estimate-variance",
+      "setting": "stale_days",
+      "schema": "estimate_settings",
+      "what": "An approved estimate with no invoice after this many days is flagged",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-hygiene-production",
+      "setting": "target_per_hour",
+      "schema": "hygiene_settings",
+      "what": "Production per worked hour below this is flagged",
+      "default": "150"
+    },
+    {
+      "agent": "fairclinic-hygiene-production",
+      "setting": "open_time_pct",
+      "schema": "hygiene_settings",
+      "what": "Unfilled hours above this percent of scheduled hours are flagged",
+      "default": "15"
+    },
+    {
+      "agent": "fairclinic-hygiene-production",
+      "setting": "perio_codes",
+      "schema": "hygiene_settings",
+      "what": "Codes counted as periodontal visits",
+      "default": "D4341, D4342, D4346, D4355, D4910"
+    },
+    {
+      "agent": "fairclinic-hygiene-production",
+      "setting": "prophy_codes",
+      "schema": "hygiene_settings",
+      "what": "Codes counted as cleanings",
+      "default": "D1110, D1120"
+    },
+    {
+      "agent": "fairclinic-inventory-expiry",
+      "setting": "expiring_days",
+      "schema": "inventory_settings",
+      "what": "Stock expiring within this many days is listed",
+      "default": "60"
+    },
+    {
+      "agent": "fairclinic-inventory-expiry",
+      "setting": "count_tolerance",
+      "schema": "inventory_settings",
+      "what": "Count differences up to this many units are equal",
+      "default": "0"
+    },
+    {
+      "agent": "fairclinic-lab-cases",
+      "setting": "seat_buffer_days",
+      "schema": "lab_settings",
+      "what": "A case not back this many days before its seat appointment is urgent",
+      "default": "2"
+    },
+    {
+      "agent": "fairclinic-lab-cases",
+      "setting": "invoice_wait_days",
+      "schema": "lab_settings",
+      "what": "A returned case with no invoice after this many days is listed",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-membership-plans",
+      "setting": "renewal_warn_days",
+      "schema": "membership_settings",
+      "what": "Flag annual renewals within this many days",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-membership-plans",
+      "setting": "tolerance",
+      "schema": "membership_settings",
+      "what": "Amount differences up to this are equal",
+      "default": "0.01"
+    },
+    {
+      "agent": "fairclinic-missed-charges",
+      "setting": "item_aliases",
+      "schema": "charges_settings",
+      "what": "Treatment sheet wording -> invoice item name, when the two differ",
+      "default": "none (you list them)"
+    },
+    {
+      "agent": "fairclinic-no-shows",
+      "setting": "late_cancel_days",
+      "schema": "noshow_settings",
+      "what": "A cancellation fewer than this many days before the visit is late",
+      "default": "2"
+    },
+    {
+      "agent": "fairclinic-no-shows",
+      "setting": "no_show_fee",
+      "schema": "noshow_settings",
+      "what": "Your no-show fee, if your policy has one; no-shows without it are listed for a person to decide",
+      "default": "none"
+    },
+    {
+      "agent": "fairclinic-patient-balances",
+      "setting": "statement_days",
+      "schema": "balance_settings",
+      "what": "An account owing more than the small balance with no statement in this many days is flagged",
+      "default": "35"
+    },
+    {
+      "agent": "fairclinic-patient-balances",
+      "setting": "small_balance",
+      "schema": "balance_settings",
+      "what": "Patient portions below this are left for your small-balance policy",
+      "default": "5"
+    },
+    {
+      "agent": "fairclinic-patient-balances",
+      "setting": "collections_days",
+      "schema": "balance_settings",
+      "what": "An account with money over 90 days and no payment in this many days goes to collections review",
+      "default": "60"
+    },
+    {
+      "agent": "fairclinic-patient-balances",
+      "setting": "plan_days",
+      "schema": "balance_settings",
+      "what": "A payment plan with no payment in this many days is flagged",
+      "default": "45"
+    },
+    {
+      "agent": "fairclinic-payroll-production",
+      "setting": "payroll_pct_max",
+      "schema": "payroll_settings",
+      "what": "Payroll above this percent of collections in a period is flagged",
+      "default": "32; your own target"
+    },
+    {
+      "agent": "fairclinic-payroll-production",
+      "setting": "overtime_hours_max",
+      "schema": "payroll_settings",
+      "what": "An employee with more overtime than this in a period is listed",
+      "default": "8"
+    },
+    {
+      "agent": "fairclinic-pet-insurance-claims",
+      "setting": "response_days",
+      "schema": "petclaim_settings",
+      "what": "A submitted claim with no decision after this many days is chased",
+      "default": "21"
+    },
+    {
+      "agent": "fairclinic-pet-insurance-claims",
+      "setting": "draft_days",
+      "schema": "petclaim_settings",
+      "what": "A claim drafted and not submitted after this many days is flagged",
+      "default": "5"
+    },
+    {
+      "agent": "fairclinic-pharmacy-margins",
+      "setting": "target_margin_pct",
+      "schema": "pharmacy_settings",
+      "what": "Margin on price below this percent is flagged",
+      "default": "45; your own target"
+    },
+    {
+      "agent": "fairclinic-pharmacy-margins",
+      "setting": "cost_rise_pct",
+      "schema": "pharmacy_settings",
+      "what": "A cost rise above this percent with an unchanged price is flagged",
+      "default": "5"
+    },
+    {
+      "agent": "fairclinic-pharmacy-margins",
+      "setting": "rx_needs_fee",
+      "schema": "pharmacy_settings",
+      "what": "List prescription items with no dispensing fee",
+      "default": "true"
+    },
+    {
+      "agent": "fairclinic-ppo-fees",
+      "setting": "tolerance",
+      "schema": "fee_settings",
+      "what": "Differences up to this amount are equal",
+      "default": "0.5"
+    },
+    {
+      "agent": "fairclinic-ppo-fees",
+      "setting": "deep_discount_pct",
+      "schema": "fee_settings",
+      "what": "Flag codes where the PPO allows less than the office fee by more than this percent",
+      "default": "45"
+    },
+    {
+      "agent": "fairclinic-ppo-writeoffs",
+      "setting": "in_network",
+      "schema": "writeoff_settings",
+      "what": "PPO plans you are in network with; a contractual write-off for any other carrier is flagged",
+      "default": "none (you list them)"
+    },
+    {
+      "agent": "fairclinic-ppo-writeoffs",
+      "setting": "large_amount",
+      "schema": "writeoff_settings",
+      "what": "A discretionary adjustment at or above this amount is flagged",
+      "default": "500"
+    },
+    {
+      "agent": "fairclinic-preauthorizations",
+      "setting": "response_days",
+      "schema": "preauth_settings",
+      "what": "Days after sending before a missing answer is chased",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-preauthorizations",
+      "setting": "expiry_warn_days",
+      "schema": "preauth_settings",
+      "what": "Warn this many days before an approval runs out",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-preauthorizations",
+      "setting": "unsent_days",
+      "schema": "preauth_settings",
+      "what": "Days after creating before an unsent request is flagged",
+      "default": "5"
+    },
+    {
+      "agent": "fairclinic-preauthorizations",
+      "setting": "reduced_pct",
+      "schema": "preauth_settings",
+      "what": "Approved below this percent of the amount requested is flagged as reduced",
+      "default": "80"
+    },
+    {
+      "agent": "fairclinic-provider-production",
+      "setting": "collection_target_pct",
+      "schema": "production_settings",
+      "what": "Collections as a percent of net production below this are flagged",
+      "default": "98"
+    },
+    {
+      "agent": "fairclinic-provider-production",
+      "setting": "adjustment_max_pct",
+      "schema": "production_settings",
+      "what": "Adjustments above this percent of gross production are flagged",
+      "default": "35"
+    },
+    {
+      "agent": "fairclinic-provider-production",
+      "setting": "drop_pct",
+      "schema": "production_settings",
+      "what": "A month this far below the provider's other months is flagged",
+      "default": "25"
+    },
+    {
+      "agent": "fairclinic-recall-gaps",
+      "setting": "due_soon_days",
+      "schema": "recall_settings",
+      "what": "A recall due within this many days and not booked is flagged",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-recall-gaps",
+      "setting": "recontact_days",
+      "schema": "recall_settings",
+      "what": "An overdue patient contacted within this many days is left waiting",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-recall-gaps",
+      "setting": "lapsed_months",
+      "schema": "recall_settings",
+      "what": "Overdue longer than this goes on the reactivation list",
+      "default": "18"
+    },
+    {
+      "agent": "fairclinic-recall-gaps",
+      "setting": "reappointment_target",
+      "schema": "recall_settings",
+      "what": "Percent of hygiene visits that should leave with the next visit booked",
+      "default": "85"
+    },
+    {
+      "agent": "fairclinic-reference-labs",
+      "setting": "test_map",
+      "schema": "sendout_settings",
+      "what": "Lab test name -> your invoice item name, when they differ; every item named here is treated as a send-out",
+      "default": "none (you list them)"
+    },
+    {
+      "agent": "fairclinic-reference-labs",
+      "setting": "min_markup",
+      "schema": "sendout_settings",
+      "what": "A client charge below lab cost times this is flagged",
+      "default": "2; your own pricing rule"
+    },
+    {
+      "agent": "fairclinic-reference-labs",
+      "setting": "match_days",
+      "schema": "sendout_settings",
+      "what": "Days either side of the lab date to look for the client charge",
+      "default": "3"
+    },
+    {
+      "agent": "fairclinic-referral-tracking",
+      "setting": "report_days",
+      "schema": "referral_settings",
+      "what": "A referral out with no report after this many days is chased",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-referral-tracking",
+      "setting": "first_visit_days",
+      "schema": "referral_settings",
+      "what": "A referral in with no first visit after this many days is followed up",
+      "default": "21"
+    },
+    {
+      "agent": "fairclinic-review-replies",
+      "setting": "low_rating",
+      "schema": "review_settings",
+      "what": "Ratings at or below this are replied to first",
+      "default": "3"
+    },
+    {
+      "agent": "fairclinic-review-replies",
+      "setting": "practice_name",
+      "schema": "review_settings",
+      "what": "Practice name for reply drafts",
+      "default": "none"
+    },
+    {
+      "agent": "fairclinic-staff-discounts",
+      "setting": "approval_over",
+      "schema": "discount_settings",
+      "what": "Discounts above this amount need a second person to approve",
+      "default": "50; your own policy"
+    },
+    {
+      "agent": "fairclinic-staff-discounts",
+      "setting": "max_pct",
+      "schema": "discount_settings",
+      "what": "Discounts above this percent of the invoice are flagged",
+      "default": "50"
+    },
+    {
+      "agent": "fairclinic-staff-discounts",
+      "setting": "staff_accounts",
+      "schema": "discount_settings",
+      "what": "Client accounts that belong to staff, for staff-discount checks",
+      "default": "none (you list them)"
+    },
+    {
+      "agent": "fairclinic-sterilization-logs",
+      "setting": "spore_interval_days",
+      "schema": "sterilization_settings",
+      "what": "Your own interval between spore tests for a sterilizer in use",
+      "default": "7"
+    },
+    {
+      "agent": "fairclinic-sterilization-logs",
+      "setting": "retest_days",
+      "schema": "sterilization_settings",
+      "what": "Days to log a retest after a positive spore test",
+      "default": "2"
+    },
+    {
+      "agent": "fairclinic-supply-costs",
+      "setting": "target_pct",
+      "schema": "supply_settings",
+      "what": "Supplies above this percent of production are flagged",
+      "default": "6"
+    },
+    {
+      "agent": "fairclinic-supply-costs",
+      "setting": "price_increase_pct",
+      "schema": "supply_settings",
+      "what": "A unit price this much above the last one paid for the same item is flagged",
+      "default": "10"
+    },
+    {
+      "agent": "fairclinic-supply-costs",
+      "setting": "spike_pct",
+      "schema": "supply_settings",
+      "what": "A category month above this percent of its other months is flagged",
+      "default": "150"
+    },
+    {
+      "agent": "fairclinic-unscheduled-treatment",
+      "setting": "stale_days",
+      "schema": "treatment_settings",
+      "what": "A plan older than this is set aside for the dentist to review",
+      "default": "365"
+    },
+    {
+      "agent": "fairclinic-unscheduled-treatment",
+      "setting": "benefits_warn_days",
+      "schema": "treatment_settings",
+      "what": "Flag remaining benefits when the benefit year ends within this many days",
+      "default": "60"
+    },
+    {
+      "agent": "fairclinic-unscheduled-treatment",
+      "setting": "min_value",
+      "schema": "treatment_settings",
+      "what": "Leave out patients whose unscheduled treatment is below this amount",
+      "default": "0"
+    },
+    {
+      "agent": "fairclinic-vaccine-reminders",
+      "setting": "due_soon_days",
+      "schema": "reminder_settings",
+      "what": "Reminders due within this many days are checked for a reminder sent",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-vaccine-reminders",
+      "setting": "recontact_days",
+      "schema": "reminder_settings",
+      "what": "An overdue reminder sent within this many days counts as reminded",
+      "default": "30"
+    },
+    {
+      "agent": "fairclinic-vaccine-reminders",
+      "setting": "inactive_lookback_days",
+      "schema": "reminder_settings",
+      "what": "A reminder sent to a deceased or inactive pet within this many days is flagged",
+      "default": "60"
+    },
+    {
+      "agent": "fairclinic-wellness-plans",
+      "setting": "plans",
+      "schema": "wellness_settings",
+      "what": "Each plan: monthly_fee and the services it includes per plan year, e.g. {\"Adult Dog\": {\"monthly_fee\": 35, \"included\": {\"exam\": 2}}}",
+      "default": "none (you list them)"
+    },
+    {
+      "agent": "fairclinic-wellness-plans",
+      "setting": "service_prices",
+      "schema": "wellness_settings",
+      "what": "Your list price per service, to value plan use",
+      "default": "none (you list them)"
+    },
+    {
+      "agent": "fairclinic-wellness-plans",
+      "setting": "tolerance",
+      "schema": "wellness_settings",
+      "what": "Amount differences up to this are equal",
+      "default": "0.01"
+    }
+  ],
+  "built_in": [
+    {
+      "where": "fairclinic-era-posting, fairclinic-core (hc-x12.js)",
+      "what": "X12 835 claim status 4 read as denied and 22 as a reversal (any other status as processed); a claim paid 0 with a non-contractual CO adjustment read as denied; PLB entries read as provider-level adjustments",
+      "source": "ASC X12 835 5010 (005010X221A1) code values, as recalled; the 835 layout was tested on the Nevada Medicaid sample on 19 Nov 2026",
+      "date": "written 18 Nov 2026"
+    },
+    {
+      "where": "fairclinic-era-posting",
+      "what": "Contractual reason codes 45, 253 and 131 (a setting: contractual_reasons)",
+      "source": "X12 Claim Adjustment Reason Codes, as recalled; not checked against the published list",
+      "date": "written 18 Nov 2026"
+    },
+    {
+      "where": "fairclinic-credential-expiry",
+      "what": "Board status words read as not active (expired, closed, revoked, suspended, surrender, terminated, denied, inactive, retired, superseded, cancelled)",
+      "source": "The status values in the Washington State Department of Health credential file, read 19 Nov 2026",
+      "date": "19 Nov 2026"
+    },
+    {
+      "where": "fairclinic-claims-aging, fairclinic-pet-insurance-claims, fairclinic-preauthorizations, and others",
+      "what": "Status words in practice exports (Sent, Unsent, Denied, Approved, Cancelled, No-show ...) and Open Dental claim status letters",
+      "source": "Written from knowledge of the exports; not checked against vendor documentation",
+      "date": "written 18 Nov 2026"
+    }
+  ]
+}

@@ -204,9 +204,11 @@ test('eval report: offline HTML with regression highlighted', async () => {
 test('scaffolder writes a complete agent package', async () => {
   const { spawnSync } = await import('node:child_process');
   const dir = tmp();
-  const r = spawnSync(process.execPath, [fileURLToPath(new URL('../bin/fairclinic-new-agent.js', import.meta.url)), 'iris-of-tests', '--dir', dir], { encoding: 'utf8' });
+  const r = spawnSync(process.execPath, [fileURLToPath(new URL('../bin/fairclinic-new-agent.js', import.meta.url)), 'fairclinic-test-tool', '--dir', dir], { encoding: 'utf8' });
   assert.equal(r.status, 0, r.stderr);
-  for (const f of ['package.json', 'bin/iris-of-tests.js', 'src/manifest.js', 'evals/cases.json', 'test/logic.test.js', 'LICENSE']) assert.ok(existsSync(join(dir, 'iris-of-tests', f)), f);
+  for (const f of ['package.json', 'bin/fairclinic-test-tool.js', 'src/manifest.js', 'evals/cases.json', 'test/logic.test.js', 'LICENSE']) assert.ok(existsSync(join(dir, 'fairclinic-test-tool', f)), f);
+  assert.match(readFileSync(join(dir, 'fairclinic-test-tool', 'src', 'manifest.js'), 'utf8'), /name: 'test_check'/);
+  assert.equal(spawnSync(process.execPath, [fileURLToPath(new URL('../bin/fairclinic-new-agent.js', import.meta.url)), 'iris-of-tests'], { encoding: 'utf8' }).status, 2, 'themed names are refused');
   assert.equal(spawnSync(process.execPath, [fileURLToPath(new URL('../bin/fairclinic-new-agent.js', import.meta.url)), 'Bad Name'], { encoding: 'utf8' }).status, 2);
 });
 

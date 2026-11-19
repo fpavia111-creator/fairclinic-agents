@@ -22,7 +22,7 @@
     "Thresholds such as follow-up days, filing limits, margins and payroll targets are your settings, not anyone's rules.",
     "Sterilization and controlled drug checks report what your logs show; they never decide whether a rule is met.",
     "Vaccine due dates come from your practice system; no agent decides what care a patient or pet needs.",
-    "Tested on fictional data only; no real practice, patient, payer or insurer was used.",
+    "Tested on fictional data, and four agents also on public files (a state licence file, a state Medicaid sample 835, CMS drug acquisition costs, a state Medicaid dental fee schedule). No real practice's, patient's or client's data was used.",
     "Not clinical, legal, tax, coding or compliance advice."
   ],
   "warn": "Dental files are protected health information: a business associate agreement is signed before we hold any file. Everything runs on your computer from files you export, patient, pet and client names are masked before results reach the AI model, and nothing is billed, filed, refunded, paid, posted or changed in your practice system: drafts wait for one named person.",
