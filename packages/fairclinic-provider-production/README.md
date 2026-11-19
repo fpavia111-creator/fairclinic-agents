@@ -73,7 +73,7 @@ Named exports recognised by their column names:
 |---|---|---|---|
 | Denticon | Production and collections by provider, exported to CSV | Provider Name, Gross Prod, Net Prod, Total Collections | no |
 
-Where a layout says "checked", its column names were compared with the publisher's template or documentation on that date (the CMS price-transparency templates, the pfs.data.cms.gov column lists and Open Dental's published procedure log fields). The NCCI, MUE and RVU file headers and the other practice-management and clearinghouse layouts were written from knowledge of the export and were not checked; where the vendor's public help says something about the export, the layout's note says what. None was tested against a live account.
+Where a layout says "tested", the agent read the publisher's own public file on that date (the Washington State Department of Health credential file). The dental and veterinary practice-management layouts (Dentrix, Eaglesoft, Open Dental, Curve, Denticon, AVImark, Cornerstone, ezyVet, Covetrus Pulse, Shepherd) were written from knowledge of the export and were not checked against the vendor's documentation or a real export; the first setup confirms the columns with `inspect`. 835 remittance files are read by their X12 segments and were tested on a state Medicaid sample 835 on 19 Nov 2026. None was tested against a live practice account.
 
 ### Files from other countries
 

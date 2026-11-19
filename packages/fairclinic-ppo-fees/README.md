@@ -71,9 +71,9 @@ Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, 
 
 | Column | Type | Also read as | For example, in other languages |
 |---|---|---|---|
-| `plan` (required) | text | Plan, PPO, Carrier, Fee Schedule, Payer | Kostenträger, Payeur, 保険者, 付款方 |
-| `code` (required) | text | Code, CDT, CDT Code, Procedure, Proc Code | - |
-| `allowed` (required) | amount | Allowed, Allowed Amount, PPO Fee, Max Allowable, Contracted Fee, Fee | Anerkannt, Montant admis, 許容額, 允许金额 |
+| `plan` | text | Plan, PPO, Carrier, Fee Schedule, Payer | Kostenträger, Payeur, 保険者, 付款方 |
+| `code` (required) | text | Code, CDT, CDT Code, Procedure, Proc Code, Proc | - |
+| `allowed` (required) | amount | Allowed, Allowed Amount, PPO Fee, Max Allowable, Maximum Allowable, Contracted Fee | Anerkannt, Montant admis, 許容額, 允许金额 |
 
 ### Lines the PPOs allowed (`paid`)
 

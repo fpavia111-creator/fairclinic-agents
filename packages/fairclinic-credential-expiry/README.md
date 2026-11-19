@@ -43,7 +43,7 @@ Fairclinic Credential Expiry demo (fictional practice, people and credentials, a
 
 | Tool | What it does | Policy |
 |---|---|---|
-| `credentials_check` | Every licence, registration, permit and policy with days to expiry, renewal and CE hours, and a status: expired, expiring, missing_expiry, ce_short, renewal_submitted or ok. | runs |
+| `credentials_check` | Every licence, registration, permit and policy with days to expiry, renewal and CE hours, and a status: not_active (the status column of a licensing board file says expired, revoked, suspended and the like), expired, … | runs |
 | `credentials_write_report` | Write credentials-expiry.csv (one row per item, with blank owner and decision columns for your team) and credentials-expiry.html into out_dir (default fairclinic-out/credentials). | runs |
 | `credentials_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |
 | `credentials_learn` | Propose one fact about the customer's setup for this agent to remember. | runs |
@@ -64,14 +64,24 @@ Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, 
 | Column | Type | Also read as | For example, in other languages |
 |---|---|---|---|
 | `holder` (required) | text | Holder, Person, Provider, Name, Staff, Entity | - |
+| `holder_first` | text | First Name, Given Name | - |
 | `role` | text | Role, Position, Title | Rolle, Rôle, ロール, 角色 |
-| `credential` (required) | text | Credential, Type, License Type, Document, Item | - |
+| `credential` (required) | text | Credential, Type, License Type, Credential Type, Document, Item | - |
 | `credential_number` | text | Number, License #, Registration #, Policy #, Credential Number | - |
 | `issuer` | text | Issuer, Board, Agency, State, Carrier | Aussteller, Émetteur, 発行者, 颁发者 |
 | `expires` | date | Expires, Expiration Date, Expiry, Valid Until, Renewal Date | Ablaufdatum, Date d'expiration, 有効期限, 到期日 |
 | `renewal_submitted` | date | Renewal Submitted, Renewal Sent, Applied | - |
 | `ce_required` | number | CE Required, CE Hours Required, Required Hours | - |
 | `ce_done` | number | CE Done, CE Hours, CE Completed, Hours Completed | - |
+| `board_status` | text | Status, License Status, Credential Status, Board Status | - |
+
+Named exports recognised by their column names:
+
+| System | Export | Recognised by | Layout checked against vendor docs |
+|---|---|---|---|
+| Washington State Department of Health | Health Care Provider Credential Data (data.wa.gov qxh8-f4bd, CSV) | credentialnumber, lastname, firstname, credentialtype, expirationdate | tested on data.wa.gov/resource/qxh8-f4bd.csv (public domain) on 2026-11-19 |
+
+Where a layout says "tested", the agent read the publisher's own public file on that date (the Washington State Department of Health credential file). The dental and veterinary practice-management layouts (Dentrix, Eaglesoft, Open Dental, Curve, Denticon, AVImark, Cornerstone, ezyVet, Covetrus Pulse, Shepherd) were written from knowledge of the export and were not checked against the vendor's documentation or a real export; the first setup confirms the columns with `inspect`. 835 remittance files are read by their X12 segments and were tested on a state Medicaid sample 835 on 19 Nov 2026. None was tested against a live practice account.
 
 ### Files from other countries
 
