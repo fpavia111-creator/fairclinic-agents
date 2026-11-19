@@ -48,7 +48,7 @@ test('the share not yet due and the overdue count per reminder', () => {
 
 test('no e-mail address or phone number reaches the result', () => {
   const r = JSON.stringify(checkReminders([rem({ client_phone: '555-0199' })], { asOf: '2026-11-16' }));
-  assert.match(r, /o@example\.test/, 'the pure function keeps it');
+  assert.doesNotMatch(r, /o@example\.test|555-0199/, 'contact details are only checked for presence, never carried into the items');
 });
 
 test('the call list keeps names for the front desk; the result the model sees has no names or contact details', async () => {
