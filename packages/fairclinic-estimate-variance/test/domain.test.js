@@ -46,3 +46,12 @@ test('the report keeps names for the team; the result does not', async () => {
   const r = await call('estimates_write_report', { estimates: 'fixtures/estimates.csv', invoices: 'fixtures/invoices.csv', as_of: '2026-11-16' });
   assert.match(readFileSync(`${root}/${r.result.files[0]}`, 'utf8'), /Tobias Achterberg/); assert.doesNotMatch(JSON.stringify(r), /Achterberg/);
 });
+
+test('invoice numbers are listed once each and at most ten are shown (one row per invoice line repeats them)', () => {
+  const est = [{ estimate_id: 'E1', low: '100', high: '200', approved: 'Yes', date: '2026-11-01' }];
+  const lines = [...Array.from({ length: 30 }, () => ({ estimate_id: 'E1', invoice_number: 'INV-1', total: '1' })), ...Array.from({ length: 12 }, (_, i) => ({ estimate_id: 'E1', invoice_number: `INV-${i + 2}`, total: '10' }))];
+  const i = checkEstimates(est, lines, { asOf: '2026-11-16' }).items[0];
+  assert.equal(i.invoiced, 150);
+  assert.match(i.invoice_numbers, /^INV-1 INV-2 .* and 3 more$/);
+  assert.equal(i.invoice_numbers.split(' ').filter((x) => x === 'INV-1').length, 1);
+});

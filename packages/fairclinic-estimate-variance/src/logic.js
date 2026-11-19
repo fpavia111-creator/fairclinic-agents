@@ -32,7 +32,9 @@ const YES = /^(y|yes|true|1|approved|accepted|signed)$/i, NO = /^(n|no|false|0|d
 export function checkEstimates(estimates, invoices, { settings = {}, asOf } = {}) {
   const today = isoDate(asOf) || new Date().toISOString().slice(0, 10);
   const over = settings.over_pct ?? 10, under = settings.under_pct ?? 20, stale = settings.stale_days || 30;
-  const inv = new Map(); for (const i of invoices) { const k = str(i.estimate_id); if (!k) continue; const x = inv.get(k) || { total: 0, numbers: [] }; x.total = round2(x.total + (num(i.total) || 0)); if (str(i.invoice_number)) x.numbers.push(str(i.invoice_number)); inv.set(k, x); }
+  const inv = new Map(); for (const i of invoices) { const k = str(i.estimate_id); if (!k) continue; const x = inv.get(k) || { total: 0, numbers: new Set() }; x.total = round2(x.total + (num(i.total) || 0)); if (str(i.invoice_number)) x.numbers.add(str(i.invoice_number)); inv.set(k, x); }
+  // Each invoice number once, at most 10 shown (an export with one row per invoice line repeats them; bench, 19 Nov 2026).
+  const numbersOf = (x) => { const a = [...x.numbers]; return a.length > 10 ? `${a.slice(0, 10).join(' ')} and ${a.length - 10} more` : a.join(' '); };
   const items = estimates.filter((e) => str(e.estimate_id)).map((e) => {
     const id = str(e.estimate_id); const high = num(e.high); const low = num(e.low) ?? high; const x = inv.get(id); const date = isoDate(e.date);
     const ok = YES.test(str(e.approved)), no = NO.test(str(e.approved));
@@ -44,7 +46,7 @@ export function checkEstimates(estimates, invoices, { settings = {}, asOf } = {}
       else if (low !== null && x.total < low * (1 - under / 100)) { status = 'under_low'; detail = `Invoiced ${x.total}, ${round2(((low - x.total) / low) * 100)}% below the low estimate of ${low}. Check nothing done was left off the invoice.`; }
     } else if (ok && date && daysBetween(date, today) > stale) { status = 'not_invoiced'; detail = `Approved on ${date} (${daysBetween(date, today)} days ago) for ${low} to ${high}, and no invoice is linked to it.`; }
     else { status = 'open'; detail = 'No invoice linked yet.'; }
-    return { estimate_id: id, client_name: str(e.client_name), patient_name: str(e.patient_name), date, low, high, approved: str(e.approved), invoiced: x ? x.total : null, invoice_numbers: x ? x.numbers.join(' ') : '', variance_pct: variance, status, detail };
+    return { estimate_id: id, client_name: str(e.client_name), patient_name: str(e.patient_name), date, low, high, approved: str(e.approved), invoiced: x ? x.total : null, invoice_numbers: x ? numbersOf(x) : '', variance_pct: variance, status, detail };
   });
   items.sort((a, b) => STATUSES.indexOf(a.status) - STATUSES.indexOf(b.status) || (b.variance_pct ?? 0) - (a.variance_pct ?? 0) || (a.estimate_id < b.estimate_id ? -1 : 1));
   const t = tally(items, 'status');
