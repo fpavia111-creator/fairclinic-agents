@@ -42,6 +42,8 @@ All are built on [`fairclinic-core`](packages/fairclinic-core): allow/ask/block 
 
 `npm test` (every package), `npm run evals`, `npm run hostile` and `npm run hostile:args` (planted formulas, HTML, path tricks and AI-directed text; broken arguments), `npm run intl` (every eval fixture rewritten as eight local exports), `npm run bench` (10,000 rows) and `npm run release:check:offline` (metadata, one-click policy, honest-copy and secret scans, `npm pack`). Numbers, decisions and what is not checked yet are in [REVIEW-ver1.md](REVIEW-ver1.md). Sample reports written by the agents on fictional data are in [sample-reports](sample-reports/index.html).
 
+Final pass (19 Nov 2026): `npm run accuracy` (planted problems found, findings on a clean copy of every fixture set, one-edit mutation cases: [docs/accuracy-2026-11-19.md](docs/accuracy-2026-11-19.md)), `npm run model-view` (what an assistant's model sees from each agent: [docs/model-view-2026-11-19.md](docs/model-view-2026-11-19.md)), `npm run realdata` (four agents on public files: a state licence file, a state Medicaid sample 835, CMS drug acquisition costs and a state Medicaid dental fee schedule: [docs/realdata-2026-11-19.md](docs/realdata-2026-11-19.md)) and `npm run rules-doc` (every setting, its default and how to change it: [docs/rules-2026-11-19.md](docs/rules-2026-11-19.md)).
+
 ## Limits
 
 Export layouts for the named systems were written from knowledge and are confirmed on your own exports at setup; `npx <agent> inspect <file>` shows how a file was read. Thresholds are your settings, not anyone's rules. Masking keeps names and contact details away from the model; it is not a HIPAA determination and does not replace your privacy program. Not clinical, legal, tax, coding or compliance advice.
