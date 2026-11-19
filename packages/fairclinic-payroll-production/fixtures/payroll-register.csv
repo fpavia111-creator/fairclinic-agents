@@ -1,0 +1,11 @@
+Employee,Role,Period Start,Period End,Regular Hours,Overtime Hours,Gross Pay
+Kim Desk,Front desk,2026-10-01,2026-10-15,80,0,1760.00
+Lee Tech,Technician,2026-10-01,2026-10-15,80,6,2380.00
+Dr. Cora Example,Associate veterinarian,2026-10-01,2026-10-15,80,0,4800.00
+Tech Moss,Technician,2026-10-01,2026-10-15,76,0,1900.00
+Kim Desk,Front desk,2026-10-16,2026-10-31,80,2,1850.00
+Lee Tech,Technician,2026-10-16,2026-10-31,80,14,2870.00
+Dr. Cora Example,Associate veterinarian,2026-10-16,2026-10-31,80,0,4800.00
+Tech Moss,Technician,2026-10-16,2026-10-31,80,0,2000.00
+Jo Relief,Relief veterinarian,2026-10-16,2026-10-31,24,0,1800.00
+Kim Desk,Front desk,2026-11-01,2026-11-15,80,0,1760.00

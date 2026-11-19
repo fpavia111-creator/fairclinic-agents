@@ -1,0 +1,245 @@
+{
+  "suite": "fairclinic-payroll-production",
+  "root": "..",
+  "data_note": "Fictional payroll register and collections in ../fixtures. No patient data. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "payroll_check",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "revenue": "fixtures/collections-by-period.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.periods": 3,
+          "result.employees": 5,
+          "result.gross_pay": 25920,
+          "result.collections": 67000,
+          "result.payroll_pct": 38.69,
+          "result.overtime_hours": 22,
+          "result.to_review": 3,
+          "result.by_status.payroll_pct_high": 1,
+          "result.by_status.no_revenue": 1,
+          "result.by_status.overtime": 1
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "payroll_check",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "revenue": "fixtures/collections-by-period.csv"
+      },
+      "expect": {
+        "contains": [
+          "Payroll 13320 is 42.97% of collections (31000); your target is 32%",
+          "14 overtime hours in the period starting 2026-10-16",
+          "No collections figure for the period starting 2026-11-01"
+        ]
+      }
+    },
+    {
+      "id": "per-period",
+      "tool": "payroll_check",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "revenue": "fixtures/collections-by-period.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.payroll_pct": 30.11,
+          "result.items.0.collections_per_hour": 111.8,
+          "result.items.1.hours": 360
+        }
+      }
+    },
+    {
+      "id": "by-role",
+      "tool": "payroll_check",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "revenue": "fixtures/collections-by-period.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.by_role.0.role": "Associate veterinarian",
+          "result.by_role.1.role": "Technician",
+          "result.by_role.1.employees": 2
+        }
+      }
+    },
+    {
+      "id": "looser-targets",
+      "tool": "payroll_check",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "revenue": "fixtures/collections-by-period.csv",
+        "settings": "fixtures/settings-loose.json"
+      },
+      "expect": {
+        "equals": {
+          "result.to_review": 1
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "payroll_check",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "payroll_max"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "payroll_write_report",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "revenue": "fixtures/collections-by-period.csv",
+        "out_dir": "fairclinic-out/evals/payroll"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "payroll-production.csv",
+          "payroll-production.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "payroll_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "payroll_check",
+      "args": {
+        "payroll": "../../outside.csv",
+        "revenue": "fixtures/collections-by-period.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "payroll_check",
+      "mode": "review",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "revenue": "fixtures/collections-by-period.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.periods": 3,
+          "result.employees": 5,
+          "result.gross_pay": 25920,
+          "result.collections": 67000,
+          "result.payroll_pct": 38.69,
+          "result.overtime_hours": 22,
+          "result.to_review": 3,
+          "result.by_status.payroll_pct_high": 1,
+          "result.by_status.no_revenue": 1,
+          "result.by_status.overtime": 1
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "payroll_check",
+      "args": {
+        "revenue": "fixtures/collections-by-period.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "payroll"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "payroll_check",
+      "args": {
+        "payroll": "fixtures/payroll-register.csv",
+        "revenue": "fixtures/collections-by-period.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "payroll_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "payroll_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-payroll_change",
+      "tool": "payroll_change",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-payment_send",
+      "tool": "payment_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-staff_action",
+      "tool": "staff_action",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    }
+  ]
+}
