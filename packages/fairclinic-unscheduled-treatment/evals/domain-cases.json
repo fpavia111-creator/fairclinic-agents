@@ -1,0 +1,29 @@
+{
+  "suite": "fairclinic-unscheduled-treatment",
+  "root": "..",
+  "data_note": "Fictional treatment plans in ../fixtures, measured as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "treatment_check", "args": { "plans": "fixtures/treatment-plans.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.patients": 9, "result.to_call": 4, "result.unscheduled_accepted": 2670, "result.unscheduled_proposed": 2440, "result.benefits_expiring": 2, "result.benefits_remaining": 2400, "result.stale": 1 } } },
+    { "id": "statuses", "tool": "treatment_check", "args": { "plans": "fixtures/treatment-plans.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.benefits_expiring": 2, "result.by_status.accepted_unscheduled": 1, "result.by_status.proposed_unscheduled": 1, "result.by_status.scheduled": 2, "result.by_status.declined": 1, "result.by_status.done": 1 } } },
+    { "id": "reasons", "tool": "treatment_check", "args": { "plans": "fixtures/treatment-plans.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["900 of benefits shown as remaining until 2026-12-31 (45 days), with 1490 of treatment not scheduled", "1180 of accepted treatment not scheduled (D2740)", "the dentist decides whether the plan still stands", "640 of proposed treatment not scheduled (D4342)"] } },
+    { "id": "largest-first", "tool": "treatment_check", "args": { "plans": "fixtures/treatment-plans.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.items.0.unscheduled_proposed": 1800, "result.items.1.unscheduled_accepted": 1490 } } },
+    { "id": "early-in-year-no-benefits-warning", "tool": "treatment_check", "args": { "plans": "fixtures/treatment-plans.csv", "as_of": "2026-06-30" },
+      "expect": { "equals": { "result.benefits_expiring": 0 } } },
+    { "id": "min-value-setting", "tool": "treatment_check", "args": { "plans": "fixtures/treatment-plans.csv", "settings": "fixtures/settings-min.json", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.to_call": 3 } } },
+    { "id": "settings-typo-refused", "tool": "treatment_check", "args": { "plans": "fixtures/treatment-plans.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["stale_dayz"] } },
+    { "id": "unknown-patient-named", "tool": "treatment_explain", "args": { "plans": "fixtures/treatment-plans.csv", "patient": "PT-00000000" },
+      "expect": { "status": "error", "contains": ["not found"] } },
+    { "id": "write-report", "tool": "treatment_write_report", "args": { "plans": "fixtures/treatment-plans.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/treatment" },
+      "expect": { "status": "executed", "contains": ["treatment-unscheduled.csv", "treatment-unscheduled.html"] } },
+    { "id": "draft-letter-after-approval", "tool": "treatment_draft_patient_letter", "approve": "Pat Example", "args": { "plans": "fixtures/treatment-plans.csv", "as_of": "2026-11-16", "patient": "Rowan Achebe", "out_dir": "fairclinic-out/evals/treatment" },
+      "expect": { "status": "executed", "equals": { "result.amount": 1490, "result.open_markers": 4 } } },
+    { "id": "draft-refused-when-nothing-unscheduled", "tool": "treatment_draft_patient_letter", "approve": "Pat Example", "args": { "plans": "fixtures/treatment-plans.csv", "as_of": "2026-11-16", "patient": "Kenji Abernathy", "out_dir": "fairclinic-out/evals/treatment" },
+      "expect": { "status": "error", "contains": ["no accepted or proposed treatment"] } }
+  ]
+}

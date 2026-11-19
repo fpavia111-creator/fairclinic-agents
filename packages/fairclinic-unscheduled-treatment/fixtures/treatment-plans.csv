@@ -1,0 +1,11 @@
+Patient,Provider,Procedure,Description,Fee,Est. Insurance,Status,Date Planned,Scheduled,Remaining Benefit
+Rowan Achebe,Dr. Ada Example,D2740,Crown - porcelain/ceramic,1180.00,590.00,Accepted,2026-09-10,,900.00
+Rowan Achebe,Dr. Ada Example,D2950,Core buildup,310.00,155.00,Accepted,2026-09-10,,900.00
+Marisol Quintero,Dr. Ben Sample,D4342,Periodontal scaling 1-3 teeth,640.00,320.00,Proposed,2026-10-20,,0.00
+Theo Vasquez-Lind,Dr. Ada Example,D6010,Implant body,2400.00,1200.00,Accepted,2026-06-01,2026-12-05,600.00
+Priya Halvorsen,Dr. Ben Sample,D2740,Crown - porcelain/ceramic,1180.00,590.00,Accepted,2025-08-01,,1200.00
+Dmitri Okonkwo,Dr. Ada Example,D2391,Resin composite 1 surface posterior,240.00,120.00,Declined,2026-09-01,,
+Kenji Abernathy,Dr. Ada Example,D2391,Resin composite 1 surface posterior,240.00,192.00,Completed,2026-10-01,,
+Lucia Fontaine,Dr. Ben Sample,D2740,Crown - porcelain/ceramic,1180.00,590.00,Accepted,2026-10-30,,
+Omar Brightwater,Dr. Ada Example,D5110,Complete denture - maxillary,1800.00,900.00,Proposed,2026-08-01,,1500.00
+Greta Lindqvist,Dr. Ben Sample,D2740,Crown - porcelain/ceramic,1180.00,600.00,Accepted,2026-11-01,2027-01-12,1000.00

@@ -1,0 +1,367 @@
+{
+  "suite": "fairclinic-unscheduled-treatment",
+  "root": "..",
+  "data_note": "Fictional treatment plans in ../fixtures, measured as of 2026-11-16. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.patients": 9,
+          "result.to_call": 4,
+          "result.unscheduled_accepted": 2670,
+          "result.unscheduled_proposed": 2440,
+          "result.benefits_expiring": 2,
+          "result.benefits_remaining": 2400,
+          "result.stale": 1
+        }
+      }
+    },
+    {
+      "id": "statuses",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.benefits_expiring": 2,
+          "result.by_status.accepted_unscheduled": 1,
+          "result.by_status.proposed_unscheduled": 1,
+          "result.by_status.scheduled": 2,
+          "result.by_status.declined": 1,
+          "result.by_status.done": 1
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "900 of benefits shown as remaining until 2026-12-31 (45 days), with 1490 of treatment not scheduled",
+          "1180 of accepted treatment not scheduled (D2740)",
+          "the dentist decides whether the plan still stands",
+          "640 of proposed treatment not scheduled (D4342)"
+        ]
+      }
+    },
+    {
+      "id": "largest-first",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.items.0.unscheduled_proposed": 1800,
+          "result.items.1.unscheduled_accepted": 1490
+        }
+      }
+    },
+    {
+      "id": "early-in-year-no-benefits-warning",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "as_of": "2026-06-30"
+      },
+      "expect": {
+        "equals": {
+          "result.benefits_expiring": 0
+        }
+      }
+    },
+    {
+      "id": "min-value-setting",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "settings": "fixtures/settings-min.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.to_call": 3
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "stale_dayz"
+        ]
+      }
+    },
+    {
+      "id": "unknown-patient-named",
+      "tool": "treatment_explain",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "patient": "PT-00000000"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "treatment_write_report",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "out_dir": "fairclinic-out/evals/treatment"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "treatment-unscheduled.csv",
+          "treatment-unscheduled.html"
+        ]
+      }
+    },
+    {
+      "id": "draft-letter-after-approval",
+      "tool": "treatment_draft_patient_letter",
+      "approve": "Pat Example",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "as_of": "2026-11-16",
+        "patient": "Rowan Achebe",
+        "out_dir": "fairclinic-out/evals/treatment"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 1490,
+          "result.open_markers": 4
+        }
+      }
+    },
+    {
+      "id": "draft-refused-when-nothing-unscheduled",
+      "tool": "treatment_draft_patient_letter",
+      "approve": "Pat Example",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "as_of": "2026-11-16",
+        "patient": "Kenji Abernathy",
+        "out_dir": "fairclinic-out/evals/treatment"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "no accepted or proposed treatment"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "treatment_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "../../outside.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "treatment_check",
+      "mode": "review",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.patients": 9,
+          "result.to_call": 4,
+          "result.unscheduled_accepted": 2670,
+          "result.unscheduled_proposed": 2440,
+          "result.benefits_expiring": 2,
+          "result.benefits_remaining": 2400,
+          "result.stale": 1
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "treatment_check",
+      "args": {
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "plans"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "treatment_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "treatment_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-message_send",
+      "tool": "message_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-clinical_advice",
+      "tool": "clinical_advice",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-review-mode-drafts-nothing",
+      "tool": "treatment_draft_patient_letter",
+      "mode": "review",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "as_of": "2026-11-16",
+        "patient": "Rowan Achebe",
+        "out_dir": "fairclinic-out/evals/treatment"
+      },
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-draft-waits-for-a-yes",
+      "tool": "treatment_draft_patient_letter",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "as_of": "2026-11-16",
+        "patient": "Rowan Achebe",
+        "out_dir": "fairclinic-out/evals/treatment"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-approve-stays-one-click-in-auto",
+      "tool": "treatment_request_send",
+      "mode": "auto",
+      "args": {
+        "draft": "fixtures/README.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "treatment_check",
+      "args": {
+        "plans": "fixtures/treatment-plans.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Rowan Achebe",
+          "Marisol Quintero",
+          "Theo Vasquez-Lind",
+          "Priya Halvorsen",
+          "Dmitri Okonkwo",
+          "Kenji Abernathy",
+          "Lucia Fontaine",
+          "Omar Brightwater",
+          "Greta Lindqvist"
+        ]
+      }
+    }
+  ]
+}
