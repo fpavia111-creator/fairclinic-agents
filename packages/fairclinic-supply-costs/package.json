@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-supply-costs",
+  "version": "0.1.0",
+  "description": "Fairclinic Supply Costs: dental or veterinary supplier invoices against production: supplies as a percent of production by month, unit prices up from the last price paid, the same line twice on an invoice, and categories far above their other months. It never pays a supplier or places an order.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-supply-costs": "bin/fairclinic-supply-costs.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-supply-costs.js demo",
+    "eval": "node bin/fairclinic-supply-costs.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-supply-costs"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-supply-costs#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "supply-costs",
+    "accounts-payable",
+    "practice-kpis"
+  ]
+}

@@ -1,0 +1,18 @@
+Supplier,Invoice,Date,Item,Category,Qty,Unit Price,Amount
+Example Dental Supply,ESD-1001,2026-08-05,Nitrile gloves (box),Infection control,100,8.50,850.00
+Example Dental Supply,ESD-1001,2026-08-05,Composite A2 syringe,Restorative,20,32.00,640.00
+Example Dental Supply,ESD-1001,2026-08-05,Impression material,Restorative,10,55.00,550.00
+Sample Supply Co,SSC-501,2026-08-20,Sterilization pouches,Infection control,40,12.00,480.00
+Sample Supply Co,SSC-501,2026-08-20,Prophy paste,Hygiene,20,24.00,480.00
+Example Dental Supply,ESD-1002,2026-09-05,Nitrile gloves (box),Infection control,100,8.50,850.00
+Example Dental Supply,ESD-1002,2026-09-05,Composite A2 syringe,Restorative,20,32.00,640.00
+Example Dental Supply,ESD-1002,2026-09-05,Impression material,Restorative,10,55.00,550.00
+Sample Supply Co,SSC-502,2026-09-18,Sterilization pouches,Infection control,40,12.00,480.00
+Sample Supply Co,SSC-502,2026-09-18,Prophy paste,Hygiene,18,24.00,432.00
+Example Dental Supply,ESD-1003,2026-10-05,Nitrile gloves (box),Infection control,100,9.60,960.00
+Example Dental Supply,ESD-1003,2026-10-05,Composite A2 syringe,Restorative,20,32.00,640.00
+Example Dental Supply,ESD-1003,2026-10-05,Impression material,Restorative,10,55.00,550.00
+Example Dental Supply,ESD-1003,2026-10-05,Composite A2 syringe,Restorative,20,32.00,640.00
+Sample Supply Co,SSC-503,2026-10-20,Sterilization pouches,Infection control,40,12.00,480.00
+Sample Supply Co,SSC-503,2026-10-20,Prophy paste,Hygiene,20,24.00,480.00
+Sample Supply Co,SSC-503,2026-10-20,Implant healing abutment,Implants,2,450.00,900.00

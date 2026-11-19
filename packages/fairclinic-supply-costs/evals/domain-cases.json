@@ -1,0 +1,23 @@
+{
+  "suite": "fairclinic-supply-costs",
+  "root": "..",
+  "data_note": "Fictional supplier invoices and production in ../fixtures. No patient data. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "supplies_check", "args": { "invoices": "fixtures/supply-invoices.csv", "production": "fixtures/production-by-month.csv", "settings": "fixtures/settings.json" },
+      "expect": { "status": "executed", "equals": { "result.months": 3, "result.lines": 17, "result.supplies": 10602, "result.production": 179000, "result.supply_pct": 5.92, "result.to_review": 3, "result.by_finding.duplicate_line": 1, "result.by_finding.price_increase": 1, "result.by_finding.over_target": 1, "result.by_finding.category_spike": 1 } } },
+    { "id": "reasons", "tool": "supplies_check", "args": { "invoices": "fixtures/supply-invoices.csv", "production": "fixtures/production-by-month.csv" },
+      "expect": { "contains": ["Nitrile gloves (box) from Example Dental Supply at 9.6 each, up 12.94% from 8.5 on 2026-09-05", "appears twice on Example Dental Supply invoice ESD-1003", "Supplies were 7.62% of production (4650 of 61000)", "Restorative came to 1830, 153.78% of its other months"] } },
+    { "id": "by-category", "tool": "supplies_check", "args": { "invoices": "fixtures/supply-invoices.csv" },
+      "expect": { "equals": { "result.by_category.0.category": "Restorative", "result.by_category.0.amount": 4210, "result.supply_pct": null } } },
+    { "id": "without-production-no-target", "tool": "supplies_check", "args": { "invoices": "fixtures/supply-invoices.csv" },
+      "expect": { "not_contains": ["of production ("] } },
+    { "id": "looser-settings", "tool": "supplies_check", "args": { "invoices": "fixtures/supply-invoices.csv", "production": "fixtures/production-by-month.csv", "settings": "fixtures/settings-loose.json" },
+      "expect": { "equals": { "result.to_review": 1 } } },
+    { "id": "settings-typo-refused", "tool": "supplies_check", "args": { "invoices": "fixtures/supply-invoices.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["target_percent"] } },
+    { "id": "status-filter", "tool": "supplies_check", "args": { "invoices": "fixtures/supply-invoices.csv", "production": "fixtures/production-by-month.csv", "status": "ok" },
+      "expect": { "length": { "result.items": 2 } } },
+    { "id": "write-report", "tool": "supplies_write_report", "args": { "invoices": "fixtures/supply-invoices.csv", "production": "fixtures/production-by-month.csv", "out_dir": "fairclinic-out/evals/supplies" },
+      "expect": { "status": "executed", "contains": ["supplies-review.csv", "supplies-review.html"] } }
+  ]
+}
