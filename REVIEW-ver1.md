@@ -20,13 +20,13 @@ Every package is `fairclinic-<name above>` at version 0.1.0, MIT, with README, C
 
 | Check | Result |
 |---|---|
-| `npm test` (all 33 workspaces) | 804 tests, 804 pass, 0 fail. fairclinic-core 131; agents 20 to 22 each (no agent below 20) |
+| `npm test` (all 33 workspaces) | 805 tests, 805 pass, 0 fail. fairclinic-core 131; agents 20 to 22 each (no agent below 20) |
 | `npm run evals` | 615 eval cases across 32 agents, 0 failed; 16 to 28 per agent (no agent below 15). Each agent has 5 to 14 hand-written domain cases plus generated safety cases |
 | `npm run hostile` (planted formulas, HTML, path tricks, AI-directed text in every fixture, every eval case) | 32 agents, 3,081 calls, 576 planted values, 0 calls refused or held because of planted data, 0 findings |
-| `npm run hostile:args` (null, numbers, arrays, 200,000-character strings, `../` and absolute paths in every argument of every tool) | HOSTILE_ARGS |
+| `npm run hostile:args` (null, numbers, arrays, 200,000-character strings, `../` and absolute paths in every argument of every tool) | 32 agents, 16,086 calls, 558 planted values, 0 findings (run in seven parallel groups; on this shared machine one agent takes 2 to 15 minutes because each mutation replays the earlier eval cases in a fresh sandbox) |
 | `npm run intl` (every spreadsheet case rewritten as a German, French, Spanish, Brazilian, Italian, Japanese, Chinese and Korean export: local column names, `1.234,56`, local dates, legacy encodings) | 32 agents, 408 cases with spreadsheet inputs, 8 languages: every case that passes in English passes in every language (after the provider-production fix below; the first run had 8 failures, all that one case). 166 of 394 column names have a local word (German count) |
-| `npm run bench -- --sizes 10000` (every read and report tool on 10,000 rows) | BENCH |
-| `npm run release:check:offline` (metadata, one-click policy, honest-copy and secret scans, `npm pack`) | RELEASE |
+| `npm run bench -- --sizes 10000` (every read and report tool on 10,000 rows) | 75 tools across 32 agents, one process each, at 10,000 rows: all executed. The first full run flagged membership-plans (error), reference-labs and boarding-grooming (slow); after the fixes below the second full run had 74 under 10 s and boarding-grooming at 10.3 s, and after its own fix boarding-grooming takes 4.5 s. Slowest now: wellness-plans write report 7.6 s, 207 MB. Run on a machine shared with other sessions' test runs |
+| `npm run release:check:offline` (metadata, one-click policy, honest-copy and secret scans, `npm pack`) | exit 0: 33 packages listed, metadata in order, no .npmrc, secret scan clean (924 tracked files), honest copy clean (100 README, package and manifest files), all 7 one-click categories present and none set to allow, no paid tier, 805 tests, 615/615 evals, hostile data and export passes 0 findings, `npm pack` of 33 packages (575 KB, no tests, state, output, keys or .npmrc). npm names were skipped by `--offline` and checked separately with `npm view` |
 | `npm run readme:check` / `npm run plugin:check` | pass / pass (65 plugin files for 32 agents) |
 | Masking | Every agent that reads patient, pet, client or reviewer data lists its fictional names in `fixtures/phi-canaries.json` (23 agents, 5 to 14 values each); a shared test and a generated eval case check none reaches any result. The 9 agents with no patient data assert that no column they read is a patient field |
 | `npm view` for all 33 names | all free (E404), see `docs/npm-names-2026-11-18.md` |
@@ -47,6 +47,8 @@ Every package is `fairclinic-<name above>` at version 0.1.0, MIT, with README, C
 - **Eval expectations**: several of my hand-computed totals were wrong (patient portion 668.4 not 668.6; stock value 1,166.8; pharmacy gap 2,103.64 because below-cost items also count toward the gap to target). The code was right in each case; the expectations were corrected after checking the arithmetic by hand.
 - **Bench, membership-plans**: at 10,000 rows (where the bench repeats member names) every payment of a repeated name became its own finding and the report string grew past what Node allows ("Invalid string length"); names of charges not on the roster were also looked up with a scan per name. Each member now gets one finding per kind with a count ("and 49 more like it"), names are looked up once, and a test covers it. 25.9 s with an error became 4.4 s.
 - **Bench, reference-labs**: every lab test scanned every charge for the same pet and item and parsed dates each time (7.9 s of matching at 10,000 rows). Charges are now indexed, sorted by date and taken from a moving start (0.8 s).
+- **Bench, boarding-grooming**: with a reservation id repeated across thousands of rows (the bench repeats ids; real exports can list one row per night), every reservation re-filtered all of that id's invoice lines. Lines are now summed per reservation and item once: 10.3 s became 4.5 s.
+- **Core, long ids in errors**: a "not found" message repeated the whole argument, 200,000 characters in the hostile pass. It now echoes at most 80 characters.
 - **Safety eval generator**: a first version expected report tools to be blocked in Review mode; the core allows local report files in Review by design, so that case was replaced by an unknown-argument case.
 
 ## Not checked yet (say this out loud)

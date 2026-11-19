@@ -36,9 +36,16 @@ const unitWord = (svc) => (/board|kennel|lodg/.test(norm(svc)) ? 'board' : /dayc
 export function checkBoarding(reservations, invoices, { settings = {} } = {}) {
   const prices = Object.fromEntries(Object.entries(settings.prices || {}).map(([k, v]) => [norm(k), v]));
   const priceOf = (name) => { const n = norm(name); if (prices[n] !== undefined) return prices[n]; const k = Object.keys(prices).find((p) => p.includes(n) || n.includes(p)); return k ? prices[k] : null; };
-  const lines = new Map(); for (const l of invoices) { const k = str(l.reservation_id); if (k) (lines.get(k) || lines.set(k, []).get(k)).push({ item: norm(l.item), name: str(l.item), qty: num(l.qty) ?? 1, amount: num(l.amount) || 0 }); }
+  // Invoice lines summed per reservation and item once, so a reservation id repeated in an export
+  // (one row per night, say) does not re-scan all of its lines every time.
+  const lines = new Map();
+  for (const l of invoices) {
+    const k = str(l.reservation_id); if (!k) continue;
+    const byItem = lines.get(k) || lines.set(k, new Map()).get(k); const it = norm(l.item);
+    const x = byItem.get(it) || { item: it, name: str(l.item), qty: 0, amount: 0 }; x.qty += num(l.qty) ?? 1; x.amount += num(l.amount) || 0; byItem.set(it, x);
+  }
   const items = reservations.filter((r) => str(r.reservation_id)).map((r) => {
-    const id = str(r.reservation_id); const inv = lines.get(id) || []; const svc = str(r.service); const word = unitWord(svc);
+    const id = str(r.reservation_id); const inv = [...(lines.get(id) || new Map()).values()]; const svc = str(r.service); const word = unitWord(svc);
     const cin = isoDate(r.check_in), cout = isoDate(r.check_out);
     const expected = word === 'board' ? Math.max(1, daysBetween(cin, cout || cin)) : word === 'daycare' ? Math.max(1, daysBetween(cin, cout || cin) + 1) : 1;
     const f = []; const add = (code, detail, value) => f.push({ code, detail, value: value ?? 0 });
