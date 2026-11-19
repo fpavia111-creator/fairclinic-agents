@@ -1,0 +1,27 @@
+{
+  "suite": "fairclinic-recall-gaps",
+  "root": "..",
+  "data_note": "Fictional recall list and hygiene visits in ../fixtures, measured as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "recall_check", "args": { "recall": "fixtures/recall.csv", "visits": "fixtures/hygiene-visits.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.patients": 10, "result.to_contact": 5, "result.overdue": 2, "result.lapsed": 1, "result.due_soon": 1, "result.missed_appointments": 1, "result.contacted": 1, "result.scheduled": 2, "result.reappointment_pct": 75, "result.hygienists_below_target": 1 } } },
+    { "id": "reasons", "tool": "recall_check", "args": { "recall": "fixtures/recall.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["The booked visit on 2026-11-03 has passed", "Overdue 107 days (due 2026-08-01), not booked, last contact 2026-09-01", "Due in 15 day(s) (2026-12-01)", "contacted 6 day(s) ago", "on the reactivation list", "Marked inactive"] } },
+    { "id": "missed-first", "tool": "recall_check", "args": { "recall": "fixtures/recall.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.items.0.status": "missed_appointment", "result.items.1.days_overdue": 107 } } },
+    { "id": "booked-share", "tool": "recall_check", "args": { "recall": "fixtures/recall.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.booked_pct": 22.22, "result.reappointment_pct": null } } },
+    { "id": "hygienist-rates", "tool": "recall_hygienists", "args": { "recall": "fixtures/recall.csv", "visits": "fixtures/hygiene-visits.csv", "settings": "fixtures/settings.json" },
+      "expect": { "status": "executed", "equals": { "result.hygienists.0.rate_pct": 100, "result.hygienists.1.rate_pct": 50, "result.hygienists.1.status": "below_target" } } },
+    { "id": "explain-patient", "tool": "recall_explain", "args": { "recall": "fixtures/recall.csv", "as_of": "2026-11-16", "patient": "Lucia Fontaine" },
+      "expect": { "status": "executed", "equals": { "result.patient.status": "overdue", "result.patient.days_overdue": 15 }, "contains": ["no contact recorded"] } },
+    { "id": "status-filter", "tool": "recall_check", "args": { "recall": "fixtures/recall.csv", "as_of": "2026-11-16", "status": "inactive" },
+      "expect": { "length": { "result.items": 1 } } },
+    { "id": "settings-typo-refused", "tool": "recall_check", "args": { "recall": "fixtures/recall.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["due_soon_dayz"] } },
+    { "id": "unknown-patient", "tool": "recall_explain", "args": { "recall": "fixtures/recall.csv", "patient": "PT-00000000" },
+      "expect": { "status": "error", "contains": ["not found"] } },
+    { "id": "write-report", "tool": "recall_write_report", "args": { "recall": "fixtures/recall.csv", "visits": "fixtures/hygiene-visits.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/recall" },
+      "expect": { "status": "executed", "contains": ["recall-gaps.csv", "recall-gaps.html"] } }
+  ]
+}
