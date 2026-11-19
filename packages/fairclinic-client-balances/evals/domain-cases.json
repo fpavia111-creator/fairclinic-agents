@@ -1,0 +1,19 @@
+{
+  "suite": "fairclinic-client-balances",
+  "root": "..",
+  "data_note": "Fictional client accounts in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "clientar_check", "args": { "balances": "fixtures/client-ar.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.accounts": 7, "result.total": 3473.5, "result.owed": 3558.5, "result.credits": 85, "result.unapplied_deposits": 300, "result.over_90": 1890, "result.to_work": 5 } } },
+    { "id": "statuses", "tool": "clientar_check", "args": { "balances": "fixtures/client-ar.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.credit_balance": 1, "result.by_status.deposit_not_applied": 1, "result.by_status.collections_review": 1, "result.by_status.no_statement": 2, "result.by_status.small_balance": 1, "result.by_status.ok": 1 } } },
+    { "id": "reasons", "tool": "clientar_check", "args": { "balances": "fixtures/client-ar.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["A credit of 85 on the account", "230 owed while a deposit of 300 sits on the account unapplied", "1890 over 90 days and no payment for 119 days", "180 owed and no statement recorded", "735 owed and no statement for 57 days", "3.5 is below your small-balance amount of 5"] } },
+    { "id": "buckets", "tool": "clientar_check", "args": { "balances": "fixtures/client-ar.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.buckets.0-30": 618.5, "result.buckets.31-60": 965, "result.buckets.90+": 1890 } } },
+    { "id": "settings-typo-refused", "tool": "clientar_check", "args": { "balances": "fixtures/client-ar.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["statement_dayz"] } },
+    { "id": "write-report", "tool": "clientar_write_report", "args": { "balances": "fixtures/client-ar.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/clientar" },
+      "expect": { "status": "executed", "contains": ["clientar-worklist.csv", "clientar-worklist.html"] } }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-client-balances",
+  "version": "0.1.0",
+  "description": "Fairclinic Client Balances: veterinary client accounts receivable with the next step for each account: credits and unapplied deposits for a person to check, money over 90 days for collections review, no recent statement, and small balances. It never refunds, applies money or sends anyone to collections. Client names and account numbers are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-client-balances": "bin/fairclinic-client-balances.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-client-balances.js demo",
+    "eval": "node bin/fairclinic-client-balances.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-client-balances"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-client-balances#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "accounts-receivable",
+    "client-balances",
+    "aging",
+    "statements"
+  ]
+}
