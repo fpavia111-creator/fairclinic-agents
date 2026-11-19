@@ -1,0 +1,300 @@
+{
+  "suite": "fairclinic-ppo-writeoffs",
+  "root": "..",
+  "data_note": "Fictional adjustments in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "production": "fixtures/production-by-carrier.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.adjustments": 11,
+          "result.total": 2315.5,
+          "result.contractual": 881,
+          "result.discretionary": 1434.5,
+          "result.needs_review": 5,
+          "result.duplicates": 1,
+          "result.out_of_network": 1,
+          "result.no_carrier": 1,
+          "result.no_reason": 1,
+          "result.large": 2
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "Same patient, date, type and amount as another adjustment entered by Sam Billing",
+          "A contractual write-off for Northway Dental Indemnity, which is not on your in-network list",
+          "A contractual write-off on a patient with no carrier",
+          "A Courtesy Discount adjustment with no reason written",
+          "620 is at or above your 500 review amount"
+        ]
+      }
+    },
+    {
+      "id": "writeoff-percent-by-carrier",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "production": "fixtures/production-by-carrier.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.by_carrier.0.carrier": "Example Dental PPO",
+          "result.by_carrier.0.writeoffs": 329,
+          "result.by_carrier.0.writeoff_pct": 7.83,
+          "result.by_carrier.1.writeoff_pct": 9.62
+        }
+      }
+    },
+    {
+      "id": "without-network-list",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.out_of_network": 0,
+          "result.needs_review": 4
+        }
+      }
+    },
+    {
+      "id": "by-staff",
+      "tool": "writeoffs_by_staff",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.by_staff.0.entered_by": "Sam Billing",
+          "result.by_staff.0.amount": 1240,
+          "result.by_staff.1.without_reason": 1
+        }
+      }
+    },
+    {
+      "id": "large-setting",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "settings": "fixtures/settings-large.json"
+      },
+      "expect": {
+        "equals": {
+          "result.large": 3
+        }
+      }
+    },
+    {
+      "id": "status-filter",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok"
+      },
+      "expect": {
+        "length": {
+          "result.items": 6
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "in_netwerk"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "writeoffs_write_report",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "production": "fixtures/production-by-carrier.csv",
+        "settings": "fixtures/settings.json",
+        "out_dir": "fairclinic-out/evals/writeoffs"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "writeoffs-review.csv",
+          "writeoffs-review.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "writeoffs_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "../../outside.csv",
+        "production": "fixtures/production-by-carrier.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "writeoffs_check",
+      "mode": "review",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "production": "fixtures/production-by-carrier.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.adjustments": 11,
+          "result.total": 2315.5,
+          "result.contractual": 881,
+          "result.discretionary": 1434.5,
+          "result.needs_review": 5,
+          "result.duplicates": 1,
+          "result.out_of_network": 1,
+          "result.no_carrier": 1,
+          "result.no_reason": 1,
+          "result.large": 2
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "writeoffs_check",
+      "args": {
+        "production": "fixtures/production-by-carrier.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "adjustments"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "production": "fixtures/production-by-carrier.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "writeoffs_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "writeoffs_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-refund_issue",
+      "tool": "refund_issue",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-claim_submit",
+      "tool": "claim_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "writeoffs_check",
+      "args": {
+        "adjustments": "fixtures/adjustments.csv",
+        "production": "fixtures/production-by-carrier.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Rowan Achebe",
+          "Theo Vasquez-Lind",
+          "Marisol Quintero",
+          "Dmitri Okonkwo",
+          "Lucia Fontaine",
+          "Kenji Abernathy",
+          "Saoirse Delacroix",
+          "Omar Brightwater",
+          "Greta Lindqvist",
+          "Priya Halvorsen"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+Date,Patient,Adjustment Type,Carrier,Amount,Entered By,Note
+2026-11-02,Rowan Achebe,PPO Write-off,Example Dental PPO,84.00,Jo Front,
+2026-11-02,Theo Vasquez-Lind,PPO Write-off,Example Dental PPO,245.00,Jo Front,
+2026-11-03,Marisol Quintero,PPO Write-off,Sample Mutual Dental,250.00,Sam Billing,
+2026-11-04,Dmitri Okonkwo,PPO Write-off,Northway Dental Indemnity,180.00,Sam Billing,
+2026-11-05,Lucia Fontaine,Courtesy Discount,,150.00,Jo Front,
+2026-11-06,Kenji Abernathy,Courtesy Discount,Example Dental PPO,40.00,Ana Desk,Long wait on 3 Nov
+2026-11-07,Saoirse Delacroix,Bad Debt Write-off,,620.00,Sam Billing,Sent to collections review
+2026-11-07,Saoirse Delacroix,Bad Debt Write-off,,620.00,Sam Billing,Sent to collections review
+2026-11-09,Omar Brightwater,PPO Write-off,,60.00,Jo Front,
+2026-11-10,Greta Lindqvist,Small Balance,,4.50,Jo Front,Under 5
+2026-11-12,Priya Halvorsen,PPO Write-off,Demo Smile Plan,62.00,Sam Billing,
