@@ -1,0 +1,25 @@
+{
+  "suite": "fairclinic-vaccine-reminders",
+  "root": "..",
+  "data_note": "Fictional reminder list in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "vaccines_check", "args": { "reminders": "fixtures/reminders.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.reminders": 10, "result.active": 8, "result.current_pct": 37.5, "result.overdue": 4, "result.to_contact": 5 } } },
+    { "id": "statuses", "tool": "vaccines_check", "args": { "reminders": "fixtures/reminders.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.sent_to_inactive": 1, "result.by_status.overdue_no_contact": 2, "result.by_status.no_contact_info": 1, "result.by_status.due_soon_no_reminder": 1, "result.by_status.overdue_reminded": 1, "result.by_status.reminded": 1, "result.by_status.booked": 1, "result.by_status.not_due": 1, "result.by_status.inactive": 1 } } },
+    { "id": "reasons", "tool": "vaccines_check", "args": { "reminders": "fixtures/reminders.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["A reminder went out on 2026-11-02 for a pet marked deceased", "Overdue 47 days (due 2026-09-30), not booked, last reminder 76 days ago", "no reminder recorded", "there is no e-mail or phone on file", "Due in 9 day(s) (2026-11-25) and no reminder recorded", "reminded 6 day(s) ago"] } },
+    { "id": "inactive-first", "tool": "vaccines_check", "args": { "reminders": "fixtures/reminders.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.items.0.status": "sent_to_inactive" } } },
+    { "id": "status-filter", "tool": "vaccines_check", "args": { "reminders": "fixtures/reminders.csv", "as_of": "2026-11-16", "status": "overdue_no_contact" },
+      "expect": { "length": { "result.items": 2 } } },
+    { "id": "longer-recontact", "tool": "vaccines_check", "args": { "reminders": "fixtures/reminders.csv", "settings": "fixtures/settings-90.json", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.overdue_no_contact": 1, "result.by_status.overdue_reminded": 2 } } },
+    { "id": "no-contact-details-returned", "tool": "vaccines_check", "args": { "reminders": "fixtures/reminders.csv", "as_of": "2026-11-16" },
+      "expect": { "not_contains": ["example.test", "555-0101"] } },
+    { "id": "settings-typo-refused", "tool": "vaccines_check", "args": { "reminders": "fixtures/reminders.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["due_soon"] } },
+    { "id": "write-report", "tool": "vaccines_write_report", "args": { "reminders": "fixtures/reminders.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/vaccines" },
+      "expect": { "status": "executed", "contains": ["vaccines-reminders.csv", "vaccines-reminders.html"] } }
+  ]
+}
