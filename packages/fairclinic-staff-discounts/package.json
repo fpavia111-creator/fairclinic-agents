@@ -1,0 +1,55 @@
+{
+  "name": "fairclinic-staff-discounts",
+  "version": "0.1.0",
+  "description": "Fairclinic Staff Discounts: veterinary discounts and write-offs on invoices against your own policy: approved by the person who gave them or with no approver above your limit, staff discounts on accounts not on the staff list, discounts above your percent limit and discounts with no reason, with totals by the person who entered them. A flag is a question for a manager, not a finding about anyone. Client names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-staff-discounts": "bin/fairclinic-staff-discounts.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-staff-discounts.js demo",
+    "eval": "node bin/fairclinic-staff-discounts.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-staff-discounts"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-staff-discounts#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "veterinary",
+    "discounts",
+    "write-offs",
+    "internal-controls"
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "suite": "fairclinic-staff-discounts",
+  "root": "..",
+  "data_note": "Fictional discounts and write-offs in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "discounts_check",
+      "args": {
+        "discounts": "fixtures/discounts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.discounts": 6,
+          "result.total": 815,
+          "result.to_review": 4,
+          "result.by_status.self_approved": 1,
+          "result.by_status.no_approver": 1,
+          "result.by_status.staff_discount_non_staff": 1,
+          "result.by_status.no_reason": 1,
+          "result.by_finding.high_pct": 1
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "discounts_check",
+      "args": {
+        "discounts": "fixtures/discounts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "420 given and approved by the same person (Lee Tech)",
+          "180 with no approver recorded",
+          "A Staff discount 30% on an account that is not on your staff account list",
+          "100% of the invoice (420 of 420)",
+          "No reason written"
+        ]
+      }
+    },
+    {
+      "id": "by-staff",
+      "tool": "discounts_by_staff",
+      "args": {
+        "discounts": "fixtures/discounts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.by_staff.0.entered_by": "Lee Tech",
+          "result.by_staff.0.amount": 600,
+          "result.by_staff.0.flagged": 2,
+          "result.by_staff.1.count": 4
+        }
+      }
+    },
+    {
+      "id": "without-staff-list",
+      "tool": "discounts_check",
+      "args": {
+        "discounts": "fixtures/discounts.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.by_finding.staff_discount_non_staff": 2
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "discounts_check",
+      "args": {
+        "discounts": "fixtures/discounts.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "approval_limit"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "discounts_write_report",
+      "args": {
+        "discounts": "fixtures/discounts.csv",
+        "settings": "fixtures/settings.json",
+        "out_dir": "fairclinic-out/evals/discounts"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "discounts-by-staff.csv",
+          "discounts-by-staff.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "discounts_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "discounts_check",
+      "args": {
+        "discounts": "../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "discounts_check",
+      "mode": "review",
+      "args": {
+        "discounts": "fixtures/discounts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.discounts": 6,
+          "result.total": 815,
+          "result.to_review": 4,
+          "result.by_status.self_approved": 1,
+          "result.by_status.no_approver": 1,
+          "result.by_status.staff_discount_non_staff": 1,
+          "result.by_status.no_reason": 1,
+          "result.by_finding.high_pct": 1
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "discounts_check",
+      "args": {
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "discounts"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "discounts_check",
+      "args": {
+        "discounts": "fixtures/discounts.csv",
+        "settings": "fixtures/settings.json",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "discounts_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "discounts_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-pms_update",
+      "tool": "pms_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-staff_action",
+      "tool": "staff_action",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-refund_issue",
+      "tool": "refund_issue",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "discounts_check",
+      "args": {
+        "discounts": "fixtures/discounts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Nadia Brennan",
+          "Tobias Achterberg",
+          "Ines Mwangi",
+          "Felix Oduya",
+          "Clara Benedetti"
+        ]
+      }
+    }
+  ]
+}

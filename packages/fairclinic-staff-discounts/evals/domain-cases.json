@@ -1,0 +1,19 @@
+{
+  "suite": "fairclinic-staff-discounts",
+  "root": "..",
+  "data_note": "Fictional discounts and write-offs in ../fixtures. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "discounts_check", "args": { "discounts": "fixtures/discounts.csv", "settings": "fixtures/settings.json" },
+      "expect": { "status": "executed", "equals": { "result.discounts": 6, "result.total": 815, "result.to_review": 4, "result.by_status.self_approved": 1, "result.by_status.no_approver": 1, "result.by_status.staff_discount_non_staff": 1, "result.by_status.no_reason": 1, "result.by_finding.high_pct": 1 } } },
+    { "id": "reasons", "tool": "discounts_check", "args": { "discounts": "fixtures/discounts.csv", "settings": "fixtures/settings.json" },
+      "expect": { "contains": ["420 given and approved by the same person (Lee Tech)", "180 with no approver recorded", "A Staff discount 30% on an account that is not on your staff account list", "100% of the invoice (420 of 420)", "No reason written"] } },
+    { "id": "by-staff", "tool": "discounts_by_staff", "args": { "discounts": "fixtures/discounts.csv", "settings": "fixtures/settings.json" },
+      "expect": { "status": "executed", "equals": { "result.by_staff.0.entered_by": "Lee Tech", "result.by_staff.0.amount": 600, "result.by_staff.0.flagged": 2, "result.by_staff.1.count": 4 } } },
+    { "id": "without-staff-list", "tool": "discounts_check", "args": { "discounts": "fixtures/discounts.csv" },
+      "expect": { "equals": { "result.by_finding.staff_discount_non_staff": 2 } } },
+    { "id": "settings-typo-refused", "tool": "discounts_check", "args": { "discounts": "fixtures/discounts.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["approval_limit"] } },
+    { "id": "write-report", "tool": "discounts_write_report", "args": { "discounts": "fixtures/discounts.csv", "settings": "fixtures/settings.json", "out_dir": "fairclinic-out/evals/discounts" },
+      "expect": { "status": "executed", "contains": ["discounts-by-staff.csv", "discounts-by-staff.html"] } }
+  ]
+}
