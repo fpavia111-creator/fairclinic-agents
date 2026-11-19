@@ -17,6 +17,7 @@ test('approved and scheduled before the approval ends is ok; approved with nothi
 
 test('an approval ending within the warning days is expiring; after it ends it is expired', () => {
   assert.equal(st({ valid_until: '2026-12-10', scheduled_date: '' }), 'expiring');
+  assert.equal(st({ valid_until: '2026-12-10', scheduled_date: '2026-12-01' }), 'ok', 'booked before the approval ends: nothing to do');
   assert.equal(st({ valid_until: '2026-12-10', scheduled_date: '' }, { settings: { expiry_warn_days: 10 } }), 'approved_unscheduled');
   assert.equal(st({ valid_until: '2026-11-01', scheduled_date: '' }), 'expired');
 });

@@ -70,6 +70,19 @@ test('PHI: names, member ids and birth dates are masked in fields and in free te
   assert.equal(phiKindOf('Patient Name'), 'name');
 });
 
+test('PHI: staff and provider names stay in clear in mask mode and are pseudonymised (ST-) in strict mode, also inside text', () => {
+  const row = { provider: 'Dr. Ada Example', hygienist: 'Hana Test', entered_by: 'Jo Front', approved_by: 'Pat Example', detail: 'Entered by Jo Front for Dr. Ada Example.' };
+  const mask = new PhiMasker({ mode: 'mask', key: Buffer.alloc(32, 7) }).maskResult(row);
+  assert.equal(mask.provider, 'Dr. Ada Example'); assert.equal(mask.entered_by, 'Jo Front');
+  const s = new PhiMasker({ mode: 'strict', key: Buffer.alloc(32, 7) });
+  s.registerRecords([row]);
+  const strict = s.maskResult(row);
+  assert.match(strict.provider, /^ST-[0-9a-f]{8}$/); assert.match(strict.hygienist, /^ST-[0-9a-f]{8}$/); assert.match(strict.entered_by, /^ST-[0-9a-f]{8}$/);
+  assert.doesNotMatch(strict.detail, /Jo Front|Ada Example/);
+  assert.equal(strict.approved_by, 'Pat Example', 'the person who clicked approve is reported as is');
+  assert.equal(phiKindOf('Provider'), null); assert.equal(phiKindOf('Provider', 'strict'), 'staff');
+});
+
 test('identifiers, codes and dates', () => {
   assert.equal(npiValid('1234567893'), true); assert.equal(npiProblem('1234567890'), 'check digit is wrong'); assert.equal(npiProblem('123'), 'not 10 digits');
   assert.equal(icd10Valid('E11.9'), true); assert.equal(icd10Valid('U07.1'), true); assert.equal(icd10Valid('7E11'), false); assert.equal(icd10Norm('e11.9'), 'E119');

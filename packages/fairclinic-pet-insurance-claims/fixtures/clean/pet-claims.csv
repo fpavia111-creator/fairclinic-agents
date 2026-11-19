@@ -1,0 +1,8 @@
+Claim,Client,Patient,Insurer,Invoice,Claimed,Created,Submitted,Status,Paid,Paid Date,Direct Pay
+PC1,Nadia Brennan,Biscuit,Example Pet Insurance,INV-301,520.00,2026-11-02,2026-11-03,Paid,416.00,2026-11-12,No
+PC2,Tobias Achterberg,Juniper,Sample Paws Mutual,INV-302,1890.00,2026-10-14,2026-10-15,Paid,1500.00,2026-11-10,No
+PC3,Ines Mwangi,Mochi,Demo Pet Cover,INV-303,210.00,2026-11-05,2026-11-06,In review,,,No
+PC4,Felix Oduya,Pepper,Example Pet Insurance,INV-304,950.00,2026-11-01,2026-11-02,Paid,950.00,2026-11-10,Yes
+PC5,Clara Benedetti,Ziggy,Sample Paws Mutual,INV-305,180.00,2026-11-08,2026-11-08,Paid,144.00,2026-11-14,No
+PC6,Jonah Whitfield,Olive,Demo Pet Cover,INV-306,735.00,2026-11-02,2026-11-03,In review,,,Yes
+PC7,Mei Tanaka-Ross,Noodle,Example Pet Insurance,INV-307,320.00,2026-11-11,2026-11-12,In review,,,Yes

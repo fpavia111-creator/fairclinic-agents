@@ -1,0 +1,10 @@
+Invoice Number,Reservation,Client,Patient,Item,Qty,Amount
+B-201,R1,Nadia Brennan,Biscuit,Boarding (per night),4,180.00
+B-201,R1,Nadia Brennan,Biscuit,Bath,1,30.00
+B-202,R2,Tobias Achterberg,Juniper,Boarding (per night),7,315.00
+B-204,R4,Felix Oduya,Pepper,Boarding (per night),3,135.00
+B-204,R4,Felix Oduya,Pepper,Nail trim,1,18.00
+B-205,R5,Clara Benedetti,Ziggy,Daycare,1,32.00
+B-202,R2,Tobias Achterberg,Juniper,Medication admin,1,5.00
+B-203,R3,Ines Mwangi,Mochi,Grooming - full,1,75.00
+B-204,R4,Felix Oduya,Pepper,Exit bath,1,30.00

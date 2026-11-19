@@ -21,7 +21,11 @@
     "readme": "node scripts/readme-heads.mjs && node scripts/readme-sections.mjs",
     "readme:check": "node scripts/readme-sections.mjs --check",
     "evals": "node scripts/run-all-evals.mjs",
-    "evals:add-safety": "node scripts/eval-safety.mjs"
+    "evals:add-safety": "node scripts/eval-safety.mjs",
+    "accuracy": "node scripts/accuracy.mjs",
+    "accuracy:write": "node scripts/accuracy.mjs --write --record",
+    "model-view": "node scripts/model-view.mjs",
+    "realdata": "node scripts/realdata.mjs"
   },
   "engines": {
     "node": ">=20"

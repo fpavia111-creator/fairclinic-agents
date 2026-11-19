@@ -1,0 +1,8 @@
+Claim ID,Patient,Carrier,Check Number,Payment Posted,Write-off Posted,Posted Date,Posted By
+C2001,Rowan Achebe,Example Dental PPO,EFT1101,268.80,84.00,2026-11-11,Jo Front
+C2002,Theo Vasquez-Lind,Example Dental PPO,EFT1101,588.00,245.00,2026-11-11,Jo Front
+C2004,Lucia Fontaine,Example Dental PPO,EFT1101,432.00,0.00,2026-11-11,Sam Billing
+C2005,Marisol Quintero,Sample Mutual Dental,CHK55210,625.00,250.00,2026-11-13,Sam Billing
+C2007,Greta Lindqvist,Sample Mutual Dental,CHK55210,240.00,0.00,2026-11-13,Jo Front
+C1950,Dmitri Okonkwo,Test Dental Network,CHK40001,310.00,62.00,2026-11-02,Jo Front
+C2003,Kenji Abernathy,Example Dental PPO,EFT1101,76.80,0.00,2026-11-11,Jo Front

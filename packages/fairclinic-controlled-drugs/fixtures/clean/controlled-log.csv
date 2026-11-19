@@ -1,0 +1,17 @@
+Date,Drug,Schedule,Type,Quantity,Running Balance,Patient,Client,Initials,Witness
+2026-11-01,Hydromorphone 2 mg/mL,C-II,Opening balance,20.0,20.0,,,CE,
+2026-11-03,Hydromorphone 2 mg/mL,C-II,Administered,0.5,19.5,Biscuit,Nadia Brennan,TL,
+2026-11-04,Hydromorphone 2 mg/mL,C-II,Wasted,0.3,19.2,,,TL,CE
+2026-11-06,Hydromorphone 2 mg/mL,C-II,Administered,0.4,18.8,Juniper,Tobias Achterberg,TL,
+2026-11-09,Hydromorphone 2 mg/mL,C-II,Administered,0.6,18.2,Mochi,Ines Mwangi,TL,
+2026-11-10,Hydromorphone 2 mg/mL,C-II,Administered,0.5,17.7,Pepper,Felix Oduya,TL,
+2026-11-01,Ketamine 100 mg/mL,C-III,Opening balance,10.0,10.0,,,CE,
+2026-11-02,Ketamine 100 mg/mL,C-III,Administered,1.0,9.0,Ziggy,Clara Benedetti,CE,
+2026-11-05,Ketamine 100 mg/mL,C-III,Wasted,0.2,8.8,,,TL,CE
+2026-11-08,Ketamine 100 mg/mL,C-III,Administered,0.5,8.3,Biscuit,Nadia Brennan,TM,
+2026-11-01,Butorphanol 10 mg/mL,C-IV,Opening balance,30.0,30.0,,,CE,
+2026-11-03,Butorphanol 10 mg/mL,C-IV,Received,10.0,40.0,,,CE,
+2026-11-05,Butorphanol 10 mg/mL,C-IV,Dispensed,2.0,38.0,Biscuit,Nadia Brennan,CE,
+2026-11-11,Butorphanol 10 mg/mL,C-IV,Administered,0.5,37.5,Juniper,Tobias Achterberg,TL,
+2026-11-01,Diazepam 5 mg/mL,C-IV,Opening balance,15.0,15.0,,,CE,
+2026-11-07,Diazepam 5 mg/mL,C-IV,Administered,1.0,14.0,Pepper,Felix Oduya,CE,

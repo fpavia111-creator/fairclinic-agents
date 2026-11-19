@@ -1,0 +1,12 @@
+Account,Guarantor,Balance,0-30,31-60,61-90,90+,Ins Pending,Last Payment,Last Statement,Payment Plan
+G1001,Rowan Achebe,420.00,420.00,0,0,0,336.00,2026-10-01,2026-11-01,No
+G1002,Marisol Quintero,980.00,0,0,300.00,680.00,0,2026-11-01,2026-10-30,No
+G1003,Theo Vasquez-Lind,0.00,0,0,0,0,0,2026-11-08,2026-11-01,No
+G1004,Priya Halvorsen,310.00,310.00,0,0,0,310.00,,2026-11-01,No
+G1005,Dmitri Okonkwo,640.00,0,640.00,0,0,0,2026-09-02,2026-11-05,No
+G1006,Saoirse Delacroix,1200.00,0,0,0,1200.00,0,2026-11-01,2026-11-01,Yes
+G1007,Kenji Abernathy,0.00,0,0,0,0,0,2026-10-20,,No
+G1008,Lucia Fontaine,860.00,0,0,0,860.00,0,2026-11-01,2026-11-01,Yes
+G1009,Omar Brightwater,150.00,150.00,0,0,0,0,,2026-11-05,No
+G1010,Greta Lindqvist,75.00,75.00,0,0,0,0,2026-10-25,2026-11-05,No
+G1011,Ines Mwangi,0.00,0,0,0,0,0,2026-10-12,2026-10-01,No

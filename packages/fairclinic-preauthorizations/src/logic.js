@@ -46,7 +46,8 @@ export function checkPreauths(rows, { settings = {}, asOf } = {}) {
       if (done && until && done > until) add('done_after_expiry', `Completed ${done}, after the approval ran out on ${until}; the carrier may not pay as estimated.`);
       else if (!done && until && until < today) add('expired', `Approved, but the approval ran out on ${until} and the work is not recorded as done.`);
       else if (!done && sched && until && sched > until) add('scheduled_after_expiry', `Scheduled for ${sched}, after the approval runs out on ${until}; move the visit or ask for a new pre-authorization.`);
-      else if (!done && until && daysBetween(today, until) <= warn) add('expiring', `The approval runs out in ${daysBetween(today, until)} day(s) (${until})${sched ? `; scheduled ${sched}` : ' and nothing is scheduled'}.`);
+      // A visit already booked before the approval ends needs nothing (found by the clean-set accuracy run, 19 Nov 2026).
+      else if (!done && !sched && until && daysBetween(today, until) <= warn) add('expiring', `The approval runs out in ${daysBetween(today, until)} day(s) (${until}) and nothing is scheduled.`);
       if (!done && !sched && !(until && until < today)) add('approved_unscheduled', `Approved for ${approved ?? 'an amount not shown'} and not scheduled.`);
       if (approved !== null && requested && approved < requested * reducedPct / 100) add('reduced', `Approved ${approved} of the ${requested} requested (${round2((approved / requested) * 100)}%); the patient's share changes.`);
     } else if (DENIED.test(st)) add('denied', `Denied${isoDate(r.response_date) ? ` on ${isoDate(r.response_date)}` : ''}; the dentist and patient decide what happens next.`);

@@ -1,0 +1,537 @@
+{
+  "date": "2026-11-19",
+  "agents": [
+    {
+      "agent": "fairclinic-boarding-grooming",
+      "masked": [
+        "client_name",
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "reservation_id",
+        "service"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 12,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-card-deposits",
+      "masked": [],
+      "text_in_clear": [
+        "batch_id"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-claims-aging",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "bucket",
+        "claim_id",
+        "claim_type",
+        "payer",
+        "provider",
+        "secondary_payer"
+      ],
+      "names_in_clear": [
+        "provider"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 10,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-client-balances",
+      "masked": [
+        "client_id",
+        "client_name"
+      ],
+      "text_in_clear": [],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 8,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-controlled-drugs",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "drug",
+        "entry_type",
+        "initials",
+        "schedule"
+      ],
+      "names_in_clear": [
+        "initials"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 10,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-credential-expiry",
+      "masked": [],
+      "text_in_clear": [
+        "credential",
+        "holder",
+        "issuer",
+        "number",
+        "role"
+      ],
+      "names_in_clear": [
+        "holder"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-era-posting",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "check_number",
+        "claim_id",
+        "payer",
+        "posted_by"
+      ],
+      "names_in_clear": [
+        "posted_by"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 12,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-estimate-variance",
+      "masked": [
+        "client_name",
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "approved",
+        "estimate_id",
+        "invoice_numbers"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 12,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-hygiene-production",
+      "masked": [],
+      "text_in_clear": [
+        "hygienist"
+      ],
+      "names_in_clear": [
+        "hygienist"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-inventory-expiry",
+      "masked": [],
+      "text_in_clear": [
+        "item",
+        "lot"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-lab-cases",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "case_id",
+        "case_type",
+        "invoice_number",
+        "lab"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 7,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-membership-plans",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "plan"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 10,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-missed-charges",
+      "masked": [
+        "client_name",
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "invoice_number",
+        "item",
+        "staff",
+        "visit_id"
+      ],
+      "names_in_clear": [
+        "staff"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 7,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-no-shows",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "appointment_id",
+        "appointment_type",
+        "provider"
+      ],
+      "names_in_clear": [
+        "provider"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 9,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-patient-balances",
+      "masked": [
+        "account_number",
+        "guarantor"
+      ],
+      "text_in_clear": [],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 12,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-payroll-production",
+      "masked": [],
+      "text_in_clear": [
+        "employee",
+        "role"
+      ],
+      "names_in_clear": [
+        "employee"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-pet-insurance-claims",
+      "masked": [
+        "client_name",
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "claim_id",
+        "insurer",
+        "invoice_number"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 12,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-pharmacy-margins",
+      "masked": [],
+      "text_in_clear": [
+        "item",
+        "item_type"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-ppo-fees",
+      "masked": [],
+      "text_in_clear": [
+        "code",
+        "description",
+        "plan"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [
+        "description"
+      ],
+      "canaries": 9,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-ppo-writeoffs",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "carrier",
+        "entered_by",
+        "note",
+        "type"
+      ],
+      "names_in_clear": [
+        "entered_by"
+      ],
+      "free_text_in_clear": [
+        "note"
+      ],
+      "canaries": 10,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-preauthorizations",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "code",
+        "payer",
+        "preauth_id",
+        "provider"
+      ],
+      "names_in_clear": [
+        "provider"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 10,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-provider-production",
+      "masked": [],
+      "text_in_clear": [
+        "provider"
+      ],
+      "names_in_clear": [
+        "provider"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-recall-gaps",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "hygienist",
+        "recall_type"
+      ],
+      "names_in_clear": [
+        "hygienist"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 14,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-reference-labs",
+      "masked": [
+        "client_name",
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "accession",
+        "test"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 11,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-referral-tracking",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "party",
+        "specialty"
+      ],
+      "names_in_clear": [
+        "party"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 9,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-review-replies",
+      "masked": [
+        "reviewer_name"
+      ],
+      "text_in_clear": [
+        "excerpt",
+        "platform",
+        "review_id"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [
+        "excerpt"
+      ],
+      "canaries": 5,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-staff-discounts",
+      "masked": [
+        "client_name"
+      ],
+      "text_in_clear": [
+        "approved_by",
+        "discount_type",
+        "entered_by",
+        "invoice_number",
+        "reason"
+      ],
+      "names_in_clear": [
+        "approved_by",
+        "entered_by"
+      ],
+      "free_text_in_clear": [
+        "reason"
+      ],
+      "canaries": 5,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-sterilization-logs",
+      "masked": [],
+      "text_in_clear": [
+        "ref",
+        "sterilizer"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-supply-costs",
+      "masked": [],
+      "text_in_clear": [
+        "category",
+        "invoice_number",
+        "item",
+        "supplier"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 0,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-unscheduled-treatment",
+      "masked": [
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "providers"
+      ],
+      "names_in_clear": [
+        "providers"
+      ],
+      "free_text_in_clear": [],
+      "canaries": 9,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-vaccine-reminders",
+      "masked": [
+        "client_id",
+        "client_name",
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "reminder",
+        "species"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 12,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    },
+    {
+      "agent": "fairclinic-wellness-plans",
+      "masked": [
+        "client_name",
+        "patient_name"
+      ],
+      "text_in_clear": [
+        "plan"
+      ],
+      "names_in_clear": [],
+      "free_text_in_clear": [],
+      "canaries": 10,
+      "canary_leaks": 0,
+      "plus": "amounts, quantities, dates, rates, codes, record ids and finding codes in clear; the generated detail text repeats them, with registered names replaced"
+    }
+  ],
+  "canary_leaks": 0,
+  "free_text_probe": {
+    "reviewer_name_in_text_masked": true,
+    "unknown_name_in_text_reaches_model": true,
+    "pet_name_in_text_reaches_model": true
+  }
+}

@@ -1,0 +1,7 @@
+Date,Invoice,Client,Type,Amount,Invoice Total,Entered By,Approved By,Reason
+2026-11-02,INV-401,Nadia Brennan,Senior discount,25.00,250.00,Kim Desk,Kim Desk,Senior 10%
+2026-11-03,INV-402,Tobias Achterberg,Courtesy,180.00,360.00,Lee Tech,Dr. Cora Example,Long wait
+2026-11-04,INV-403,Ines Mwangi,Courtesy,90.00,300.00,Kim Desk,Dr. Cora Example,Long-time client
+2026-11-05,INV-404,Sam Rivera,Staff discount 30%,60.00,200.00,Kim Desk,Dr. Cora Example,
+2026-11-06,INV-405,Felix Oduya,Write-off,120.00,420.00,Lee Tech,Dr. Cora Example,Hardship
+2026-11-07,INV-406,Clara Benedetti,Courtesy,40.00,160.00,Kim Desk,,Late appointment

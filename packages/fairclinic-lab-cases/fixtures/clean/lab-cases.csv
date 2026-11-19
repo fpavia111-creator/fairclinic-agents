@@ -1,0 +1,8 @@
+Case,Patient,Lab,Type,Sent,Due,Returned,Seat Appointment,Seated,Billed
+L501,Rowan Achebe,Example Crown Lab,Crown,2026-10-20,2026-11-03,2026-11-02,2026-11-05,2026-11-05,Yes
+L502,Theo Vasquez-Lind,Example Crown Lab,Implant crown,2026-11-01,2026-11-15,2026-11-14,2026-11-17,,No
+L503,Priya Halvorsen,Sample Denture Studio,Complete denture,2026-10-15,2026-11-20,,2026-11-24,,No
+L504,Lucia Fontaine,Example Crown Lab,Crown,2026-10-10,2026-10-24,2026-10-23,2026-10-30,2026-10-30,Yes
+L505,Greta Lindqvist,Example Crown Lab,Crown,2026-09-20,2026-10-04,2026-10-03,2026-10-06,2026-10-06,Yes
+L506,Marisol Quintero,Example Crown Lab,Crown remake,2026-10-25,2026-11-08,2026-11-07,2026-11-10,2026-11-10,Yes
+L507,Omar Brightwater,Sample Denture Studio,Partial denture,2026-11-05,2026-11-25,,2026-12-01,,No

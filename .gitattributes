@@ -1,0 +1,11 @@
+# Generated text (READMEs, eval cases, plugin files, clean fixtures) is compared by the --check scripts,
+# so every checkout keeps LF, including a Windows clone with core.autocrlf=true.
+* text=auto eol=lf
+# Test exports in other languages keep their exact bytes (legacy encodings, CRLF line ends, as real exports have).
+packages/fairclinic-core/test/fixtures/intl/** -text
+# Remittance files and fixtures are compared byte for byte in tests.
+*.835 -text
+*.xlsx binary
+*.png binary
+*.zip binary
+*.pdf binary

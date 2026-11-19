@@ -22,18 +22,16 @@ Fairclinic Missed Charges demo (fictional animal hospital, pets and clients, 12 
 
 ▶ Check the files
   status: executed  decision: allow
-  15 recorded line(s) over 5 visit(s). 7 to review: 3 not invoiced, 1 invoiced short, 1 at no charge, 2 invoiced but not on the record. About 240 not charged.
+  15 recorded line(s) over 5 visit(s). 5 to review: 2 not invoiced, 1 invoiced short, 1 at no charge, 1 invoiced but not on the record. About 240 not charged.
     not_invoiced           V1001  Ear cytology               recorded 1 invoiced 0  missed 45
     not_invoiced           V1002  CBC in-house               recorded 1 invoiced 0  missed 110
-    not_invoiced           V1005  Fecal flotation            recorded 1 invoiced 0  missed 0
     qty_short              V1002  IV fluids (per day)        recorded 2 invoiced 1  missed 85
     no_charge              V1003  Nail trim                  recorded 1 invoiced 1  missed 0
-    invoiced_not_recorded  V1005  Fecal test                 recorded 0 invoiced 1  missed 0
     invoiced_not_recorded  V1005  Heartworm test             recorded 0 invoiced 1  missed 0
 
 ▶ Write the worklist for the team
   status: executed  decision: allow
-  Missed charges written: 15 recorded line(s) over 5 visit(s). 7 to review: 3 not invoiced, 1 invoiced short, 1 at no charge, 2 invoiced but not on the record. About 240 not charged. Files: fairclinic-out/charges/charges-missed.csv, fairclinic-out/charges/charges-missed.html.
+  Missed charges written: 15 recorded line(s) over 5 visit(s). 5 to review: 2 not invoiced, 1 invoiced short, 1 at no charge, 1 invoiced but not on the record. About 240 not charged. Files: fairclinic-out/charges/charges-missed.csv, fairclinic-out/charges/charges-missed.html.
 
 ▶ Agent tries pms update itself
   status: blocked  decision: block

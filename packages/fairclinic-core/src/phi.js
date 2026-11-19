@@ -47,9 +47,12 @@ const KEY_KIND = new Map([
   ...keys('claim', ['claim_id', 'claim_number', 'payer_claim_id', 'payer_claim_control_number', 'icn', 'patient_control_number', 'original_ref', 'claim_ids']),
   ...keys('service_date', ['date_of_service', 'service_date', 'dos', 'service_from', 'service_to', 'date_from', 'date_to', 'admission_date', 'discharge_date', 'statement_from', 'statement_to', 'admit_date', 'first_dos', 'last_dos']),
   ...keys('age', ['age', 'patient_age', 'age_at_service']),
+  // Staff and provider names: sent in clear in 'mask' mode (worklists name who did what), pseudonymised (ST-) in 'strict'.
+  // approved_by stays out: the runtime reports the person who clicked approve under that key.
+  ...keys('staff', ['provider', 'providers', 'rendering_provider', 'treating_provider', 'hygienist', 'employee', 'employee_name', 'staff', 'staff_name', 'entered_by', 'posted_by', 'holder', 'initials', 'witness', 'dentist', 'veterinarian']),
 ]);
-const STRICT_ONLY = new Set(['zip', 'claim', 'service_date', 'age']);
-const PREFIX = { name: 'PT', member_id: 'MBR', mrn: 'MRN', account: 'ACCT', claim: 'CLM' };
+const STRICT_ONLY = new Set(['zip', 'claim', 'service_date', 'age', 'staff']);
+const PREFIX = { name: 'PT', member_id: 'MBR', mrn: 'MRN', account: 'ACCT', claim: 'CLM', staff: 'ST' };
 const FIXED = { ssn: '[SSN]', address: '[ADDRESS]', phone: '[PHONE]', email: '[EMAIL]' };
 // Minimum length before a registered value is also searched for inside free text.
 const MIN_TEXT = { name: 4, member_id: 5, mrn: 4, account: 5, claim: 4, dob: 8 };
@@ -61,7 +64,7 @@ const TEXT_PATTERNS = [
 ];
 
 // A value that is already a pseudonym or placeholder is left alone (results pass the masker more than once).
-const ALREADY = /^((PT|MBR|MRN|ACCT|CLM)-[0-9a-f]{8}|\[(SSN|ADDRESS|PHONE|EMAIL|DOB|ZIP)\]|\d{4} \(birth year\)|\d{3}XX|90\+)$/;
+const ALREADY = /^((PT|MBR|MRN|ACCT|CLM|ST)-[0-9a-f]{8}|\[(SSN|ADDRESS|PHONE|EMAIL|DOB|ZIP)\]|\d{4} \(birth year\)|\d{3}XX|90\+)$/;
 
 /** Kind of a field name, or null. */
 export const phiKindOf = (key, mode = 'mask') => { const k = KEY_KIND.get(norm(key)); return !k || (STRICT_ONLY.has(k) && mode !== 'strict') ? null : k; };
@@ -104,7 +107,7 @@ export class PhiMasker {
 
   /** Stable pseudonym for a value of one kind. */
   token(kind, value) {
-    const v = kind === 'name' ? nameKey(value) : String(value).trim().toUpperCase();
+    const v = kind === 'name' || kind === 'staff' ? nameKey(value) : String(value).trim().toUpperCase();
     return `${PREFIX[kind] || 'ID'}-${createHmac('sha256', this.key).update(`${kind}|${v}`).digest('hex').slice(0, 8)}`;
   }
 
@@ -130,7 +133,7 @@ export class PhiMasker {
     if (!this.on || raw === null || raw === undefined) return;
     if (STRICT_ONLY.has(kind) && this.mode !== 'strict' && kind !== 'claim') return;
     if (kind === 'claim' && this.mode !== 'strict') return;
-    const vals = kind === 'name' ? nameVariants(raw) : [String(raw).trim()];
+    const vals = kind === 'name' || kind === 'staff' ? nameVariants(raw) : [String(raw).trim()];
     const rep = FIXED[kind] || (kind === 'dob' ? '[DOB]' : this.token(kind, raw));
     for (const v of vals) if (v.length >= (MIN_TEXT[kind] || 4) && !this.seen.has(v.toLowerCase())) { this.seen.set(v.toLowerCase(), { value: v, rep }); this.index = null; }
   }
