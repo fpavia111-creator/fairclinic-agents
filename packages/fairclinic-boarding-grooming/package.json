@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-boarding-grooming",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-boarding-grooming",
   "description": "Fairclinic Boarding and Grooming: boarding, daycare and grooming reservations against invoice lines: stays with no invoice, fewer nights or days invoiced than stayed, and booked add-ons not invoiced, valued at your list prices. It never changes an invoice or charges a client. Pet and client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

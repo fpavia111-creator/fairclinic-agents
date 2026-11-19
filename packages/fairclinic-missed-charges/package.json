@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-missed-charges",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-missed-charges",
   "description": "Fairclinic Missed Charges: what a veterinary treatment sheet or medical record says was done, against what was invoiced, matched by visit (or pet and date) and item: items not invoiced, quantities invoiced short, lines at no charge to confirm, and invoiced items missing from the record, valued from your price list. Pet and client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

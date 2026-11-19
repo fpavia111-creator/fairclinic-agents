@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-credential-expiry",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-credential-expiry",
   "description": "Fairclinic Credential Expiry: dental and veterinary licences, DEA registrations, state permits, radiation registrations and malpractice insurance: expired, expiring with no renewal submitted, missing expiry dates, and CE hours short of what the next renewal needs. It never files a renewal or contacts a board, the DEA or an insurer.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

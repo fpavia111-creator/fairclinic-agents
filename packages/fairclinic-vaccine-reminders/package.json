@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-vaccine-reminders",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-vaccine-reminders",
   "description": "Fairclinic Vaccine Reminders: reads the veterinary practice system's reminder list for pets that are overdue and not booked, overdue with no recent reminder, due soon with no reminder, clients with no e-mail or phone, and reminders sent for pets marked deceased or inactive. Due dates come from your system; it never sets a schedule or sends a reminder. Pet and client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairclinic-controlled-drugs",
+  "title": "Fairclinic Controlled Drugs",
+  "description": "Fairclinic Controlled Drugs: reconciles a veterinary controlled drug log (DEA schedule items) with…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents",
+    "source": "github",
+    "subfolder": "packages/fairclinic-controlled-drugs"
+  },
+  "websiteUrl": "https://fair-agents.com/fairclinic.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairclinic-controlled-drugs",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

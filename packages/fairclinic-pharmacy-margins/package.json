@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-pharmacy-margins",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-pharmacy-margins",
   "description": "Fairclinic Pharmacy Margins: veterinary in-house pharmacy prices against cost: items priced below cost, cost rises not passed on, margins under your target with the gap on quantities sold, and prescription items with no dispensing fee. It never changes a price.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

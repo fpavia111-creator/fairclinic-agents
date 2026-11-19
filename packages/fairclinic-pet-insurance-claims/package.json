@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-pet-insurance-claims",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-pet-insurance-claims",
   "description": "Fairclinic Pet Insurance Claims: where each pet insurance claim stands: information requests from the insurer, direct payments that came in below the claim, claims drafted and not submitted, claims with no decision, and denials, with open amounts by insurer. It never submits a claim or charges a client. Pet and client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

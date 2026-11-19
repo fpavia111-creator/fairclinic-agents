@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-reference-labs",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-reference-labs",
   "description": "Fairclinic Reference Labs: veterinary send-out tests on the reference lab's invoice matched to client charges for the same pet and date: tests not charged, charges below lab cost or under your markup rule, and send-out items charged with no test on the lab invoice. Pet and client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

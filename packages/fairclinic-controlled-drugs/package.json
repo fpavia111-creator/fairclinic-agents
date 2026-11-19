@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-controlled-drugs",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-controlled-drugs",
   "description": "Fairclinic Controlled Drugs: reconciles a veterinary controlled drug log (DEA schedule items) with the physical count: the balance worked out from the entries against the written balance and the count, arithmetic errors that hide a difference, waste with no witness, use with no patient, entries with no initials. It reports the log; it never decides compliance or files anything. Pet and client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

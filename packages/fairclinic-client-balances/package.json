@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-client-balances",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-client-balances",
   "description": "Fairclinic Client Balances: veterinary client accounts receivable with the next step for each account: credits and unapplied deposits for a person to check, money over 90 days for collections review, no recent statement, and small balances. It never refunds, applies money or sends anyone to collections. Client names and account numbers are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

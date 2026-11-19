@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-staff-discounts",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-staff-discounts",
   "description": "Fairclinic Staff Discounts: veterinary discounts and write-offs on invoices against your own policy: approved by the person who gave them or with no approver above your limit, staff discounts on accounts not on the staff list, discounts above your percent limit and discounts with no reason, with totals by the person who entered them. A flag is a question for a manager, not a finding about anyone. Client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-patient-balances",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-patient-balances",
   "description": "Fairclinic Patient Balances: dental patient and guarantor balances aged, with the next step for each account: credits for a person to check, missed payment-plan payments, money over 90 days for collections review, no recent statement, waiting on insurance, small balances; and a plain balance reminder for one named person to send. Names and account numbers are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

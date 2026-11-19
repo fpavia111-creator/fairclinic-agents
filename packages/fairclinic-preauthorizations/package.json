@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-preauthorizations",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-preauthorizations",
   "description": "Fairclinic Pre-authorizations: dental pre-authorizations and pre-treatment estimates that need a person: no answer from the carrier, approved but not scheduled, expiring or expired before the work is done, scheduled or done after the approval ran out, reduced or denied, or never sent. Patient names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

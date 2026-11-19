@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-wellness-plans",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-wellness-plans",
   "description": "Fairclinic Wellness Plans: a month of veterinary wellness plan billing and plan use: failed, missed and wrong charges, services used beyond what the plan includes, and early cancellations where the services used are worth more than the fees paid. It never charges, retries or refunds. Pet and client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-membership-plans",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-membership-plans",
   "description": "Fairclinic Membership Plans: a month of in-house dental membership (savings) plan billing against the roster: missed and failed charges, wrong amounts, charges after cancelling, plan use after a membership ended, annual renewals due or lapsed, and charges for people not on the roster. It never charges, retries or refunds. Member names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

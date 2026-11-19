@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-lab-cases",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-lab-cases",
   "description": "Fairclinic Lab Cases: the dental lab case log against seat appointments, billing and lab invoices: cases not back for the seat appointment, overdue from the lab, seated and not billed, remakes charged, duplicate invoices, invoices for cases not in the log or not back yet, and returned cases with no invoice. It never pays a lab or changes a case. Patient names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

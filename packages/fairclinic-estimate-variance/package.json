@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-estimate-variance",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-estimate-variance",
   "description": "Fairclinic Estimate Variance: veterinary treatment estimates against the final invoice: invoices well above the high estimate (check the client approved the increase), well below the low estimate (check nothing was left off), approved estimates never invoiced, and invoices raised on declined estimates. Pet and client names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

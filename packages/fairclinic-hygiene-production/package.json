@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-hygiene-production",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-hygiene-production",
   "description": "Fairclinic Hygiene Production: dental hygiene production per worked hour for each hygienist, unfilled schedule time, the share of periodontal visits among cleanings, and production on days missing from the hours file. Not a pay calculation or a view on patient care.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

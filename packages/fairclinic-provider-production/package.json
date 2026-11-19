@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-provider-production",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-provider-production",
   "description": "Fairclinic Provider Production: dental production, adjustments and collections per provider and month: net production, collections as a percent of net, adjustments as a percent of gross, months well below a provider's others, and months missing from the export. Not a pay calculation or a judgment of anyone's clinical work.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

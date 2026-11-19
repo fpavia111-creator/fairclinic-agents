@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-recall-gaps",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-recall-gaps",
   "description": "Fairclinic Recall Gaps: dental recall and hygiene patients who are overdue and not booked, missed a booked visit, are due soon, or have lapsed, with the last contact date; and how many hygiene visits leave with the next visit booked, per hygienist. Patient names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

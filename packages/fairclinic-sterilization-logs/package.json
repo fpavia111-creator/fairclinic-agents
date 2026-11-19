@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-sterilization-logs",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-sterilization-logs",
   "description": "Fairclinic Sterilization Logs: gaps and open items in sterilizer cycle logs and spore test logs: entries without a result, number or initials, failed cycles with no rerun logged, missing cycle numbers, long gaps between spore tests while a sterilizer was in use, and positive spore tests with no retest logged. A log completeness check, never a compliance determination.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

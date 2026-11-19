@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-review-replies",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-review-replies",
   "description": "Fairclinic Review Replies: online reviews that need a reply (low ratings first, and those that mention health or care details), reply drafts that thank or invite a call and never confirm the reviewer is a patient or client, and a check of any proposed reply for wording that would disclose a visit, care, records, a date or a name. One named person posts; the agent never does. Reviewer names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

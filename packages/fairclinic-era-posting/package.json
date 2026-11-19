@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-era-posting",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-era-posting",
   "description": "Fairclinic ERA Posting: reads dental ERAs (835 files or remittance exports) and compares each claim with what was posted in the practice system: payments not posted, posted amounts that differ, contractual write-offs that differ from the ERA, denials written off as contractual, reversals, postings that are not on the ERA, and check totals that do not tie. Patient names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

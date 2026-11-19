@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-card-deposits",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-card-deposits",
   "description": "Fairclinic Card Deposits: card processor batches against bank deposits and the practice system's card totals: batches that never arrived, deposits at a different amount, chargebacks, days where the practice system differs, high fees, and card deposits that match no batch. It never responds to disputes, refunds or posts anything.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

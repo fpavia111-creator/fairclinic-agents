@@ -6,7 +6,7 @@ export const PRODUCTION_FIELDS = Object.freeze({
   month: fld(['Month', 'Period', 'Date', 'Month Ending'], { required: true, translate: false }),
   gross_production: fld(['Gross Production', 'Production', 'Gross Prod', 'Charges'], { type: 'money', required: true, translate: false }),
   adjustments: fld(['Adjustments', 'Write-offs', 'Adj', 'PPO Write-offs'], { type: 'money', translate: false }),
-  collections: fld(['Collections', 'Payments', 'Collected', 'Receipts'], { type: 'money', required: true, translate: false }),
+  collections: fld(['Collections', 'Total Collections', 'Payments', 'Collected', 'Receipts'], { type: 'money', required: true, translate: false }),
 });
 
 export const SETTINGS_SCHEMA = Object.freeze({

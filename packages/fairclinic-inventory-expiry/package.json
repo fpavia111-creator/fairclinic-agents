@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-inventory-expiry",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-inventory-expiry",
   "description": "Fairclinic Inventory Expiry: veterinary or dental stock by lot: expired stock still on hand, stock expiring soon and lots with no expiry date, valued at cost; and shrink or overage from opening, received, used and counted. It never disposes of, returns or writes off stock.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

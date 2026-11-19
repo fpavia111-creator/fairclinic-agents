@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-ppo-fees",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-ppo-fees",
   "description": "Fairclinic PPO Fees: your office fee schedule against each PPO's allowed amounts and what each PPO actually allowed: lines allowed below the plan's own fee, office fees below a plan fee, codes missing from a schedule or from your fees, and the write-off percent per code and plan. It never sets fees or touches a contract.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

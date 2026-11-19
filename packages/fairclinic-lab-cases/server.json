@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairclinic-lab-cases",
+  "title": "Fairclinic Lab Cases",
+  "description": "Fairclinic Lab Cases: the dental lab case log against seat appointments, billing and lab invoices…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents",
+    "source": "github",
+    "subfolder": "packages/fairclinic-lab-cases"
+  },
+  "websiteUrl": "https://fair-agents.com/fairclinic.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairclinic-lab-cases",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

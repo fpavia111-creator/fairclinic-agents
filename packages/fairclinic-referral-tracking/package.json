@@ -1,6 +1,7 @@
 {
   "name": "fairclinic-referral-tracking",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairclinic-referral-tracking",
   "description": "Fairclinic Referral Tracking: referrals sent to specialists with no report back, referrals received that were never seen, referring doctors not thanked, and new patients and production by referral source. It reads dates and practice names only, never clinical details, and sends nothing. Patient names are masked before results reach the model.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",
