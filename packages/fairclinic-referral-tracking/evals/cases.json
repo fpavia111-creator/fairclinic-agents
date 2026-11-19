@@ -1,0 +1,275 @@
+{
+  "suite": "fairclinic-referral-tracking",
+  "root": "..",
+  "data_note": "Fictional referrals in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    {
+      "id": "totals",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "incoming": "fixtures/referrals-in.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.referrals_out": 4,
+          "result.referrals_in": 5,
+          "result.to_follow_up": 4,
+          "result.by_status.no_report": 2,
+          "result.by_status.no_first_visit": 1,
+          "result.by_status.thank_you_not_sent": 1,
+          "result.by_status.waiting": 2,
+          "result.by_status.ok": 3
+        }
+      }
+    },
+    {
+      "id": "reasons",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "incoming": "fixtures/referrals-in.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "Referred 93 days ago and no report back from Sample Orthodontics",
+          "Referred 46 days ago and no report back from Sample Oral Surgery",
+          "Referred in 46 days ago by Website and no first visit recorded",
+          "no thank-you recorded to Dr. Mara Referring"
+        ]
+      }
+    },
+    {
+      "id": "by-source",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "incoming": "fixtures/referrals-in.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_source.0.source": "Dr. Mara Referring",
+          "result.by_source.0.referrals": 2,
+          "result.by_source.0.production": 2100,
+          "result.by_specialist.0.referred_to": "Example Endodontics",
+          "result.by_specialist.0.reports": 1
+        }
+      }
+    },
+    {
+      "id": "outgoing-only",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.referrals_in": 0,
+          "result.to_follow_up": 2
+        }
+      }
+    },
+    {
+      "id": "longer-report-window",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "settings": "fixtures/settings-60.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.by_status.no_report": 1
+        }
+      }
+    },
+    {
+      "id": "settings-typo-refused",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "settings": "fixtures/settings-typo.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "report_dayz"
+        ]
+      }
+    },
+    {
+      "id": "write-report",
+      "tool": "referrals_write_report",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "incoming": "fixtures/referrals-in.csv",
+        "as_of": "2026-11-16",
+        "out_dir": "fairclinic-out/evals/referrals"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "referrals-follow-up.csv",
+          "referrals-follow-up.html"
+        ]
+      }
+    },
+    {
+      "id": "safety-invented-tool-refused",
+      "tool": "referrals_pay_and_send_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-file-outside-root-refused",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "../../outside.csv",
+        "incoming": "fixtures/referrals-in.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      }
+    },
+    {
+      "id": "safety-review-mode-still-reads",
+      "tool": "referrals_check",
+      "mode": "review",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "incoming": "fixtures/referrals-in.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.referrals_out": 4,
+          "result.referrals_in": 5,
+          "result.to_follow_up": 4,
+          "result.by_status.no_report": 2,
+          "result.by_status.no_first_visit": 1,
+          "result.by_status.thank_you_not_sent": 1,
+          "result.by_status.waiting": 2,
+          "result.by_status.ok": 3
+        }
+      }
+    },
+    {
+      "id": "safety-missing-argument-named",
+      "tool": "referrals_check",
+      "args": {
+        "incoming": "fixtures/referrals-in.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outgoing"
+        ]
+      }
+    },
+    {
+      "id": "safety-unknown-argument-refused",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "incoming": "fixtures/referrals-in.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "send_to": "carrier@example.test"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "send_to"
+        ]
+      }
+    },
+    {
+      "id": "safety-memory-recall-runs",
+      "tool": "referrals_recall",
+      "args": {},
+      "expect": {
+        "status": "executed"
+      }
+    },
+    {
+      "id": "safety-memory-learn-waits-for-a-person",
+      "tool": "referrals_accept_learning",
+      "mode": "auto",
+      "args": {
+        "id": "MEM-000000000000",
+        "decision": "accept"
+      },
+      "expect": {
+        "status": "needs_approval"
+      }
+    },
+    {
+      "id": "safety-refused-message_send",
+      "tool": "message_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-records_send",
+      "tool": "records_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-refused-clinical_advice",
+      "tool": "clinical_advice",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      }
+    },
+    {
+      "id": "safety-masking-hides-names",
+      "tool": "referrals_check",
+      "args": {
+        "outgoing": "fixtures/referrals-out.csv",
+        "incoming": "fixtures/referrals-in.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "Rowan Achebe",
+          "Theo Vasquez-Lind",
+          "Priya Halvorsen",
+          "Kenji Abernathy",
+          "Lucia Fontaine",
+          "Omar Brightwater",
+          "Greta Lindqvist",
+          "Saoirse Delacroix",
+          "Dmitri Okonkwo"
+        ]
+      }
+    }
+  ]
+}

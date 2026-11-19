@@ -1,0 +1,21 @@
+{
+  "suite": "fairclinic-referral-tracking",
+  "root": "..",
+  "data_note": "Fictional referrals in ../fixtures, as of 2026-11-16. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "referrals_check", "args": { "outgoing": "fixtures/referrals-out.csv", "incoming": "fixtures/referrals-in.csv", "settings": "fixtures/settings.json", "as_of": "2026-11-16" },
+      "expect": { "status": "executed", "equals": { "result.referrals_out": 4, "result.referrals_in": 5, "result.to_follow_up": 4, "result.by_status.no_report": 2, "result.by_status.no_first_visit": 1, "result.by_status.thank_you_not_sent": 1, "result.by_status.waiting": 2, "result.by_status.ok": 3 } } },
+    { "id": "reasons", "tool": "referrals_check", "args": { "outgoing": "fixtures/referrals-out.csv", "incoming": "fixtures/referrals-in.csv", "as_of": "2026-11-16" },
+      "expect": { "contains": ["Referred 93 days ago and no report back from Sample Orthodontics", "Referred 46 days ago and no report back from Sample Oral Surgery", "Referred in 46 days ago by Website and no first visit recorded", "no thank-you recorded to Dr. Mara Referring"] } },
+    { "id": "by-source", "tool": "referrals_check", "args": { "outgoing": "fixtures/referrals-out.csv", "incoming": "fixtures/referrals-in.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_source.0.source": "Dr. Mara Referring", "result.by_source.0.referrals": 2, "result.by_source.0.production": 2100, "result.by_specialist.0.referred_to": "Example Endodontics", "result.by_specialist.0.reports": 1 } } },
+    { "id": "outgoing-only", "tool": "referrals_check", "args": { "outgoing": "fixtures/referrals-out.csv", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.referrals_in": 0, "result.to_follow_up": 2 } } },
+    { "id": "longer-report-window", "tool": "referrals_check", "args": { "outgoing": "fixtures/referrals-out.csv", "settings": "fixtures/settings-60.json", "as_of": "2026-11-16" },
+      "expect": { "equals": { "result.by_status.no_report": 1 } } },
+    { "id": "settings-typo-refused", "tool": "referrals_check", "args": { "outgoing": "fixtures/referrals-out.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["report_dayz"] } },
+    { "id": "write-report", "tool": "referrals_write_report", "args": { "outgoing": "fixtures/referrals-out.csv", "incoming": "fixtures/referrals-in.csv", "as_of": "2026-11-16", "out_dir": "fairclinic-out/evals/referrals" },
+      "expect": { "status": "executed", "contains": ["referrals-follow-up.csv", "referrals-follow-up.html"] } }
+  ]
+}

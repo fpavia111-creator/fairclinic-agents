@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-referral-tracking",
+  "version": "0.1.0",
+  "description": "Fairclinic Referral Tracking: referrals sent to specialists with no report back, referrals received that were never seen, referring doctors not thanked, and new patients and production by referral source. It reads dates and practice names only, never clinical details, and sends nothing. Patient names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-referral-tracking": "bin/fairclinic-referral-tracking.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-referral-tracking.js demo",
+    "eval": "node bin/fairclinic-referral-tracking.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-referral-tracking"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-referral-tracking#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "referrals",
+    "specialists",
+    "new-patients"
+  ]
+}
