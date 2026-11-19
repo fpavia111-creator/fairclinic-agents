@@ -1,0 +1,21 @@
+{
+  "suite": "fairclinic-no-shows",
+  "root": "..",
+  "data_note": "Fictional appointments in ../fixtures. No model is called.",
+  "cases": [
+    { "id": "totals", "tool": "noshows_check", "args": { "appointments": "fixtures/appointments.csv", "settings": "fixtures/settings.json" },
+      "expect": { "status": "executed", "equals": { "result.appointments": 10, "result.no_shows": 4, "result.no_show_pct": 40, "result.late_cancels": 2, "result.unfilled_value": 2765, "result.to_review": 4, "result.by_status.repeat_no_show": 1, "result.by_status.no_show_not_rebooked": 2, "result.by_status.late_cancel_not_rebooked": 1, "result.by_finding.fee_not_charged": 3 } } },
+    { "id": "reasons", "tool": "noshows_check", "args": { "appointments": "fixtures/appointments.csv", "settings": "fixtures/settings.json" },
+      "expect": { "contains": ["No-show number 2 for this patient", "Missed the 2026-11-03 appointment and is not rebooked", "Cancelled the same day and not rebooked", "Your policy has a 25 no-show fee and none was charged"] } },
+    { "id": "by-provider", "tool": "noshows_check", "args": { "appointments": "fixtures/appointments.csv" },
+      "expect": { "equals": { "result.by_provider.0.provider": "Hana Test", "result.by_provider.0.no_show_pct": 75, "result.by_provider.1.provider": "Dr. Ben Sample", "result.by_provider.1.no_shows": 1 } } },
+    { "id": "without-fee-policy", "tool": "noshows_check", "args": { "appointments": "fixtures/appointments.csv" },
+      "expect": { "not_contains": ["no-show fee and none was charged"] } },
+    { "id": "shorter-late-window", "tool": "noshows_check", "args": { "appointments": "fixtures/appointments.csv", "settings": "fixtures/settings-1day.json" },
+      "expect": { "equals": { "result.late_cancels": 1 } } },
+    { "id": "settings-typo-refused", "tool": "noshows_check", "args": { "appointments": "fixtures/appointments.csv", "settings": "fixtures/settings-typo.json" },
+      "expect": { "status": "error", "contains": ["late_days"] } },
+    { "id": "write-report", "tool": "noshows_write_report", "args": { "appointments": "fixtures/appointments.csv", "settings": "fixtures/settings.json", "out_dir": "fairclinic-out/evals/noshows" },
+      "expect": { "status": "executed", "contains": ["noshows-follow-up.csv", "noshows-follow-up.html"] } }
+  ]
+}

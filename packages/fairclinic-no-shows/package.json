@@ -1,0 +1,56 @@
+{
+  "name": "fairclinic-no-shows",
+  "version": "0.1.0",
+  "description": "Fairclinic No-shows: dental or veterinary appointments that were missed or cancelled late and not rebooked, repeat no-shows, no-show fees in your policy that were not charged (a person decides), no-show and late-cancellation rates by provider, and the scheduled value lost. It never books, messages or charges anyone. Patient names are masked before results reach the model.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairclinic-no-shows": "bin/fairclinic-no-shows.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairclinic-no-shows.js demo",
+    "eval": "node bin/fairclinic-no-shows.js eval"
+  },
+  "dependencies": {
+    "fairclinic-core": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairclinic-agents.git",
+    "directory": "packages/fairclinic-no-shows"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairclinic-agents/tree/main/packages/fairclinic-no-shows#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairclinic-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "fairclinic",
+    "practice-management",
+    "dental",
+    "veterinary",
+    "no-shows",
+    "appointments",
+    "scheduling"
+  ]
+}

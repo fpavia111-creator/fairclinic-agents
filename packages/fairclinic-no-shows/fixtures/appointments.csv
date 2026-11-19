@@ -1,0 +1,11 @@
+Appointment,Patient,Provider,Date,Type,Status,Cancelled On,Rebooked,Fee Charged,Scheduled Value
+A1,Rowan Achebe,Dr. Ada Example,2026-11-02,Exam,Completed,,,,95.00
+A2,Marisol Quintero,Hana Test,2026-11-03,Hygiene,No-show,,,0,180.00
+A3,Marisol Quintero,Hana Test,2026-11-10,Hygiene,No-show,,2026-12-01,0,180.00
+A4,Theo Vasquez-Lind,Dr. Ada Example,2026-11-04,Crown seat,Cancelled,2026-11-04,,,1180.00
+A5,Priya Halvorsen,Dr. Ben Sample,2026-11-05,Filling,Cancelled,2026-11-01,2026-11-19,,260.00
+A6,Kenji Abernathy,Hana Test,2026-11-06,Hygiene,No-show,,2026-11-20,25.00,180.00
+A7,Lucia Fontaine,Dr. Ben Sample,2026-11-09,Exam,Completed,,,,95.00
+A8,Omar Brightwater,Dr. Ada Example,2026-11-12,Extraction,Cancelled,2026-11-11,2026-11-18,,950.00
+A9,Greta Lindqvist,Hana Test,2026-11-13,Hygiene,Completed,,,,180.00
+A10,Dmitri Okonkwo,Dr. Ben Sample,2026-11-13,Exam,No-show,,,0,95.00
