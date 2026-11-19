@@ -11,7 +11,7 @@ export const SCHEDULE_FIELDS = Object.freeze({
   // Proc and Office Fees are the Montana Medicaid dental schedule's own names (tested on the public file, 19 Nov 2026).
   plan: fld(['Plan', 'PPO', 'Carrier', 'Fee Schedule', 'Payer'], { translate: 'payer' }),
   code: fld(['Code', 'CDT', 'CDT Code', 'Procedure', 'Proc Code', 'Proc', 'Procedure Code'], { required: true, translate: false }),
-  allowed: fld(['Allowed', 'Allowed Amount', 'PPO Fee', 'Max Allowable', 'Maximum Allowable', 'Contracted Fee', 'Fee', 'Office Fees', 'Max Fee', 'Fee Amount'], { type: 'money', required: true, translate: 'allowed' }),
+  allowed: fld(['Allowed', 'Allowed Amount', 'PPO Fee', 'Max Allowable', 'Maximum Allowable', 'Contracted Fee', 'Fee', 'Fees', 'Office Fees', 'Max Fee', 'Fee Amount'], { type: 'money', required: true, translate: 'allowed' }),
 });
 export const PAID_FIELDS = Object.freeze({
   plan: fld(['Plan', 'PPO', 'Carrier', 'Payer'], { required: true, translate: 'payer' }),

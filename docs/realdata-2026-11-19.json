@@ -1,0 +1,179 @@
+{
+  "date": "2026-11-19",
+  "results": [
+    {
+      "id": "wa-doh-credentials",
+      "source": "Washington State Department of Health, Health Care Provider Credential Data (data.wa.gov dataset qxh8-f4bd), CSV from the open-data API, four credential types: Dentist License, Dental Hygiene License, Veterinary License, Veterinary Technician License",
+      "url": "https://data.wa.gov/d/qxh8-f4bd",
+      "date": "2026-11-19",
+      "licence": "Public domain (as stated on data.wa.gov)",
+      "agent": "fairclinic-credential-expiry",
+      "rows": 47539,
+      "ran": "credentials_check as of 2026-11-19, warning 90 days",
+      "got": {
+        "not_active": 25972,
+        "ok": 17467,
+        "expiring": 3650,
+        "missing_expiry": 438,
+        "expired": 12
+      },
+      "want": {
+        "not_active": 25972,
+        "expiring": 3650,
+        "ok": 17467,
+        "expired": 12,
+        "missing_expiry": 438
+      },
+      "agree": true,
+      "found": "47539 credentials (20881 with a board status starting \"Active\"): 25972 not active at the board, 12 past their expiry date (12 of them still \"Active\" at the board), 3650 expiring within 90 days, 438 with no expiry date.",
+      "false_positives": "none against the recount (all status counts equal); the 12 \"Active\" credentials past their date are not wrong findings but a disagreement inside the board's own file, which the agent now says in the detail",
+      "changed": "Before this pass the agent could not read the file at all (no holder column: the board splits first and last name) and ignored the board status. It now joins first and last name, reads the status column, reports not_active when the board says expired, closed, suspended and the like, and says when the board still lists a past-date credential as Active."
+    },
+    {
+      "id": "nv-medicaid-835",
+      "source": "Nevada Medicaid sample 835 file (published as a PDF for providers; text extracted with pdftotext, page lines removed and wrapped segments rejoined)",
+      "url": "https://www.medicaid.nv.gov/Downloads/provider/Sample_835_File.pdf",
+      "date": "2026-11-19",
+      "licence": "State of Nevada public provider document; no licence stated; names and ids in it are sample values",
+      "agent": "fairclinic-era-posting",
+      "rows": 67,
+      "ran": "era_check with an empty posting file",
+      "got": {
+        "era_claims": 3,
+        "denied": 2,
+        "provider_adjustments": 1,
+        "checks": 3,
+        "claimless": 1,
+        "plb_total": -1812.27
+      },
+      "want": {
+        "era_claims": 3,
+        "denied": 2,
+        "provider_adjustments": 1,
+        "checks": 3,
+        "claimless": 1,
+        "plb_total": -1812.27
+      },
+      "agree": true,
+      "found": "3 remittances (segments ended by line breaks, not \"~\"), 3 claims: 2 denials to work (claim status 4, CO-26), 1 claim processed as secondary with nothing paid (left as ok), and a 1812.27 payment made only of provider-level adjustments (PLB, -1812.27 in total) with no claims on it.",
+      "false_positives": "none against the recount",
+      "changed": "Before this pass the claim-less payment and every provider-level (PLB) adjustment were dropped without a word: the 1,812.27 check was not in the result. The agent now lists each check with PLB adjustments as provider_adjustment (post at the account level) and shows the payment amount and PLB total per check."
+    },
+    {
+      "id": "cms-nadac",
+      "source": "CMS NADAC (National Average Drug Acquisition Cost) 2026, data.medicaid.gov dataset fbb83258-11c7-47f5-8b18-5f8e79f7e704, rows for 26 human generics often dispensed by veterinary practices, as of 2026-01-07 and 2026-11-18",
+      "url": "https://data.medicaid.gov/dataset/fbb83258-11c7-47f5-8b18-5f8e79f7e704",
+      "date": "2026-11-19",
+      "licence": "U.S. government work, public domain",
+      "agent": "fairclinic-pharmacy-margins",
+      "rows": 26,
+      "ran": "pharmacy_check on a price list whose Cost and Previous Cost are the median NADAC per unit on the two dates and whose prices are fictional (2.2 times the January cost, unchanged)",
+      "got": {
+        "below_cost": 0,
+        "cost_rise_not_passed": 3,
+        "low_margin": 1
+      },
+      "want": {
+        "below_cost": 0,
+        "cost_rise_not_passed": 3,
+        "low_margin": 1
+      },
+      "agree": true,
+      "found": "26 drugs: 6 cost more per unit in November than in January, 20 less. 3 rose by more than 5% with the price unchanged (METRONIDAZOLE 250 MG TABLET 0.0623 to 0.12371; ENALAPRIL MALEATE 5 MG TABLET 0.07154 to 0.08362; TRAMADOL HCL 50 MG TABLET 0.02368 to 0.02569), 1 fell under the 45% margin, 0 priced below cost. Unit costs with five decimals (0.02152) were read without rounding.",
+      "false_positives": "none against the recount",
+      "changed": "Nothing: the rules and the reader gave the same counts as the recount. NADAC covers human drugs only, so veterinary products (carprofen, maropitant) are not in it."
+    },
+    {
+      "id": "mt-medicaid-dental-fees",
+      "source": "Montana Medicaid (DPHHS) dental services fee schedules, January 2026 (revised) and July 2025, Excel files from medicaidprovider.mt.gov",
+      "url": "https://medicaidprovider.mt.gov/18",
+      "date": "2026-11-19",
+      "licence": "State of Montana public provider document; CDT codes and descriptors are copyright of the American Dental Association",
+      "agent": "fairclinic-ppo-fees",
+      "rows": 566,
+      "ran": "fees_check with each schedule as one plan (plan argument) against the fictional 8-code office fee list from the fixtures",
+      "got": [
+        {
+          "codes": 285,
+          "deep_discount": 6,
+          "fee_below_allowed": 0,
+          "not_offered": 277,
+          "in_both": 8
+        },
+        {
+          "codes": 281,
+          "deep_discount": 6,
+          "fee_below_allowed": 0,
+          "not_offered": 273,
+          "in_both": 8
+        }
+      ],
+      "want": [
+        {
+          "codes": 285,
+          "deep_discount": 6,
+          "fee_below_allowed": 0,
+          "not_offered": 277,
+          "in_both": 8
+        },
+        {
+          "codes": 281,
+          "deep_discount": 6,
+          "fee_below_allowed": 0,
+          "not_offered": 273,
+          "in_both": 8
+        }
+      ],
+      "agree": true,
+      "runs": [
+        {
+          "file": "January2026DentalServicesFeeSchedule_rev.xlsx",
+          "sheet": "Oral Surgeon Services",
+          "fee_column": "Office Fees",
+          "code_rows": 285,
+          "non_numeric_fees": 0,
+          "got": {
+            "codes": 285,
+            "deep_discount": 6,
+            "fee_below_allowed": 0,
+            "not_offered": 277,
+            "in_both": 8
+          },
+          "want": {
+            "codes": 285,
+            "deep_discount": 6,
+            "fee_below_allowed": 0,
+            "not_offered": 277,
+            "in_both": 8
+          },
+          "agree": true
+        },
+        {
+          "file": "July2025DentalServicesFeeSchedule.xlsx",
+          "sheet": "Dental",
+          "fee_column": "Fees",
+          "code_rows": 281,
+          "non_numeric_fees": 0,
+          "got": {
+            "codes": 281,
+            "deep_discount": 6,
+            "fee_below_allowed": 0,
+            "not_offered": 273,
+            "in_both": 8
+          },
+          "want": {
+            "codes": 281,
+            "deep_discount": 6,
+            "fee_below_allowed": 0,
+            "not_offered": 273,
+            "in_both": 8
+          },
+          "agree": true
+        }
+      ],
+      "found": "January2026DentalServicesFeeSchedule_rev.xlsx (sheet \"Oral Surgeon Services\", fee column \"Office Fees\"): 285 codes read; July2025DentalServicesFeeSchedule.xlsx (sheet \"Dental\", fee column \"Fees\"): 281 codes read. Against the 8 fictional office fees: 6 codes with a write-off over 45%, 0 with the office fee below the plan's, 277 schedule codes the office has no fee for (listed as not_offered). Every code row has a numeric fee.",
+      "false_positives": "none against the recount",
+      "changed": "Before this pass the agent could not read either file: a payer publishes one plan per file with no plan column, and names the columns Proc and Fees (July 2025) or Office Fees (January 2026, also a renamed sheet). It now takes a plan argument and those names. It would also have raised one \"no office fee\" finding for each of the schedule codes the office never bills; those are now listed as not_offered and are not counted as work."
+    }
+  ]
+}
